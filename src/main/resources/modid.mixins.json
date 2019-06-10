@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.pl3x.fabric.ridablesclient.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "MixinPolarBear"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

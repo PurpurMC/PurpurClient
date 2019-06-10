@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "ridablesclient",
+  "version": "${version}",
+  "name": "Ridables Client",
+  "description": "Fixes client related issues when riding mobs",
+  "authors": [
+    "BillyGalbreath"
+  ],
+  "contact": {
+    "homepage": "https://pl3x.net/",
+    "sources": "https://github.com/pl3xgaming/RidablesClient"
+  },
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.pl3x.fabric.ridablesclient.RidablesClient"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
