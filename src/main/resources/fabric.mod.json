@@ -26,9 +26,6 @@
     "fabricloader": ">=0.4.0",
     "fabric": "*"
   },
-  "suggests": {
-    "flamingo": "*"
-  },
   "custom": {
     "modmenu:clientsideOnly": true
   }
