@@ -12,7 +12,7 @@
     "sources": "https://github.com/pl3xgaming/RidablesClient"
   },
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/ridablesclient/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -20,7 +20,7 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "ridablesclient.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.4.0",
