@@ -5,7 +5,7 @@
   "mixins": [
   ],
   "client": [
-    "MixinClientPlayNetworkHandler",
+    "MixinEntityS2CPacket",
     "MixinPolarBear"
   ],
   "injectors": {
