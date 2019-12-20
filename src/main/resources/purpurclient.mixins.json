@@ -5,6 +5,7 @@
   "mixins": [
   ],
   "client": [
+    "MixinClientPlayerEntity",
     "MixinEntityS2CPacket",
     "MixinPolarBear"
   ],
