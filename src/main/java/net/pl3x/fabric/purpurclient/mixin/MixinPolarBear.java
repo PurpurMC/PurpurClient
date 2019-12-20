@@ -1,4 +1,4 @@
-package net.pl3x.fabric.ridablesclient.mixin;
+package net.pl3x.fabric.purpurclient.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -37,9 +37,8 @@ public abstract class MixinPolarBear extends LivingEntity {
                 xOffset = -1.0f * (warningAnimationProgress / 6.0F);
             }
 
-            Vec3d offset = new Vec3d(xOffset, 0.0, 0.0).rotateY(-field_6283 * 0.017453292F - 1.5707964F);
-
-            passenger.setPosition(x + offset.x, y + yOffset, z + offset.z);
+            Vec3d offset = new Vec3d(xOffset, 0.0, 0.0).rotateY(-bodyYaw * 0.017453292F - 1.5707964F);
+            passenger.setPosition(getX() + offset.x, getY() + yOffset, getZ() + offset.z);
         }
     }
 }

@@ -1,10 +1,11 @@
 {
   "required": true,
-  "package": "net.pl3x.fabric.ridablesclient.mixin",
+  "package": "net.pl3x.fabric.purpurclient.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
+    "MixinClientPlayNetworkHandler",
     "MixinPolarBear"
   ],
   "injectors": {

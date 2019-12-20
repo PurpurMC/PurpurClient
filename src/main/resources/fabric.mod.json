@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "ridablesclient",
+  "id": "purpurclient",
   "version": "${version}",
-  "name": "Ridables Client",
-  "description": "Fixes client related issues when riding mobs",
+  "name": "Purpur Client",
+  "description": "Fixes client related issues",
   "authors": [
     "BillyGalbreath"
   ],
   "contact": {
     "homepage": "https://pl3x.net/",
-    "sources": "https://github.com/pl3xgaming/RidablesClient"
+    "sources": "https://github.com/pl3xgaming/PurpurClient"
   },
   "license": "MIT",
-  "icon": "assets/ridablesclient/icon.png",
+  "icon": "assets/purpurclient/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.pl3x.fabric.ridablesclient.RidablesClient"
+      "net.pl3x.fabric.purpurclient.PurpurClient"
     ]
   },
   "mixins": [
-    "ridablesclient.mixins.json"
+    "purpurclient.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.4.0",
+    "fabricloader": ">=0.7.2",
     "fabric": "*"
   },
   "custom": {

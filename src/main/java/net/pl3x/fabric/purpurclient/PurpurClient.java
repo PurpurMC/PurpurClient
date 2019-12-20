@@ -1,8 +1,8 @@
-package net.pl3x.fabric.ridablesclient;
+package net.pl3x.fabric.purpurclient;
 
 import net.fabricmc.api.ModInitializer;
 
-public class RidablesClient implements ModInitializer {
+public class PurpurClient implements ModInitializer {
     @Override
     public void onInitialize() {
     }
