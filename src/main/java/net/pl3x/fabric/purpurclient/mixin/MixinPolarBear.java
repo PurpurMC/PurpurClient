@@ -11,6 +11,9 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(PolarBearEntity.class)
 public abstract class MixinPolarBear extends LivingEntity {
+    private static final float DEG2RAD = (float) Math.PI / 180F;
+    private static final float HALF_PI = (float) Math.PI / 2F;
+
     @Shadow
     private float warningAnimationProgress;
 
@@ -30,15 +33,10 @@ public abstract class MixinPolarBear extends LivingEntity {
     @Override
     public void updatePassengerPosition(final Entity passenger) {
         if (hasPassenger(passenger)) {
-            float yOffset = (float) (getMountedHeightOffset() + passenger.getHeightOffset());
-
-            float xOffset = 0.0F;
-            if (warningAnimationProgress > 0.0F) {
-                xOffset = -1.0f * (warningAnimationProgress / 6.0F);
-            }
-
-            Vec3d offset = new Vec3d(xOffset, 0.0, 0.0).rotateY(-bodyYaw * 0.017453292F - 1.5707964F);
-            passenger.setPosition(getX() + offset.x, getY() + yOffset, getZ() + offset.z);
+            double xOffset = warningAnimationProgress > 0.0D ? -1.0D * (warningAnimationProgress / 6.0D) : 0.0D;
+            double yOffset = getMountedHeightOffset() + passenger.getHeightOffset();
+            Vec3d offset = new Vec3d(xOffset, yOffset, 0.0D).rotateY(-bodyYaw * DEG2RAD - HALF_PI);
+            passenger.setPosition(getX() + offset.x, getY() + offset.y, getZ() + offset.z);
         }
     }
 }
