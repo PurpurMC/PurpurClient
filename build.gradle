@@ -7,7 +7,10 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+if (System.env.BUILD_NUMBER) {
+    project.buildNum = System.env.BUILD_NUMBER;
+}
+version = project.mod_version + "-b" + project.buildNum
 group = project.maven_group
 
 minecraft {
