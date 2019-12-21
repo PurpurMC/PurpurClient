@@ -10,6 +10,7 @@
     "MixinClientPlayerEntity",
     "MixinEntityS2CPacket",
     "MixinFox",
+    "MixinIronGolem",
     "MixinOcelot",
     "MixinPolarBear"
   ],
