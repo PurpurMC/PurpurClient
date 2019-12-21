@@ -9,7 +9,8 @@
   ],
   "contact": {
     "homepage": "https://pl3x.net/",
-    "sources": "https://github.com/pl3xgaming/PurpurClient"
+    "sources": "https://github.com/pl3xgaming/PurpurClient",
+    "issues": "https://github.com/pl3xgaming/PurpurClient/issues"
   },
   "license": "MIT",
   "icon": "assets/purpurclient/icon.png",
