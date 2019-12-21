@@ -16,7 +16,8 @@
     "MixinParrot",
     "MixinPlayerEntityRenderer",
     "MixinPolarBear",
-    "MixinSnowGolem"
+    "MixinSnowGolem",
+    "MixinWorldRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
