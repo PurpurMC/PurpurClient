@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(BatEntity.class)
 public abstract class MixinBat extends LivingEntity {
-    public MixinBat(EntityType<? extends MixinBat> entityType, World world) {
+    public MixinBat(EntityType<? extends BatEntity> entityType, World world) {
         super(entityType, world);
     }
 
