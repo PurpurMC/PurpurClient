@@ -6,8 +6,10 @@
   ],
   "client": [
     "MixinBat",
+    "MixinCat",
     "MixinClientPlayerEntity",
     "MixinEntityS2CPacket",
+    "MixinOcelot",
     "MixinPolarBear"
   ],
   "injectors": {
