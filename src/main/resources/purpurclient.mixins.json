@@ -12,6 +12,7 @@
     "MixinFox",
     "MixinIronGolem",
     "MixinOcelot",
+    "MixinParrot",
     "MixinPolarBear"
   ],
   "injectors": {
