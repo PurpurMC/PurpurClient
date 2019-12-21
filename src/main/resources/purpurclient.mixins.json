@@ -7,6 +7,7 @@
   "client": [
     "MixinBat",
     "MixinCat",
+    "MixinCod",
     "MixinClientPlayerEntity",
     "MixinEntityS2CPacket",
     "MixinFox",
