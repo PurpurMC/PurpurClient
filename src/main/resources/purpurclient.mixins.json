@@ -10,13 +10,18 @@
     "MixinCat",
     "MixinCod",
     "MixinClientPlayerEntity",
+    "MixinElderGuardian",
     "MixinFox",
     "MixinIronGolem",
     "MixinOcelot",
     "MixinParrot",
     "MixinPlayerEntityRenderer",
     "MixinPolarBear",
+    "MixinPufferfish",
+    "MixinRabbit",
+    "MixinSalmon",
     "MixinSnowGolem",
+    "MixinTropicalFish",
     "MixinWorldRenderer"
   ],
   "injectors": {

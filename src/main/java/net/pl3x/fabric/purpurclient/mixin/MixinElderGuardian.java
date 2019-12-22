@@ -2,18 +2,18 @@ package net.pl3x.fabric.purpurclient.mixin;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.OcelotEntity;
+import net.minecraft.entity.mob.ElderGuardianEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(OcelotEntity.class)
-public abstract class MixinOcelot extends LivingEntity {
-    public MixinOcelot(EntityType<? extends OcelotEntity> entityType, World world) {
+@Mixin(ElderGuardianEntity.class)
+public abstract class MixinElderGuardian extends LivingEntity {
+    public MixinElderGuardian(EntityType<? extends ElderGuardianEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * 0.5D;
+        return getHeight();
     }
 }
