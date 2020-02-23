@@ -18,10 +18,14 @@
   "entrypoints": {
     "main": [
       "net.pl3x.fabric.purpurclient.PurpurClient"
+    ],
+    "modmenu": [
+      "net.pl3x.fabric.purpurclient.config.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "purpurclient.mixins.json"
+    "purpurclient.mixins.json",
+    "purpurclient.seatoffsets.json"
   ],
   "depends": {
     "fabricloader": ">=0.7.2",

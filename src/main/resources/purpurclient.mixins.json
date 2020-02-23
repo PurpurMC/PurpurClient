@@ -5,23 +5,9 @@
   "mixins": [
   ],
   "client": [
-    "MixinBat",
-    "MixinBee",
-    "MixinCat",
-    "MixinCod",
     "MixinClientPlayerEntity",
-    "MixinElderGuardian",
-    "MixinFox",
-    "MixinIronGolem",
-    "MixinOcelot",
-    "MixinParrot",
+    "MixinItemEntity",
     "MixinPlayerEntityRenderer",
-    "MixinPolarBear",
-    "MixinPufferfish",
-    "MixinRabbit",
-    "MixinSalmon",
-    "MixinSnowGolem",
-    "MixinTropicalFish",
     "MixinWorldRenderer"
   ],
   "injectors": {

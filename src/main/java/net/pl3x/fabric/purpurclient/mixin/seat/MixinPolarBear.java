@@ -1,4 +1,4 @@
-package net.pl3x.fabric.purpurclient.mixin;
+package net.pl3x.fabric.purpurclient.mixin.seat;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

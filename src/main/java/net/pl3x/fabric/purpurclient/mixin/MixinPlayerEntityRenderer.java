@@ -10,6 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ScoreboardPlayerScore;
+import net.pl3x.fabric.purpurclient.PurpurClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -23,7 +24,7 @@ public abstract class MixinPlayerEntityRenderer extends LivingEntityRenderer<Abs
     public void renderLabelIfPresent(final AbstractClientPlayerEntity entity, final String string, final MatrixStack arg2, final VertexConsumerProvider arg3, final int i) {
         final double d = this.renderManager.getSquaredDistanceToCamera(entity);
         arg2.push();
-        if (d < 4096.0) {
+        if (d < (PurpurClient.CONFIG.scoreboardExtendedRender ? 4096.0 : 100.0)) {
             final Scoreboard lv = entity.getScoreboard();
             final ScoreboardObjective lv2 = lv.getObjectiveForSlot(2);
             if (lv2 != null) {

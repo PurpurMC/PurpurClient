@@ -20,6 +20,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.biome.Biome;
+import net.pl3x.fabric.purpurclient.PurpurClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -65,18 +66,18 @@ public abstract class MixinWorldRenderer implements AutoCloseable, SynchronousRe
                     double h = random.nextDouble();
                     double m = random.nextDouble();
                     BlockState blockState = worldView.getBlockState(blockPos3);
-                    FluidState fluidState = worldView.getFluidState(blockPos3);
+                    FluidState fluidState = worldView.getFluidState(PurpurClient.CONFIG.rainFix ? blockPos3 : blockPos2);
                     VoxelShape voxelShape = blockState.getCollisionShape(worldView, blockPos3);
                     double n = voxelShape.getEndingCoord(Direction.Axis.Y, h, m);
-                    double o = (double)fluidState.getHeight(worldView, blockPos3);
+                    double o = (double)fluidState.getHeight(worldView, PurpurClient.CONFIG.rainFix ? blockPos3 : blockPos2);
                     double r;
                     double s;
                     if (n >= o) {
                         r = n;
                         s = voxelShape.getBeginningCoord(Direction.Axis.Y, h, m);
                     } else {
-                        r = o;
-                        s = o;
+                        r = PurpurClient.CONFIG.rainFix ? o : 0.0;
+                        s = PurpurClient.CONFIG.rainFix ? o : 0.0;
                     }
 
                     if (r > -1.7976931348623157E308D) {

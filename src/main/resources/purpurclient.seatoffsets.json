@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "net.pl3x.fabric.purpurclient.mixin.seat",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "MixinBat",
+    "MixinBee",
+    "MixinCat",
+    "MixinCod",
+    "MixinElderGuardian",
+    "MixinFox",
+    "MixinIronGolem",
+    "MixinOcelot",
+    "MixinParrot",
+    "MixinPolarBear",
+    "MixinPufferfish",
+    "MixinRabbit",
+    "MixinSalmon",
+    "MixinSnowGolem",
+    "MixinTropicalFish"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,4 +1,4 @@
-package net.pl3x.fabric.purpurclient.mixin;
+package net.pl3x.fabric.purpurclient.mixin.seat;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,13 +16,11 @@ public abstract class MixinBat extends LivingEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * 0.5D;
+        return (double) getHeight() * PurpurClient.CONFIG.seatOffsets.bat.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        double x = -0.25D;
-        double y = getMountedHeightOffset() + passenger.getHeightOffset();
-        PurpurClient.updatePassengerPosition(this, passenger, x, y, 0.0D, bodyYaw);
+        PurpurClient.updatePassengerPosition2(this, passenger, PurpurClient.CONFIG.seatOffsets.bat, bodyYaw);
     }
 }
