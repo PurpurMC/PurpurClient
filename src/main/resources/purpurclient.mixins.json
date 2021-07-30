@@ -1,14 +1,27 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "net.pl3x.fabric.purpurclient.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-  ],
+  "compatibilityLevel": "JAVA_16",
+  "refmap": "purpurclient.refmap.json",
   "client": [
-    "MixinClientPlayerEntity",
     "MixinItemEntity",
-    "MixinPlayerEntityRenderer",
-    "MixinWorldRenderer"
+    "MixinBat",
+    "MixinBee",
+    "MixinCat",
+    "MixinCod",
+    "MixinElderGuardian",
+    "MixinEnderDragon",
+    "MixinFox",
+    "MixinIronGolem",
+    "MixinOcelot",
+    "MixinParrot",
+    "MixinPolarBear",
+    "MixinPufferfish",
+    "MixinRabbit",
+    "MixinSalmon",
+    "MixinSnowGolem",
+    "MixinTropicalFish"
   ],
   "injectors": {
     "defaultRequire": 1

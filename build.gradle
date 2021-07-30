@@ -1,59 +1,49 @@
 plugins {
-    id 'fabric-loom' version '0.2.6-SNAPSHOT'
-    id 'maven-publish'
+    id 'fabric-loom' version '0.9-SNAPSHOT'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
-if (System.env.BUILD_NUMBER) {
-    project.buildNum = System.env.BUILD_NUMBER;
-}
-version = project.mod_version + "-b" + project.buildNum
+version = project.mod_version + "-" + (System.getenv("BUILD_NUMBER") ?: "SNAPSHOT")
 group = project.maven_group
-
-minecraft {
-}
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}"
-
-    modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
-    modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-    modCompile "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
-    modCompile "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
-
-    include "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
-    include "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
-
-    modCompile "io.github.prospector:modmenu:${project.mod_menu_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
+    filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
-    }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = "sources"
-    from sourceSets.main.allSource
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release.set(16)
 }
 
 jar {
-    from "LICENSE"
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+loom {
+    mixin.defaultRefmapName = "purpurclient.refmap.json"
+    accessWidenerPath.set(file("src/main/resources/purpurclient.accesswidener"))
+}
+
+loom {
+    runs {
+        client {
+            programArgs "--username", "BillyGalbreath"
+        }
+    }
 }
