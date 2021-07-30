@@ -6,11 +6,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.pl3x.fabric.purpurclient.PurpurClient;
+import net.pl3x.fabric.purpurclient.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(FoxEntity.class)
-public abstract class MixinFox extends LivingEntity {
+public abstract class MixinFox extends LivingEntity implements RidableEntity {
     private final Vec3d offset = new Vec3d(-0.25D, 0.6D, 0.0D);
 
     public MixinFox(EntityType<? extends FoxEntity> entityType, World world) {
@@ -24,6 +24,6 @@ public abstract class MixinFox extends LivingEntity {
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        PurpurClient.updatePassengerPosition(this, passenger, offset, bodyYaw);
+        updatePassengerPosition(this, passenger, offset, bodyYaw);
     }
 }

@@ -7,11 +7,11 @@ import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.pl3x.fabric.purpurclient.PurpurClient;
+import net.pl3x.fabric.purpurclient.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ParrotEntity.class)
-public abstract class MixinParrot extends LivingEntity {
+public abstract class MixinParrot extends LivingEntity implements RidableEntity {
     private final Vec3d offset = new Vec3d(-0.15D, 0.3D, 0.0D);
 
     public MixinParrot(EntityType<? extends CatEntity> entityType, World world) {
@@ -25,6 +25,6 @@ public abstract class MixinParrot extends LivingEntity {
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        PurpurClient.updatePassengerPosition(this, passenger, offset, bodyYaw);
+        updatePassengerPosition(this, passenger, offset, bodyYaw);
     }
 }

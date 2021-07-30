@@ -6,11 +6,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.PufferfishEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.pl3x.fabric.purpurclient.PurpurClient;
+import net.pl3x.fabric.purpurclient.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(PufferfishEntity.class)
-public abstract class MixinPufferfish extends LivingEntity {
+public abstract class MixinPufferfish extends LivingEntity implements RidableEntity {
     private final Vec3d offset = new Vec3d(-0.1D, 0.25D, 0.0D);
 
     public MixinPufferfish(EntityType<? extends PufferfishEntity> entityType, World world) {
@@ -24,6 +24,6 @@ public abstract class MixinPufferfish extends LivingEntity {
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        PurpurClient.updatePassengerPosition(this, passenger, offset, bodyYaw);
+        updatePassengerPosition(this, passenger, offset, bodyYaw);
     }
 }

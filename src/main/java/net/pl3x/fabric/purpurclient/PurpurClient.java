@@ -1,29 +1,24 @@
 package net.pl3x.fabric.purpurclient;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.pl3x.fabric.purpurclient.listener.ServerListener;
+import net.pl3x.fabric.purpurclient.network.NetworkManager;
 
 public class PurpurClient implements ModInitializer {
-    private static final float DEG2RAD = (float) Math.PI / 180F;
-    private static final float HALF_PI = (float) Math.PI / 2F;
+    private final NetworkManager networkManager;
+    private final ServerListener serverListener;
+
+    public PurpurClient() {
+        this.networkManager = new NetworkManager();
+        this.serverListener = new ServerListener(this);
+    }
 
     @Override
     public void onInitialize() {
+        this.serverListener.initialize();
     }
 
-    public static void updatePassengerPosition(Entity entity, Entity passenger, double x, double y, double z, float yaw) {
-        if (entity.hasPassenger(passenger)) {
-            Vec3d offset = new Vec3d(x, y, z).rotateY(-yaw * DEG2RAD - HALF_PI);
-            passenger.setPos(entity.getX() + offset.x, entity.getY() + offset.y, entity.getZ() + offset.z);
-        }
-    }
-
-    public static void updatePassengerPosition(Entity entity, Entity passenger, Vec3d seat, float yaw) {
-        if (entity.hasPassenger(passenger)) {
-            double y = entity.getMountedHeightOffset() + passenger.getHeightOffset();
-            Vec3d offset = new Vec3d(seat.x, y, seat.z).rotateY(-yaw * DEG2RAD - HALF_PI);
-            passenger.setPos(entity.getX() + offset.x, entity.getY() + offset.y, entity.getZ() + offset.z);
-        }
+    public NetworkManager getNetworkManager() {
+        return this.networkManager;
     }
 }
