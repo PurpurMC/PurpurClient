@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_16",
   "refmap": "purpurclient.refmap.json",
   "client": [
+    "MixinClientPlayNetworkHandler",
     "MixinItemEntity",
     "MixinBat",
     "MixinBee",
