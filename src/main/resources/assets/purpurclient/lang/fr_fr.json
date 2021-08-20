@@ -1,0 +1,16 @@
+{
+  "text.autoconfig.purpurclient.title": "Paramètres de Purpur Client",
+  "text.autoconfig.purpurclient.option.rainFix": "Corriger les particules de pluie sur les liquides",
+  "text.autoconfig.purpurclient.option.scoreboardExtendedRender": "Étendre le rendu des tableaux de score sous le pseudo",
+  "text.autoconfig.purpurclient.option.seatOffsets": "Décalage des passagers assis",
+  "text.autoconfig.purpurclient.option.seatOffsets.bat": "Chauve-souris",
+  "text.autoconfig.purpurclient.option.seatOffsets.bee": "Abeille",
+  "text.autoconfig.purpurclient.option.seatOffsets.cat": "Chat",
+  "text.autoconfig.purpurclient.option.seatOffsets.chicken": "Poule",
+  "text.autoconfig.purpurclient.option.seatOffsets.cod": "Morue",
+  "text.autoconfig.purpurclient.option.seatOffsets.dolphin": "Dauphin",
+  "text.autoconfig.purpurclient.option.seatOffsets.donkey": "Âne",
+  "text.autoconfig.purpurclient.option.seatOffsets.fox": "Renard",
+  "text.autoconfig.purpurclient.option.seatOffsets.horse": "Cheval",
+  "text.autoconfig.purpurclient.option.seatOffsets.irongolem": "Golem de fer"
+}
