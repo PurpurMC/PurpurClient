@@ -1,9 +1,9 @@
 plugins {
-    id 'fabric-loom' version '0.9-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version + "-" + (System.getenv("BUILD_NUMBER") ?: "SNAPSHOT")
@@ -26,7 +26,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    it.options.release.set(16)
+    it.options.release.set(17)
 }
 
 jar {
@@ -37,7 +37,6 @@ jar {
 
 loom {
     mixin.defaultRefmapName = "purpurclient.refmap.json"
-    accessWidenerPath.set(file("src/main/resources/purpurclient.accesswidener"))
 }
 
 loom {

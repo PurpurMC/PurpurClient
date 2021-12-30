@@ -8,9 +8,9 @@
     "BillyGalbreath"
   ],
   "contact": {
-    "homepage": "https://purpur.pl3x.net/",
-    "sources": "https://github.com/pl3xgaming/PurpurClient",
-    "issues": "https://github.com/pl3xgaming/PurpurClient/issues",
+    "homepage": "https://purpurmc.org/",
+    "sources": "https://github.com/PurpurMC/PurpurClient",
+    "issues": "https://github.com/PurpurMC/PurpurClient/issues",
     "discord": "https://discord.gg/mtAAnkk"
   },
   "license": "MIT",
@@ -18,16 +18,15 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "net.pl3x.fabric.purpurclient.PurpurClient"
+      "org.purpurmc.purpur.client.PurpurClient"
     ]
   },
   "mixins": [
     "purpurclient.mixins.json"
   ],
-  "accessWidener": "purpurclient.accesswidener",
   "depends": {
-    "fabricloader": ">=0.11.6",
+    "fabricloader": ">=0.12.12",
     "fabric": "*",
-    "minecraft": "1.17.1"
+    "minecraft": "1.18.1"
   }
 }
