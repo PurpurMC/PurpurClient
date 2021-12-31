@@ -7,11 +7,9 @@
   "mixins": [
     "MixinBat",
     "MixinBee",
-    "MixinBeehiveBlock",
     "MixinCat",
     "MixinClientPlayNetworkHandler",
     "MixinCod",
-    "MixinDebugHud",
     "MixinElderGuardian",
     "MixinEnderDragon",
     "MixinFox",
