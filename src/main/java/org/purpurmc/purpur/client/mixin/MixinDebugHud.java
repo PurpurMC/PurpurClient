@@ -31,6 +31,10 @@ public class MixinDebugHud {
     protected List<String> renderRightText(DebugHud instance) {
         List<String> list = this.getRightText();
 
+        if (this.client.hasReducedDebugInfo()) {
+            return list;
+        }
+
         BlockPos pos = ((BlockHitResult) this.blockHit).getBlockPos();
         BlockState state = this.client.world.getBlockState(pos);
 
