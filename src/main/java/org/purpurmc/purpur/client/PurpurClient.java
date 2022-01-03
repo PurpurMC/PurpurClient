@@ -3,6 +3,8 @@ package org.purpurmc.purpur.client;
 import com.google.common.io.ByteArrayDataOutput;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import org.purpurmc.purpur.client.network.BeehivePacket;
 import org.purpurmc.purpur.client.network.Packet;
 import org.purpurmc.purpur.client.util.Constants;
 
@@ -16,5 +18,7 @@ public class PurpurClient implements ModInitializer {
                 Packet.send(Packet.HELLO, out);
             }
         });
+
+        ClientPlayNetworking.registerGlobalReceiver(Packet.BEEHIVE_S2C, BeehivePacket::receiveBeehiveData);
     }
 }

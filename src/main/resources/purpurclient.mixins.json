@@ -10,6 +10,7 @@
     "MixinCat",
     "MixinClientPlayNetworkHandler",
     "MixinCod",
+    "MixinDebugHud",
     "MixinElderGuardian",
     "MixinEnderDragon",
     "MixinFox",
