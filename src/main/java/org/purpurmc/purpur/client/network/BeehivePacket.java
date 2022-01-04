@@ -11,7 +11,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 
 public class BeehivePacket {
-    public static String numOfBees = "0";
+    public static String numOfBees = null;
 
     public static void requestBeehiveData(BlockPos pos) {
         ByteArrayDataOutput out = Packet.out();

@@ -12,6 +12,7 @@ public class PurpurClient implements ModInitializer {
     @Override
     public void onInitialize() {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            BeehivePacket.numOfBees = null;
             if (!client.isInSingleplayer()) {
                 ByteArrayDataOutput out = Packet.out();
                 out.writeInt(Constants.PROTOCOL);

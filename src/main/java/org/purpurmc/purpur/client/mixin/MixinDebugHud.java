@@ -45,10 +45,12 @@ public class MixinDebugHud {
                 this.lastTime = now;
                 BeehivePacket.requestBeehiveData(pos);
             }
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).contains("honey_level")) {
-                    list.add(i + 1, "num_of_bees: " + BeehivePacket.numOfBees);
-                    break;
+            if (BeehivePacket.numOfBees != null) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).contains("honey_level")) {
+                        list.add(i + 1, "num_of_bees: " + BeehivePacket.numOfBees);
+                        break;
+                    }
                 }
             }
         }
