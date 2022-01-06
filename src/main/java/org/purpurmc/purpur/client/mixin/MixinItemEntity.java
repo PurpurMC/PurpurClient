@@ -1,6 +1,5 @@
 package org.purpurmc.purpur.client.mixin;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -18,7 +17,7 @@ public abstract class MixinItemEntity extends Entity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource damageSource) {
-        if (world.isClient) {
+        if (this.world.isClient) {
             if (damageSource == DamageSource.CACTUS) return true;
             if (damageSource.isFire() || damageSource == DamageSource.IN_FIRE) return true;
             if (damageSource == DamageSource.LIGHTNING_BOLT) return true;

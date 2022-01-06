@@ -6,7 +6,8 @@
   "refmap": "purpurclient.refmap.json",
   "mixins": [
     "MixinDebugHud",
-    "MixinItemEntity"
+    "MixinItemEntity",
+    "MixinMinecraftClient"
   ],
   "injectors": {
     "defaultRequire": 1

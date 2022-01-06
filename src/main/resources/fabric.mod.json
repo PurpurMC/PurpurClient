@@ -10,15 +10,17 @@
   "contact": {
     "homepage": "https://purpurmc.org/",
     "sources": "https://github.com/PurpurMC/PurpurClient",
-    "issues": "https://github.com/PurpurMC/PurpurClient/issues",
-    "discord": "https://discord.gg/mtAAnkk"
+    "issues": "https://github.com/PurpurMC/PurpurClient/issues"
   },
   "license": "MIT",
   "icon": "assets/icon.png",
   "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
       "org.purpurmc.purpur.client.PurpurClient"
+    ],
+    "modmenu": [
+      "org.purpurmc.purpur.client.gui.ModMenu"
     ]
   },
   "mixins": [
@@ -29,5 +31,12 @@
     "fabricloader": ">=0.12.12",
     "fabric": "*",
     "minecraft": "1.18.1"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/mtAAnkk"
+      }
+    }
   }
 }
