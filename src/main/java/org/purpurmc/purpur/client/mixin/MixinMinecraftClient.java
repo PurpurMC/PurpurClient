@@ -18,6 +18,6 @@ public abstract class MixinMinecraftClient {
 
     @Inject(at = @At("HEAD"), method = "shouldBlockMessages", cancellable = true)
     public void shouldBlockMessages(UUID sender, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue((this.player == null || !sender.equals(this.player.getUuid())) && !sender.equals(Util.NIL_UUID));
+        cir.setReturnValue(false);
     }
 }
