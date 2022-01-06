@@ -3,27 +3,27 @@ package org.purpurmc.purpur.client.mixin.ridables;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.ElderGuardianEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.entity.passive.TropicalFishEntity;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
+import org.purpurmc.purpur.client.entity.Seat;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(ElderGuardianEntity.class)
-public abstract class MixinElderGuardian extends LivingEntity implements RidableEntity {
-    private final Vec3d offset = new Vec3d(0.0D, 0.0D, 0.0D);
+@Mixin(TropicalFishEntity.class)
+public abstract class TropicalFish extends LivingEntity implements RidableEntity {
+    private final Seat seat = new Seat(-0.1D, 0.7D, 0.0D);
 
-    public MixinElderGuardian(EntityType<? extends ElderGuardianEntity> entityType, World world) {
+    public TropicalFish(EntityType<? extends TropicalFishEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * offset.y;
+        return (double) getHeight() * this.seat.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(this, passenger, offset, bodyYaw);
+        updatePassengerPosition(passenger, this.seat);
     }
 }

@@ -4,26 +4,26 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
+import org.purpurmc.purpur.client.entity.Seat;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(BeeEntity.class)
-public abstract class MixinBee extends LivingEntity implements RidableEntity {
-    private final Vec3d offset = new Vec3d(-0.1D, 0.5D, 0.0D);
+public abstract class Bee extends LivingEntity implements RidableEntity {
+    private final Seat seat = new Seat(-0.1D, 0.5D, 0.0D);
 
-    public MixinBee(EntityType<? extends BeeEntity> entityType, World world) {
+    public Bee(EntityType<? extends BeeEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * offset.y;
+        return (double) getHeight() * this.seat.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(this, passenger, offset, bodyYaw);
+        updatePassengerPosition(passenger, this.seat);
     }
 }

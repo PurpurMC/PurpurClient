@@ -3,27 +3,28 @@ package org.purpurmc.purpur.client.mixin.ridables;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.RabbitEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.entity.passive.CatEntity;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
+import org.purpurmc.purpur.client.entity.Seat;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(RabbitEntity.class)
-public abstract class MixinRabbit extends LivingEntity implements RidableEntity {
-    private final Vec3d offset = new Vec3d(-0.25D, 0.4D, 0.0D);
+@Mixin(ParrotEntity.class)
+public abstract class Parrot extends LivingEntity implements RidableEntity {
+    private final Seat seat = new Seat(-0.15D, 0.3D, 0.0D);
 
-    public MixinRabbit(EntityType<? extends RabbitEntity> entityType, World world) {
+    public Parrot(EntityType<? extends CatEntity> entityType, World world) {
         super(entityType, world);
     }
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * offset.y;
+        return (double) getHeight() * this.seat.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(this, passenger, offset, bodyYaw);
+        updatePassengerPosition(passenger, this.seat);
     }
 }
