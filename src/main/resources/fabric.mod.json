@@ -22,7 +22,8 @@
     ]
   },
   "mixins": [
-    "purpurclient.mixins.json"
+    "purpurclient.mixins.json",
+    "ridables.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.12",

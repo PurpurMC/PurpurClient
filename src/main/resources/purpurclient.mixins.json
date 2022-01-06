@@ -5,25 +5,9 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "purpurclient.refmap.json",
   "mixins": [
-    "MixinBat",
-    "MixinBee",
-    "MixinCat",
     "MixinClientPlayNetworkHandler",
-    "MixinCod",
     "MixinDebugHud",
-    "MixinElderGuardian",
-    "MixinEnderDragon",
-    "MixinFox",
-    "MixinIronGolem",
-    "MixinItemEntity",
-    "MixinOcelot",
-    "MixinParrot",
-    "MixinPolarBear",
-    "MixinPufferfish",
-    "MixinRabbit",
-    "MixinSalmon",
-    "MixinSnowGolem",
-    "MixinTropicalFish"
+    "MixinItemEntity"
   ],
   "injectors": {
     "defaultRequire": 1

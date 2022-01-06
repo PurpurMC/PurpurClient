@@ -10,10 +10,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
 public abstract class Packet {
-    public static final Identifier HELLO = new Identifier("purpur", "client");
-    public static final Identifier BEEHIVE_C2S = new Identifier("purpur", "beehive_c2s");
-    public static final Identifier BEEHIVE_S2C = new Identifier("purpur", "beehive_s2c");
-
     public static void send(Identifier channel, ByteArrayDataOutput out) {
         if (MinecraftClient.getInstance().getNetworkHandler() != null) {
             ClientPlayNetworking.send(channel, new PacketByteBuf(Unpooled.wrappedBuffer(out.toByteArray())));

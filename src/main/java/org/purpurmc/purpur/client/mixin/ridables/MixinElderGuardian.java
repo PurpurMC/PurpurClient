@@ -1,4 +1,4 @@
-package org.purpurmc.purpur.client.mixin;
+package org.purpurmc.purpur.client.mixin.ridables;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

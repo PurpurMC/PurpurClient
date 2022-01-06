@@ -1,19 +1,19 @@
-package org.purpurmc.purpur.client.mixin;
+package org.purpurmc.purpur.client.mixin.ridables;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.SnowGolemEntity;
+import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(SnowGolemEntity.class)
-public abstract class MixinSnowGolem extends LivingEntity implements RidableEntity {
-    private final Vec3d offset = new Vec3d(-0.3D, 0.6D, 0.0D);
+@Mixin(CatEntity.class)
+public abstract class MixinCat extends LivingEntity implements RidableEntity {
+    private final Vec3d offset = new Vec3d(0.0D, 0.4D, 0.0D);
 
-    public MixinSnowGolem(EntityType<? extends SnowGolemEntity> entityType, World world) {
+    public MixinCat(EntityType<? extends CatEntity> entityType, World world) {
         super(entityType, world);
     }
 

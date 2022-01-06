@@ -1,19 +1,19 @@
-package org.purpurmc.purpur.client.mixin;
+package org.purpurmc.purpur.client.mixin.ridables;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.TropicalFishEntity;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(TropicalFishEntity.class)
-public abstract class MixinTropicalFish extends LivingEntity implements RidableEntity {
-    private final Vec3d offset = new Vec3d(-0.1D, 0.7D, 0.0D);
+@Mixin(BatEntity.class)
+public abstract class MixinBat extends LivingEntity implements RidableEntity {
+    private final Vec3d offset = new Vec3d(-0.25D, 0.5D, 0.0D);
 
-    public MixinTropicalFish(EntityType<? extends TropicalFishEntity> entityType, World world) {
+    public MixinBat(EntityType<? extends BatEntity> entityType, World world) {
         super(entityType, world);
     }
 

@@ -16,10 +16,10 @@ public class PurpurClient implements ModInitializer {
             if (!client.isInSingleplayer()) {
                 ByteArrayDataOutput out = Packet.out();
                 out.writeInt(Constants.PROTOCOL);
-                Packet.send(Packet.HELLO, out);
+                Packet.send(Constants.HELLO, out);
             }
         });
 
-        ClientPlayNetworking.registerGlobalReceiver(Packet.BEEHIVE_S2C, BeehivePacket::receiveBeehiveData);
+        ClientPlayNetworking.registerGlobalReceiver(Constants.BEEHIVE_S2C, BeehivePacket::receiveBeehiveData);
     }
 }

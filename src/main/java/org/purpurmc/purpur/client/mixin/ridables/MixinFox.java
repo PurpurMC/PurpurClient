@@ -1,19 +1,19 @@
-package org.purpurmc.purpur.client.mixin;
+package org.purpurmc.purpur.client.mixin.ridables;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.PufferfishEntity;
+import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(PufferfishEntity.class)
-public abstract class MixinPufferfish extends LivingEntity implements RidableEntity {
-    private final Vec3d offset = new Vec3d(-0.1D, 0.25D, 0.0D);
+@Mixin(FoxEntity.class)
+public abstract class MixinFox extends LivingEntity implements RidableEntity {
+    private final Vec3d offset = new Vec3d(-0.25D, 0.6D, 0.0D);
 
-    public MixinPufferfish(EntityType<? extends PufferfishEntity> entityType, World world) {
+    public MixinFox(EntityType<? extends FoxEntity> entityType, World world) {
         super(entityType, world);
     }
 

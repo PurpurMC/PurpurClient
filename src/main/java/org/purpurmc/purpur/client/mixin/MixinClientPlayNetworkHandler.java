@@ -12,13 +12,12 @@ import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.EntityAttributesS2CPacket;
 import net.minecraft.util.registry.Registry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Iterator;
 
@@ -29,6 +28,9 @@ public abstract class MixinClientPlayNetworkHandler implements ClientPlayPacketL
     private MinecraftClient client;
     @Shadow
     private ClientWorld world;
+    @Final
+    @Shadow
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * @reason Disable spammy warnings
@@ -42,23 +44,23 @@ public abstract class MixinClientPlayNetworkHandler implements ClientPlayPacketL
             if (!(entity instanceof LivingEntity)) {
                 throw new IllegalStateException("Server tried to update attributes of a non-living entity (actually: " + entity + ")");
             } else {
-                AttributeContainer attributeContainer = ((LivingEntity)entity).getAttributes();
+                AttributeContainer attributeContainer = ((LivingEntity) entity).getAttributes();
                 Iterator var4 = packet.getEntries().iterator();
 
-                while(true) {
-                    while(var4.hasNext()) {
-                        net.minecraft.network.packet.s2c.play.EntityAttributesS2CPacket.Entry entry = (net.minecraft.network.packet.s2c.play.EntityAttributesS2CPacket.Entry)var4.next();
+                while (true) {
+                    while (var4.hasNext()) {
+                        net.minecraft.network.packet.s2c.play.EntityAttributesS2CPacket.Entry entry = (net.minecraft.network.packet.s2c.play.EntityAttributesS2CPacket.Entry) var4.next();
                         EntityAttributeInstance entityAttributeInstance = attributeContainer.getCustomInstance(entry.getId());
                         if (entityAttributeInstance == null) {
                             // this is super fucking annoying
-                            // LOGGER.warn("Entity {} does not have attribute {}", entity, Registry.ATTRIBUTE.getId(entry.getId()));
+                            LOGGER.warn("Entity {} does not have attribute {}", entity, Registry.ATTRIBUTE.getId(entry.getId()));
                         } else {
                             entityAttributeInstance.setBaseValue(entry.getBaseValue());
                             entityAttributeInstance.clearModifiers();
                             Iterator var7 = entry.getModifiers().iterator();
 
-                            while(var7.hasNext()) {
-                                EntityAttributeModifier entityAttributeModifier = (EntityAttributeModifier)var7.next();
+                            while (var7.hasNext()) {
+                                EntityAttributeModifier entityAttributeModifier = (EntityAttributeModifier) var7.next();
                                 entityAttributeInstance.addTemporaryModifier(entityAttributeModifier);
                             }
                         }
