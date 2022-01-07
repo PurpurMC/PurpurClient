@@ -7,7 +7,7 @@
   "mixins": [
     "MixinDebugHud",
     "MixinItemEntity",
-    "MixinMinecraftClient"
+    "MixinYggdrasilUserApiService"
   ],
   "injectors": {
     "defaultRequire": 1
