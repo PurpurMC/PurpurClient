@@ -51,11 +51,19 @@ public abstract class AbstractScreen extends Screen {
 
     @Override
     public void tick() {
-        this.options.forEach(option -> {
-            if (option instanceof Tickable tickable) {
-                tickable.tick();
-            }
-        });
+        if (this.options != null) {
+            this.options.forEach(option -> {
+                if (option instanceof Tickable tickable) {
+                    tickable.tick();
+                }
+            });
+        }
+    }
+
+    public void openScreen(Screen screen) {
+        if (this.client != null) {
+            this.client.setScreen(screen);
+        }
     }
 
     public MinecraftClient getClient() {
