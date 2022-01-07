@@ -7,6 +7,7 @@ import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.network.BeehivePacket;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +32,7 @@ public class MixinDebugHud {
     protected List<String> renderRightText(DebugHud instance) {
         List<String> list = this.getRightText();
 
-        if (this.client.hasReducedDebugInfo()) {
+        if (this.client.hasReducedDebugInfo() || !PurpurClient.instance().getConfig().isBeeCountInDebug()) {
             return list;
         }
 

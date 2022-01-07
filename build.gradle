@@ -1,4 +1,5 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'fabric-loom' version '0.10-SNAPSHOT'
 }
 
@@ -9,11 +10,19 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version + "-" + (System.getenv("BUILD_NUMBER") ?: "SNAPSHOT")
 group = project.maven_group
 
+repositories {
+    maven {
+        url "https://maven.terraformersmc.com/"
+    }
+}
+
 dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    minecraft("com.mojang:minecraft:${project.minecraft_version}")
+    mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+    modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
+    modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+    include(modImplementation("ca.stellardrift:confabricate:${project.confabricate_version}"))
 }
 
 processResources {
