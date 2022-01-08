@@ -6,7 +6,6 @@ import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.gui.screen.AbstractScreen;
@@ -20,7 +19,7 @@ public class MobButton extends ButtonWidget {
 
     public MobButton(AbstractScreen screen, Mob mob, int x, int y) {
         super(x, y, 16, 16, mob.getType().getName(), (button) -> {
-            //screen.openScreen(new MobScreen(screen, mob));
+            screen.openScreen(new MobScreen(screen, mob));
         });
         this.screen = screen;
         this.mob = mob;
@@ -58,8 +57,7 @@ public class MobButton extends ButtonWidget {
     }
 
     public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
-        Text tooltip = Text.of("W.I.P."); //this.getMessage()
-        this.screen.renderTooltip(matrixStack, tooltip, mouseX, mouseY);
+        this.screen.renderTooltip(matrixStack, this.getMessage(), mouseX, mouseY);
     }
 
     public void appendNarrations(NarrationMessageBuilder builder) {

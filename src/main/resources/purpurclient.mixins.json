@@ -6,6 +6,7 @@
   "refmap": "purpurclient.refmap.json",
   "client": [
     "MixinDebugHud",
+    "EntityAccessor",
     "MixinInGameHud",
     "MixinItemEntity"
   ],
