@@ -144,7 +144,7 @@ public class MobScreen extends AbstractScreen {
         }
 
         matrixStack.push();
-        matrixStack.translate(0, 0, 999);
+        matrixStack.translate(0, 0, 900);
         drawCenteredText(matrixStack, this.textRenderer, this.title, this.centerX, 15, 0xFFFFFFFF);
         drawCenteredText(matrixStack, this.textRenderer, this.subtitle, this.centerX, 30, 0xFFFFFFFF);
         if (this.options == null || this.options.isEmpty()) {

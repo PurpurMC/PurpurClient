@@ -100,7 +100,10 @@ public class DoubleButton extends ClickableWidget implements Tickable {
     @Override
     public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
         if (this.tooltipDelay > 15 && MinecraftClient.getInstance().currentScreen != null) {
+            matrixStack.push();
+            matrixStack.translate(0, 0, -399);
             MinecraftClient.getInstance().currentScreen.renderOrderedTooltip(matrixStack, this.option.tooltip(), mouseX, mouseY);
+            matrixStack.pop();
         }
     }
 

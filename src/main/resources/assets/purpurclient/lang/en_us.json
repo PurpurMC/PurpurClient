@@ -11,9 +11,9 @@
 
   "purpurclient.options.seat.title": "Adjust Seat for %s",
   "purpurclient.options.seat.x": "x: %s",
-  "purpurclient.options.seat.x.tooltip": "Adjust forward and backward offset",
+  "purpurclient.options.seat.x.tooltip": "Adjust forward/backward offset",
   "purpurclient.options.seat.y": "y: %s",
-  "purpurclient.options.seat.y.tooltip": "Adjust up and down offset",
+  "purpurclient.options.seat.y.tooltip": "Adjust up/down offset",
   "purpurclient.options.seat.z": "z: %s",
   "purpurclient.options.seat.z.tooltip": "Adjust side to side offset",
 
