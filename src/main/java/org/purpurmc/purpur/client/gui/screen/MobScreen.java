@@ -5,14 +5,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.input.KeyboardInput;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
@@ -31,9 +29,10 @@ import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.options.DoubleOption;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.entity.Seat;
+import org.purpurmc.purpur.client.fake.FakePlayer;
+import org.purpurmc.purpur.client.fake.FakeWorld;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
 import org.purpurmc.purpur.client.mixin.accessor.AbstractPiglin;
-import org.purpurmc.purpur.client.mixin.accessor.Entity;
 import org.purpurmc.purpur.client.mixin.accessor.Hoglin;
 
 import java.util.ArrayList;
@@ -42,8 +41,8 @@ public class MobScreen extends AbstractScreen {
     private final Mob mob;
     private final Text subtitle;
 
-    private ClientPlayerEntity fakePlayer;
-    private net.minecraft.entity.Entity fakeEntity;
+    private FakePlayer fakePlayer;
+    private Entity fakeEntity;
     private boolean alreadyInit;
 
     private double mouseDownX = Double.MIN_VALUE;
@@ -92,15 +91,16 @@ public class MobScreen extends AbstractScreen {
             return;
         }
 
-        this.fakePlayer = new FakePlayer(this.client, this.client.player);
-        this.fakePlayer.setNoGravity(true);
+        FakeWorld fakeWorld = new FakeWorld();
 
-        this.fakeEntity = this.mob.getType().create(this.fakePlayer.world);
+        this.fakePlayer = new FakePlayer(fakeWorld, this.client.player);
+        this.fakeEntity = this.mob.getType().create(fakeWorld);
         if (this.fakeEntity == null) {
             // we need an entity to ride
             this.fakePlayer = null;
             return;
         }
+        this.fakePlayer.setNoGravity(true);
         this.fakeEntity.setNoGravity(true);
 
         // special cases
@@ -157,7 +157,7 @@ public class MobScreen extends AbstractScreen {
         matrixStack.pop();
     }
 
-    public void drawPreviewModel(ClientPlayerEntity player, net.minecraft.entity.Entity vehicle) {
+    public void drawPreviewModel(FakePlayer player, Entity vehicle) {
         MatrixStack matrixStack = RenderSystem.getModelViewStack();
         matrixStack.push();
         matrixStack.translate(this.centerX + this.previewX, this.previewY, 1500);
@@ -194,7 +194,7 @@ public class MobScreen extends AbstractScreen {
         DiffuseLighting.enableGuiDepthLighting();
     }
 
-    private void fixEntityRender(net.minecraft.entity.Entity entity, MatrixStack matrixStack, Runnable runnable) {
+    private void fixEntityRender(Entity entity, MatrixStack matrixStack, Runnable runnable) {
         if (entity instanceof EnderDragonEntity) {
             // dragon model is backwards, flip it
             matrixStack.push();
@@ -263,12 +263,12 @@ public class MobScreen extends AbstractScreen {
             this.fakeEntity.tick();
 
             // prevent some logic from running by faking first tick every tick
-            ((Entity) this.fakeEntity).setFirstUpdate(true);
+            ((org.purpurmc.purpur.client.mixin.accessor.Entity) this.fakeEntity).setFirstUpdate(true);
 
             // special cases that need to update every tick
             if (this.fakeEntity instanceof WaterCreatureEntity waterCreature) {
                 // put water creatures in their natural habitat
-                ((Entity) waterCreature).setTouchingWater(true);
+                ((org.purpurmc.purpur.client.mixin.accessor.Entity) waterCreature).setTouchingWater(true);
             } else if (this.fakeEntity instanceof StriderEntity strider) {
                 // striders are naturally cold unless in the nether
                 strider.setCold(false);
@@ -294,8 +294,6 @@ public class MobScreen extends AbstractScreen {
             this.fakePlayer.prevBodyYaw = 0;
             this.fakePlayer.setHeadYaw(0);
             this.fakePlayer.prevHeadYaw = 0;
-            this.fakePlayer.renderYaw = 0;
-            this.fakePlayer.lastRenderYaw = 0;
         }
     }
 
@@ -326,24 +324,6 @@ public class MobScreen extends AbstractScreen {
             this.previewZoom = 10.0F;
         } else if (this.previewZoom > 100.0F) {
             this.previewZoom = 100.0F;
-        }
-    }
-
-    private static class FakePlayer extends ClientPlayerEntity {
-        public FakePlayer(MinecraftClient client, ClientPlayerEntity player) {
-            super(client, (ClientWorld) player.world, player.networkHandler, player.getStatHandler(), player.getRecipeBook(), false, false);
-            this.input = new KeyboardInput(null) {
-                @Override
-                public void tick(boolean slowDown) {
-                    // no inputs for fake player, or it will send packets to the server
-                }
-            };
-        }
-
-        @Override
-        public boolean shouldRenderName() {
-            // don't draw the nameplate over the player's head
-            return false;
         }
     }
 }
