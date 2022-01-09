@@ -16,11 +16,11 @@ public abstract class Cat extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getCat().y;
+        return (double) getHeight() * getSeats().cat.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getCat());
+        updatePassengerPosition(passenger, getSeats().cat);
     }
 }

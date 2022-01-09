@@ -33,7 +33,7 @@ public class MixinInGameHud {
      */
     @Overwrite
     public void addChatMessage(MessageType type, Text message, UUID sender) {
-        if (PurpurClient.instance().getConfig().isFixChatStutter()) {
+        if (PurpurClient.instance().getConfig().fixChatStutter) {
             // let's hail mary it and move this whole thing to another thread
             CompletableFuture.runAsync(() -> addChatMessage0(type, message, sender));
         } else {

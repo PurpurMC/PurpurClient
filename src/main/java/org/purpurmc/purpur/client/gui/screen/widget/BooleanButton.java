@@ -6,7 +6,7 @@ import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import org.purpurmc.purpur.client.config.BooleanOption;
+import org.purpurmc.purpur.client.config.options.BooleanOption;
 
 public class BooleanButton extends ButtonWidget implements Tickable {
     private final BooleanOption option;
@@ -19,7 +19,7 @@ public class BooleanButton extends ButtonWidget implements Tickable {
 
     @Override
     public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
-        if (this.isHovered() && this.tooltipDelay > 15) {
+        if (this.hovered && this.tooltipDelay > 15 && MinecraftClient.getInstance().currentScreen != null) {
             MinecraftClient.getInstance().currentScreen.renderOrderedTooltip(matrixStack, this.option.tooltip(), mouseX, mouseY);
         }
     }

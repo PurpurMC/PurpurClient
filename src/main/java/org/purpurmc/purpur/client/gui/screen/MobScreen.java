@@ -2,6 +2,7 @@ package org.purpurmc.purpur.client.gui.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.input.KeyboardInput;
@@ -22,16 +23,24 @@ import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.StriderEntity;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
+import org.purpurmc.purpur.client.PurpurClient;
+import org.purpurmc.purpur.client.config.options.DoubleOption;
 import org.purpurmc.purpur.client.entity.Mob;
+import org.purpurmc.purpur.client.entity.Seat;
+import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
 import org.purpurmc.purpur.client.mixin.accessor.AbstractPiglin;
 import org.purpurmc.purpur.client.mixin.accessor.Entity;
 import org.purpurmc.purpur.client.mixin.accessor.Hoglin;
 
+import java.util.ArrayList;
+
 public class MobScreen extends AbstractScreen {
     private final Mob mob;
+    private final Text subtitle;
 
     private ClientPlayerEntity fakePlayer;
     private net.minecraft.entity.Entity fakeEntity;
@@ -40,20 +49,36 @@ public class MobScreen extends AbstractScreen {
     private double mouseDownX = Double.MIN_VALUE;
     private double mouseDownY;
 
-    private double previewX = 100;
+    private double previewX = -80;
     private double previewY = 200;
     private float previewYaw = -145;
     private float previewPitch = -20;
     private float previewZoom = 60;
+    private float previewZoomMultiplier = 1.0F;
+
+    private final Text noPreview = new TranslatableText("purpurclient.options.no-preview");
+    private final Text notImplemented = new TranslatableText("purpurclient.options.not-implemented");
 
     public MobScreen(Screen parent, Mob mob) {
         super(parent, new TranslatableText("purpurclient.options.title"));
         this.mob = mob;
+        this.subtitle = new TranslatableText("purpurclient.options.seat.title", mob.getType().getName());
     }
 
     @Override
     public void init() {
         super.init();
+
+        final Seat seat = PurpurClient.instance().getConfig().seats.getSeat(this.mob);
+
+        this.options = new ArrayList<>();
+        if (seat != null) {
+            this.options.add(new DoubleButton(this.centerX + 70, 90, 100, 20, new DoubleOption("seat.x", () -> seat.x, (value) -> seat.x = value)));
+            this.options.add(new DoubleButton(this.centerX + 70, 120, 100, 20, new DoubleOption("seat.y", () -> seat.y, (value) -> seat.y = value)));
+            this.options.add(new DoubleButton(this.centerX + 70, 150, 100, 20, new DoubleOption("seat.z", () -> seat.z, (value) -> seat.z = value)));
+        }
+
+        this.options.forEach(this::addDrawableChild);
 
         if (this.alreadyInit) {
             // we only need to set everything up once
@@ -68,6 +93,7 @@ public class MobScreen extends AbstractScreen {
         }
 
         this.fakePlayer = new FakePlayer(this.client, this.client.player);
+        this.fakePlayer.setNoGravity(true);
 
         this.fakeEntity = this.mob.getType().create(this.fakePlayer.world);
         if (this.fakeEntity == null) {
@@ -75,6 +101,7 @@ public class MobScreen extends AbstractScreen {
             this.fakePlayer = null;
             return;
         }
+        this.fakeEntity.setNoGravity(true);
 
         // special cases
         if (this.fakeEntity instanceof BatEntity bat) {
@@ -82,20 +109,20 @@ public class MobScreen extends AbstractScreen {
             bat.setRoosting(false);
         } else if (this.fakeEntity instanceof EnderDragonEntity dragon) {
             // dragon is huge, reduce the zoom
-            this.previewZoom /= 3F;
+            this.previewZoomMultiplier /= 3F;
             this.previewY -= 25;
             // slow wings down
             dragon.getPhaseManager().setPhase(PhaseType.HOVER);
         } else if (this.fakeEntity instanceof GhastEntity) {
             // ghast is huge, reduce the zoom
-            this.previewZoom /= 3F;
+            this.previewZoomMultiplier /= 3F;
             this.previewY -= 50;
         } else if (this.fakeEntity instanceof GiantEntity) {
             // giant is huge, reduce the zoom
-            this.previewZoom /= 5F;
+            this.previewZoomMultiplier /= 5F;
         } else if (this.fakeEntity instanceof WitherEntity) {
             // wither is huge, reduce the zoom
-            this.previewZoom /= 1.5F;
+            this.previewZoomMultiplier /= 1.5F;
         }
 
         // mount on the entity
@@ -104,7 +131,7 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
-        super.render(matrixStack, mouseX, mouseY, delta);
+        renderBackground(matrixStack);
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -113,20 +140,34 @@ public class MobScreen extends AbstractScreen {
         if (this.fakePlayer != null && this.fakeEntity != null) {
             drawPreviewModel(this.fakePlayer, this.fakeEntity);
         } else {
-            // TODO show text warning about needing a world for preview
+            drawCenteredText(matrixStack, this.textRenderer, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
         }
+
+        matrixStack.push();
+        matrixStack.translate(0, 0, 999);
+        drawCenteredText(matrixStack, this.textRenderer, this.title, this.centerX, 15, 0xFFFFFFFF);
+        drawCenteredText(matrixStack, this.textRenderer, this.subtitle, this.centerX, 30, 0xFFFFFFFF);
+        if (this.options == null || this.options.isEmpty()) {
+            drawCenteredText(matrixStack, this.textRenderer, this.notImplemented, this.centerX + 120, 125, 0xFFFFFFFF);
+        } else {
+            for (Drawable drawable : this.options) {
+                drawable.render(matrixStack, mouseX, mouseY, delta);
+            }
+        }
+        matrixStack.pop();
     }
 
     public void drawPreviewModel(ClientPlayerEntity player, net.minecraft.entity.Entity vehicle) {
         MatrixStack matrixStack = RenderSystem.getModelViewStack();
         matrixStack.push();
-        matrixStack.translate(this.previewX, this.previewY, 1500);
+        matrixStack.translate(this.centerX + this.previewX, this.previewY, 1500);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
 
         RenderSystem.applyModelViewMatrix();
         MatrixStack matrixStack2 = new MatrixStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
-        matrixStack2.scale(this.previewZoom, this.previewZoom, this.previewZoom);
+        float zoom = this.previewZoom * this.previewZoomMultiplier;
+        matrixStack2.scale(zoom, zoom, zoom);
 
         Quaternion quaternion = Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
         Quaternion quaternion2 = Vec3f.POSITIVE_X.getDegreesQuaternion(this.previewPitch);
@@ -137,20 +178,16 @@ public class MobScreen extends AbstractScreen {
         matrixStack2.multiply(quaternion);
 
         DiffuseLighting.method_34742();
-        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
-        entityRenderDispatcher.setRotation(quaternion2);
-        entityRenderDispatcher.setRenderShadows(false);
+        EntityRenderDispatcher renderer = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        renderer.setRotation(quaternion2);
+        renderer.setRenderShadows(false);
         VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
-        RenderSystem.runAsFancy(() -> {
-            fixEntityRender(vehicle, matrixStack2, () -> {
-                entityRenderDispatcher.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
-            });
-            entityRenderDispatcher.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
-        });
+        fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0));
+        renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
 
         immediate.draw();
-        entityRenderDispatcher.setRenderShadows(true);
+        renderer.setRenderShadows(true);
         matrixStack.pop();
 
         RenderSystem.applyModelViewMatrix();
@@ -171,7 +208,9 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        super.mouseClicked(mouseX, mouseY, button);
+        if (super.mouseClicked(mouseX, mouseY, button)) {
+            return true;
+        }
         this.mouseDownX = mouseX;
         this.mouseDownY = mouseY;
         return false;
@@ -187,7 +226,9 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        if (super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY)) {
+            return true;
+        }
         if (this.mouseDownX == Double.MIN_VALUE) {
             // mouse was already down from previous screen, ignore
             return false;

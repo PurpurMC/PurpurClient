@@ -18,9 +18,7 @@ public class MobButton extends ButtonWidget {
     private final Mob mob;
 
     public MobButton(AbstractScreen screen, Mob mob, int x, int y) {
-        super(x, y, 16, 16, mob.getType().getName(), (button) -> {
-            screen.openScreen(new MobScreen(screen, mob));
-        });
+        super(x, y, 16, 16, mob.getType().getName(), (button) -> screen.openScreen(new MobScreen(screen, mob)));
         this.screen = screen;
         this.mob = mob;
     }

@@ -16,11 +16,11 @@ public abstract class Bee extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getBee().y;
+        return (double) getHeight() * getSeats().bee.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getBee());
+        updatePassengerPosition(passenger, getSeats().bee);
     }
 }

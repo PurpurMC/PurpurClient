@@ -23,18 +23,18 @@ public abstract class PolarBear extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        double height = getHeight() * getSeats().getPolarBear().y;
+        double height = getHeight() * getSeats().polarBear.y;
         if (this.warningAnimationProgress > 0.0F) {
-            height -= getSeats().getPolarBearStanding().y * (this.warningAnimationProgress / 6.0F);
+            height -= (getSeats().polarBear.y + 0.5D) * (this.warningAnimationProgress / 6.0F);
         }
         return height;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        this.seat.x = this.warningAnimationProgress > 0.0D ? getSeats().getPolarBearStanding().x * (this.warningAnimationProgress / 6.0D) : getSeats().getPolarBear().x;
-        this.seat.y = getSeats().getPolarBear().y;
-        this.seat.z = getSeats().getPolarBear().z;
+        this.seat.x = this.warningAnimationProgress > 0.0D ? (getSeats().polarBear.x - 1.0D) * (this.warningAnimationProgress / 6.0D) : getSeats().polarBear.x;
+        this.seat.y = getSeats().polarBear.y;
+        this.seat.z = getSeats().polarBear.z;
         updatePassengerPosition(passenger, this.seat);
     }
 }

@@ -16,11 +16,11 @@ public abstract class TropicalFish extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getTropicalFish().y;
+        return (double) getHeight() * getSeats().tropicalFish.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getTropicalFish());
+        updatePassengerPosition(passenger, getSeats().tropicalFish);
     }
 }

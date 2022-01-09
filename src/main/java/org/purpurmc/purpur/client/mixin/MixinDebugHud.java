@@ -32,7 +32,7 @@ public class MixinDebugHud {
     protected List<String> renderRightText(DebugHud instance) {
         List<String> list = this.getRightText();
 
-        if (this.client.hasReducedDebugInfo() || !PurpurClient.instance().getConfig().isBeeCountInDebug()) {
+        if (this.client.hasReducedDebugInfo() || this.client.world == null || !PurpurClient.instance().getConfig().beeCountInDebug) {
             return list;
         }
 

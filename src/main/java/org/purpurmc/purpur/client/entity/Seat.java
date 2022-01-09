@@ -6,17 +6,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.purpurmc.purpur.client.util.Constants;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
-import org.spongepowered.configurate.objectmapping.meta.Setting;
 
 @ConfigSerializable
 public class Seat {
-    @Setting("x")
     public double x;
-    @Setting("y")
     public double y;
-    @Setting("z")
     public double z;
 
+    // no-args ctor for configurate
+    @SuppressWarnings("unused")
     public Seat() {
         this(0, 0, 0);
     }

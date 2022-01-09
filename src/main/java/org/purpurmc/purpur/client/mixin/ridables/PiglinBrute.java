@@ -17,12 +17,12 @@ public abstract class PiglinBrute extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getPiglinBrute().y;
+        return (double) getHeight() * getSeats().piglinBrute.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getPiglinBrute());
+        updatePassengerPosition(passenger, getSeats().piglinBrute);
     }
 
     @Override

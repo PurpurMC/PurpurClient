@@ -1,4 +1,4 @@
-package org.purpurmc.purpur.client.config;
+package org.purpurmc.purpur.client.config.options;
 
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;

@@ -17,11 +17,11 @@ public abstract class EnderDragon extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getEnderDragon().y;
+        return (double) getHeight() * getSeats().enderDragon.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getEnderDragon());
+        updatePassengerPosition(passenger, getSeats().enderDragon);
     }
 }

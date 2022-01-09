@@ -1,10 +1,13 @@
 package org.purpurmc.purpur.client.gui.screen;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import org.lwjgl.glfw.GLFW;
+import org.purpurmc.purpur.client.PurpurClient;
+import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
 import org.purpurmc.purpur.client.gui.screen.widget.Tickable;
 
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.List;
 public abstract class AbstractScreen extends Screen {
     private final Screen parent;
 
-    protected List<ButtonWidget> options;
+    protected List<ClickableWidget> options;
     protected int centerX;
 
     public AbstractScreen(Screen parent, Text title) {
@@ -47,6 +50,21 @@ public abstract class AbstractScreen extends Screen {
         if (this.client != null) {
             this.client.setScreen(this.parent);
         }
+        PurpurClient.instance().getConfigManager().save();
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_TAB) {
+            for (Drawable drawable : this.options) {
+                if (drawable instanceof DoubleButton option) {
+                    if (option.tab()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
@@ -64,9 +82,5 @@ public abstract class AbstractScreen extends Screen {
         if (this.client != null) {
             this.client.setScreen(screen);
         }
-    }
-
-    public MinecraftClient getClient() {
-        return this.client;
     }
 }

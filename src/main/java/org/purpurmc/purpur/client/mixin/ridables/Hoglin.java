@@ -16,12 +16,12 @@ public abstract class Hoglin extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getHoglin().y;
+        return (double) getHeight() * getSeats().hoglin.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getHoglin());
+        updatePassengerPosition(passenger, getSeats().hoglin);
     }
 
     @Override

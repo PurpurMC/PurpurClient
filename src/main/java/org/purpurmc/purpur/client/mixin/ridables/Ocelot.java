@@ -16,11 +16,11 @@ public abstract class Ocelot extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getOcelot().y;
+        return (double) getHeight() * getSeats().ocelot.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getOcelot());
+        updatePassengerPosition(passenger, getSeats().ocelot);
     }
 }

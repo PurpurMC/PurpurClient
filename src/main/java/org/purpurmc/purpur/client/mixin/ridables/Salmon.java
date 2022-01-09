@@ -16,11 +16,11 @@ public abstract class Salmon extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getSalmon().y;
+        return (double) getHeight() * getSeats().salmon.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getSalmon());
+        updatePassengerPosition(passenger, getSeats().salmon);
     }
 }

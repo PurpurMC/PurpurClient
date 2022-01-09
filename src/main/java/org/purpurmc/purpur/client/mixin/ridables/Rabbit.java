@@ -16,11 +16,11 @@ public abstract class Rabbit extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getRabbit().y;
+        return (double) getHeight() * getSeats().rabbit.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getRabbit());
+        updatePassengerPosition(passenger, getSeats().rabbit);
     }
 }

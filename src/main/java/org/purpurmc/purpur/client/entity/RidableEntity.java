@@ -16,6 +16,6 @@ public interface RidableEntity {
     }
 
     default Seats getSeats() {
-        return PurpurClient.instance().getConfig().getSeats();
+        return PurpurClient.instance().getConfig().seats;
     }
 }

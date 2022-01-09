@@ -16,11 +16,11 @@ public abstract class Pufferfish extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getPufferfish().y;
+        return (double) getHeight() * getSeats().pufferfish.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getPufferfish());
+        updatePassengerPosition(passenger, getSeats().pufferfish);
     }
 }

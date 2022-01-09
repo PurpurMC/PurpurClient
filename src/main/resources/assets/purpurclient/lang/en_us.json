@@ -6,5 +6,16 @@
   "purpurclient.options.bee-count-in-debug": "Bee Count In Debug",
   "purpurclient.options.bee-count-in-debug.tooltip": "Enabling will add bee counts in the debug screen when looking at bee hives and nests",
 
+  "purpurclient.options.no-preview": "Preview disabled",
+  "purpurclient.options.not-implemented": "Not implemented yet",
+
+  "purpurclient.options.seat.title": "Adjust Seat for %s",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Adjust forward and backward offset",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Adjust up and down offset",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Adjust side to side offset",
+
   "purpurclient.options.mod-settings": "Mob Settings"
 }

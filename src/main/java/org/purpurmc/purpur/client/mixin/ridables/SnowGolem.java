@@ -16,11 +16,11 @@ public abstract class SnowGolem extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getSnowGolem().y;
+        return (double) getHeight() * getSeats().snowGolem.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getSnowGolem());
+        updatePassengerPosition(passenger, getSeats().snowGolem);
     }
 }

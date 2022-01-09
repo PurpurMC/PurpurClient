@@ -1,4 +1,4 @@
-package org.purpurmc.purpur.client.config;
+package org.purpurmc.purpur.client.config.options;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.OrderedText;
@@ -7,22 +7,21 @@ import net.minecraft.text.TranslatableText;
 
 import java.util.List;
 
-public class BooleanOption implements Option<Boolean> {
+public class DoubleOption implements Option<Double> {
     private final String key;
     private final List<OrderedText> tooltip;
     private final Getter getter;
     private final Setter setter;
 
-    private final Text on;
-    private final Text off;
+    private Text text;
 
-    public BooleanOption(String key, Getter getter, Setter setter) {
+    public DoubleOption(String key, Getter getter, Setter setter) {
         this.key = "purpurclient.options." + key;
         this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(new TranslatableText(this.key + ".tooltip"), 170);
-        this.on = new TranslatableText("options.on.composed", new TranslatableText(this.key));
-        this.off = new TranslatableText("options.off.composed", new TranslatableText(this.key));
         this.getter = getter;
         this.setter = setter;
+
+        this.set(this.get());
     }
 
     @Override
@@ -32,7 +31,7 @@ public class BooleanOption implements Option<Boolean> {
 
     @Override
     public Text text() {
-        return get() ? this.on : this.off;
+        return this.text;
     }
 
     @Override
@@ -41,26 +40,23 @@ public class BooleanOption implements Option<Boolean> {
     }
 
     @Override
-    public Boolean get() {
+    public Double get() {
         return this.getter.get();
     }
 
     @Override
-    public void set(Boolean value) {
+    public void set(Double value) {
         this.setter.set(value);
-    }
-
-    public void toggle() {
-        set(!get());
+        this.text = new TranslatableText(this.key, String.format("%.2f", Math.round(value * 100.0) / 100.0));
     }
 
     @FunctionalInterface
     public interface Getter {
-        boolean get();
+        double get();
     }
 
     @FunctionalInterface
     public interface Setter {
-        void set(boolean value);
+        void set(double value);
     }
 }

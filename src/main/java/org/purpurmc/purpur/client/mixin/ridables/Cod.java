@@ -16,11 +16,11 @@ public abstract class Cod extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getCod().y;
+        return (double) getHeight() * getSeats().cod.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getCod());
+        updatePassengerPosition(passenger, getSeats().cod);
     }
 }

@@ -16,11 +16,11 @@ public abstract class IronGolem extends MobEntity implements RidableEntity {
 
     @Override
     public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().getIronGolem().y;
+        return (double) getHeight() * getSeats().ironGolem.y;
     }
 
     @Override
     public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().getIronGolem());
+        updatePassengerPosition(passenger, getSeats().ironGolem);
     }
 }
