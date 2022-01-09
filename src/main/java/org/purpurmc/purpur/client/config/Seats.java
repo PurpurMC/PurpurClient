@@ -9,12 +9,15 @@ public class Seats {
     private Seat bee = new Seat(-0.1D, 0.5D, 0.0D);
     private Seat cat = new Seat(0.0D, 0.4D, 0.0D);
     private Seat cod = new Seat(-0.25D, 0.1D, 0.0D);
-    private Seat elderGuardian = new Seat(0.0D, 0.0D, 0.0D);
+    private Seat elderGuardian = new Seat(0.0D, 0.75D, 0.0D);
     private Seat enderDragon = new Seat(0.0D, 0.4D, 0.0D);
     private Seat fox = new Seat(-0.25D, 0.6D, 0.0D);
+    private Seat hoglin = new Seat(0.0D, 0.75D, 0.0D);
     private Seat ironGolem = new Seat(-0.25D, 0.7D, 0.0D);
     private Seat ocelot = new Seat(0.0D, 0.5D, 0.0D);
     private Seat parrot = new Seat(-0.15D, 0.3D, 0.0D);
+    private Seat piglin = new Seat(0.0D, 0.75D, 0.0D);
+    private Seat piglinBrute = new Seat(0.0D, 0.75D, 0.0D);
     private Seat polarBear = new Seat(0.0D, 0.75D, 0.0D);
     private Seat polarBearStanding = new Seat(-1.0D, 0.5D, 0.0D);
     private Seat pufferfish = new Seat(-0.1D, 0.25D, 0.0D);
@@ -24,7 +27,7 @@ public class Seats {
     private Seat tropicalFish = new Seat(-0.1D, 0.7D, 0.0D);
 
     public Seat getBat() {
-        return bat;
+        return this.bat;
     }
 
     public void setBat(Seat bat) {
@@ -32,7 +35,7 @@ public class Seats {
     }
 
     public Seat getBee() {
-        return bee;
+        return this.bee;
     }
 
     public void setBee(Seat bee) {
@@ -40,7 +43,7 @@ public class Seats {
     }
 
     public Seat getCat() {
-        return cat;
+        return this.cat;
     }
 
     public void setCat(Seat cat) {
@@ -48,7 +51,7 @@ public class Seats {
     }
 
     public Seat getCod() {
-        return cod;
+        return this.cod;
     }
 
     public void setCod(Seat cod) {
@@ -56,7 +59,7 @@ public class Seats {
     }
 
     public Seat getElderGuardian() {
-        return elderGuardian;
+        return this.elderGuardian;
     }
 
     public void setElderGuardian(Seat elderGuardian) {
@@ -64,7 +67,7 @@ public class Seats {
     }
 
     public Seat getEnderDragon() {
-        return enderDragon;
+        return this.enderDragon;
     }
 
     public void setEnderDragon(Seat enderDragon) {
@@ -72,15 +75,23 @@ public class Seats {
     }
 
     public Seat getFox() {
-        return fox;
+        return this.fox;
     }
 
     public void setFox(Seat fox) {
         this.fox = fox;
     }
 
+    public Seat getHoglin() {
+        return this.hoglin;
+    }
+
+    public void setHoglin(Seat hoglin) {
+        this.hoglin = hoglin;
+    }
+
     public Seat getIronGolem() {
-        return ironGolem;
+        return this.ironGolem;
     }
 
     public void setIronGolem(Seat ironGolem) {
@@ -88,7 +99,7 @@ public class Seats {
     }
 
     public Seat getOcelot() {
-        return ocelot;
+        return this.ocelot;
     }
 
     public void setOcelot(Seat ocelot) {
@@ -96,15 +107,31 @@ public class Seats {
     }
 
     public Seat getParrot() {
-        return parrot;
+        return this.parrot;
     }
 
     public void setParrot(Seat parrot) {
         this.parrot = parrot;
     }
 
+    public Seat getPiglin() {
+        return this.piglin;
+    }
+
+    public void setPiglin(Seat piglin) {
+        this.piglin = piglin;
+    }
+
+    public Seat getPiglinBrute() {
+        return this.piglinBrute;
+    }
+
+    public void setPiglinBrute(Seat piglinBrute) {
+        this.piglinBrute = piglinBrute;
+    }
+
     public Seat getPolarBear() {
-        return polarBear;
+        return this.polarBear;
     }
 
     public void setPolarBear(Seat polarBear) {
@@ -112,7 +139,7 @@ public class Seats {
     }
 
     public Seat getPolarBearStanding() {
-        return polarBearStanding;
+        return this.polarBearStanding;
     }
 
     public void setPolarBearStanding(Seat polarBearStanding) {
@@ -120,7 +147,7 @@ public class Seats {
     }
 
     public Seat getPufferfish() {
-        return pufferfish;
+        return this.pufferfish;
     }
 
     public void setPufferfish(Seat pufferfish) {
@@ -128,7 +155,7 @@ public class Seats {
     }
 
     public Seat getRabbit() {
-        return rabbit;
+        return this.rabbit;
     }
 
     public void setRabbit(Seat rabbit) {
@@ -136,7 +163,7 @@ public class Seats {
     }
 
     public Seat getSalmon() {
-        return salmon;
+        return this.salmon;
     }
 
     public void setSalmon(Seat salmon) {
@@ -144,7 +171,7 @@ public class Seats {
     }
 
     public Seat getSnowGolem() {
-        return snowGolem;
+        return this.snowGolem;
     }
 
     public void setSnowGolem(Seat snowGolem) {
@@ -152,7 +179,7 @@ public class Seats {
     }
 
     public Seat getTropicalFish() {
-        return tropicalFish;
+        return this.tropicalFish;
     }
 
     public void setTropicalFish(Seat tropicalFish) {

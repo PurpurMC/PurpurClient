@@ -29,6 +29,7 @@ public class MixinInGameHud {
 
     /**
      * @author BillyGalbreath
+     * @reason because bacon.
      */
     @Overwrite
     public void addChatMessage(MessageType type, Text message, UUID sender) {

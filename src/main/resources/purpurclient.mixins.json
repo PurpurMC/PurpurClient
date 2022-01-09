@@ -6,11 +6,35 @@
   "refmap": "purpurclient.refmap.json",
   "client": [
     "MixinDebugHud",
-    "EntityAccessor",
     "MixinInGameHud",
-    "MixinItemEntity"
+    "MixinItemEntity",
+    "accessor.Entity",
+    "accessor.Hoglin",
+    "ridables.Bat",
+    "ridables.Bee",
+    "ridables.Cat",
+    "ridables.Cod",
+    "ridables.ElderGuardian",
+    "ridables.EnderDragon",
+    "ridables.Fox",
+    "ridables.Hoglin",
+    "ridables.IronGolem",
+    "ridables.Ocelot",
+    "ridables.Parrot",
+    "ridables.PolarBear",
+    "ridables.Pufferfish",
+    "ridables.Rabbit",
+    "ridables.Salmon",
+    "ridables.SnowGolem",
+    "ridables.TropicalFish"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "accessor.AbstractPiglin",
+    "accessor.Hoglin",
+    "ridables.Piglin",
+    "ridables.PiglinBrute"
+  ]
 }

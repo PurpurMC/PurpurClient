@@ -2,14 +2,14 @@ package org.purpurmc.purpur.client.mixin.ridables;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(BeeEntity.class)
-public abstract class Bee extends LivingEntity implements RidableEntity {
+public abstract class Bee extends MobEntity implements RidableEntity {
     public Bee(EntityType<? extends BeeEntity> entityType, World world) {
         super(entityType, world);
     }

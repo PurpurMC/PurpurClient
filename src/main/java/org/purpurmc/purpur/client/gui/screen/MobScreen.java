@@ -3,6 +3,7 @@ package org.purpurmc.purpur.client.gui.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.DiffuseLighting;
@@ -11,24 +12,29 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.AbstractPiglinEntity;
+import net.minecraft.entity.mob.GhastEntity;
+import net.minecraft.entity.mob.GiantEntity;
+import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.BatEntity;
+import net.minecraft.entity.passive.StriderEntity;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
 import org.purpurmc.purpur.client.entity.Mob;
-import org.purpurmc.purpur.client.mixin.EntityAccessor;
-
-import static net.minecraft.client.gui.screen.ingame.HandledScreen.BACKGROUND_TEXTURE;
+import org.purpurmc.purpur.client.mixin.accessor.AbstractPiglin;
+import org.purpurmc.purpur.client.mixin.accessor.Entity;
+import org.purpurmc.purpur.client.mixin.accessor.Hoglin;
 
 public class MobScreen extends AbstractScreen {
     private final Mob mob;
 
-    private FakePlayer fakePlayer;
+    private ClientPlayerEntity fakePlayer;
+    private net.minecraft.entity.Entity fakeEntity;
     private boolean alreadyInit;
 
     private double mouseDownX = Double.MIN_VALUE;
@@ -63,27 +69,37 @@ public class MobScreen extends AbstractScreen {
 
         this.fakePlayer = new FakePlayer(this.client, this.client.player);
 
-        MobEntity entity = this.mob.getType().create(this.fakePlayer.world);
-        if (entity == null) {
+        this.fakeEntity = this.mob.getType().create(this.fakePlayer.world);
+        if (this.fakeEntity == null) {
             // we need an entity to ride
+            this.fakePlayer = null;
             return;
         }
 
-        this.fakePlayer.startRiding(entity, true);
-
         // special cases
-        if (entity instanceof EnderDragonEntity dragon) {
-            // dragon is huge, reduce the zoom
-            this.previewZoom /= 3F;
-            // slow wings down
-            dragon.getPhaseManager().setPhase(PhaseType.HOVER);
-        } else if (entity instanceof BatEntity bat) {
+        if (this.fakeEntity instanceof BatEntity bat) {
             // wake bat up, no hanging upside down
             bat.setRoosting(false);
+        } else if (this.fakeEntity instanceof EnderDragonEntity dragon) {
+            // dragon is huge, reduce the zoom
+            this.previewZoom /= 3F;
+            this.previewY -= 25;
+            // slow wings down
+            dragon.getPhaseManager().setPhase(PhaseType.HOVER);
+        } else if (this.fakeEntity instanceof GhastEntity) {
+            // ghast is huge, reduce the zoom
+            this.previewZoom /= 3F;
+            this.previewY -= 50;
+        } else if (this.fakeEntity instanceof GiantEntity) {
+            // giant is huge, reduce the zoom
+            this.previewZoom /= 5F;
+        } else if (this.fakeEntity instanceof WitherEntity) {
+            // wither is huge, reduce the zoom
+            this.previewZoom /= 1.5F;
         }
 
-        // add the entity to world so it can tick animations
-        ((ClientWorld) this.fakePlayer.world).addEntity(entity.getId(), entity);
+        // mount on the entity
+        this.fakePlayer.startRiding(this.fakeEntity, true);
     }
 
     @Override
@@ -92,22 +108,16 @@ public class MobScreen extends AbstractScreen {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
+        RenderSystem.setShaderTexture(0, HandledScreen.BACKGROUND_TEXTURE);
 
-        if (this.fakePlayer != null && this.fakePlayer.hasVehicle()) {
-            drawPreviewModel(this.fakePlayer, this.fakePlayer.getVehicle());
+        if (this.fakePlayer != null && this.fakeEntity != null) {
+            drawPreviewModel(this.fakePlayer, this.fakeEntity);
         } else {
-            // show text warning about needing a world for preview
+            // TODO show text warning about needing a world for preview
         }
     }
 
-    public void drawPreviewModel(FakePlayer player, Entity vehicle) {
-        // special cases that need to update every tick
-        if (vehicle instanceof WaterCreatureEntity waterCreature) {
-            // put water creatures in their natural habitat
-            ((EntityAccessor) waterCreature).setTouchingWater(true);
-        }
-
+    public void drawPreviewModel(ClientPlayerEntity player, net.minecraft.entity.Entity vehicle) {
         MatrixStack matrixStack = RenderSystem.getModelViewStack();
         matrixStack.push();
         matrixStack.translate(this.previewX, this.previewY, 1500);
@@ -132,8 +142,12 @@ public class MobScreen extends AbstractScreen {
         entityRenderDispatcher.setRenderShadows(false);
         VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
-        entityRenderDispatcher.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
-        entityRenderDispatcher.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
+        RenderSystem.runAsFancy(() -> {
+            fixEntityRender(vehicle, matrixStack2, () -> {
+                entityRenderDispatcher.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
+            });
+            entityRenderDispatcher.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
+        });
 
         immediate.draw();
         entityRenderDispatcher.setRenderShadows(true);
@@ -141,6 +155,18 @@ public class MobScreen extends AbstractScreen {
 
         RenderSystem.applyModelViewMatrix();
         DiffuseLighting.enableGuiDepthLighting();
+    }
+
+    private void fixEntityRender(net.minecraft.entity.Entity entity, MatrixStack matrixStack, Runnable runnable) {
+        if (entity instanceof EnderDragonEntity) {
+            // dragon model is backwards, flip it
+            matrixStack.push();
+            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-180.0F));
+            runnable.run();
+            matrixStack.pop();
+        } else {
+            runnable.run();
+        }
     }
 
     @Override
@@ -189,18 +215,54 @@ public class MobScreen extends AbstractScreen {
     @Override
     public void tick() {
         super.tick();
+        if (this.fakeEntity != null) {
+            // tick entity
+            this.fakeEntity.resetPosition();
+            ++this.fakeEntity.age;
+            this.fakeEntity.tick();
+
+            // prevent some logic from running by faking first tick every tick
+            ((Entity) this.fakeEntity).setFirstUpdate(true);
+
+            // special cases that need to update every tick
+            if (this.fakeEntity instanceof WaterCreatureEntity waterCreature) {
+                // put water creatures in their natural habitat
+                ((Entity) waterCreature).setTouchingWater(true);
+            } else if (this.fakeEntity instanceof StriderEntity strider) {
+                // striders are naturally cold unless in the nether
+                strider.setCold(false);
+            } else if (this.fakeEntity instanceof HoglinEntity hoglin) {
+                // hoglins will shake to convert if not in the nether
+                ((Hoglin) hoglin).setTimeInOverworld(-1);
+            } else if (this.fakeEntity instanceof AbstractPiglinEntity piglin) {
+                // piglins and brutes will shake to convert if not in the nether
+                ((AbstractPiglin) piglin).setTimeInOverworld(-1);
+            }
+        }
+
+        if (this.fakePlayer != null) {
+            // tick player
+            this.fakePlayer.resetPosition();
+            ++this.fakePlayer.age;
+            this.fakePlayer.tickRiding();
+
+            // fix player yaw
+            this.fakePlayer.setYaw(0);
+            this.fakePlayer.prevYaw = 0;
+            this.fakePlayer.setBodyYaw(0);
+            this.fakePlayer.prevBodyYaw = 0;
+            this.fakePlayer.setHeadYaw(0);
+            this.fakePlayer.prevHeadYaw = 0;
+            this.fakePlayer.renderYaw = 0;
+            this.fakePlayer.lastRenderYaw = 0;
+        }
     }
 
     @Override
     public void onClose() {
         super.onClose();
         if (this.fakePlayer != null) {
-            // let's remove the fake entity from the world
-            Entity entity = this.fakePlayer.getVehicle();
-            if (entity != null) {
-                this.fakePlayer.stopRiding();
-                entity.remove(Entity.RemovalReason.DISCARDED);
-            }
+            this.fakePlayer.stopRiding();
         }
     }
 

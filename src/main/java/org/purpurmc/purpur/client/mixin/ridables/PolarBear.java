@@ -2,7 +2,7 @@ package org.purpurmc.purpur.client.mixin.ridables;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PolarBearEntity;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(PolarBearEntity.class)
-public abstract class PolarBear extends LivingEntity implements RidableEntity {
+public abstract class PolarBear extends MobEntity implements RidableEntity {
     private final Seat seat = new Seat(0.0D, 0.0D, 0.0D);
 
     @Shadow
