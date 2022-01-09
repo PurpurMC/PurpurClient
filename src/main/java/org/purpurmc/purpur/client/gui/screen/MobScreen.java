@@ -47,7 +47,7 @@ public class MobScreen extends AbstractScreen {
     private float previewZoom = 60;
 
     public MobScreen(Screen parent, Mob mob) {
-        super(parent, new TranslatableText("purpur-client.options.title"));
+        super(parent, new TranslatableText("purpurclient.options.title"));
         this.mob = mob;
     }
 

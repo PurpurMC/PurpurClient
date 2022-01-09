@@ -17,7 +17,7 @@ public class BooleanOption implements Option<Boolean> {
     private final Text off;
 
     public BooleanOption(String key, Getter getter, Setter setter) {
-        this.key = "purpur-client.options." + key;
+        this.key = "purpurclient.options." + key;
         this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(new TranslatableText(this.key + ".tooltip"), 170);
         this.on = new TranslatableText("options.on.composed", new TranslatableText(this.key));
         this.off = new TranslatableText("options.off.composed", new TranslatableText(this.key));

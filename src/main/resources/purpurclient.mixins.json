@@ -4,10 +4,11 @@
   "package": "org.purpurmc.purpur.client.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "purpurclient.refmap.json",
-  "client": [
+  "mixins": [
     "MixinDebugHud",
     "MixinInGameHud",
     "MixinItemEntity",
+    "accessor.AbstractPiglin",
     "accessor.Entity",
     "accessor.Hoglin",
     "ridables.Bat",
@@ -21,6 +22,8 @@
     "ridables.IronGolem",
     "ridables.Ocelot",
     "ridables.Parrot",
+    "ridables.Piglin",
+    "ridables.PiglinBrute",
     "ridables.PolarBear",
     "ridables.Pufferfish",
     "ridables.Rabbit",
@@ -30,11 +33,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "accessor.AbstractPiglin",
-    "accessor.Hoglin",
-    "ridables.Piglin",
-    "ridables.PiglinBrute"
-  ]
+  }
 }

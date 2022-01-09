@@ -12,7 +12,7 @@ import org.purpurmc.purpur.client.gui.screen.AbstractScreen;
 import org.purpurmc.purpur.client.gui.screen.MobScreen;
 
 public class MobButton extends ButtonWidget {
-    public static final Identifier MOBS_TEXTURE = new Identifier("purpur-client", "textures/mobs.png");
+    public static final Identifier MOBS_TEXTURE = new Identifier("purpurclient", "textures/mobs.png");
 
     private final AbstractScreen screen;
     private final Mob mob;

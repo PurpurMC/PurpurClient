@@ -59,7 +59,7 @@ public class ConfigManager {
             return this.configFile;
         }
         final Path configDir = FabricLoader.getInstance().getConfigDir();
-        this.configFile = configDir.resolve("purpur-client.conf");
+        this.configFile = configDir.resolve("purpurclient.conf");
         return this.configFile;
     }
 

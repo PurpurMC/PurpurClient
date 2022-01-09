@@ -1,0 +1,10 @@
+{
+  "purpurclient.options.title": "Purpur Client Options",
+
+  "purpurclient.options.fix-chat-stutter": "Fix Chat Stutter",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "Enabling will bypass the block feature of the social interaction menu, but it gets rid of the stutter when receiving chat messages",
+  "purpurclient.options.bee-count-in-debug": "Bee Count In Debug",
+  "purpurclient.options.bee-count-in-debug.tooltip": "Enabling will add bee counts in the debug screen when looking at bee hives and nests",
+
+  "purpurclient.options.mod-settings": "Mob Settings"
+}

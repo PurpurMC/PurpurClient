@@ -28,7 +28,7 @@ public class PurpurClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         if (this.configManager.getConfig() == null) {
-            new IllegalStateException("Could not load purpur-client configuration").printStackTrace();
+            new IllegalStateException("Could not load purpurclient configuration").printStackTrace();
             return;
         }
 
