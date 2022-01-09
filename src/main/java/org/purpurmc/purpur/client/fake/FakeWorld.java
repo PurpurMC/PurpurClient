@@ -124,6 +124,16 @@ public class FakeWorld extends ClientWorld {
     }
 
     @Override
+    public long getTime() {
+        return 0;
+    }
+
+    @Override
+    public long getTimeOfDay() {
+        return 0;
+    }
+
+    @Override
     public void updateListeners(BlockPos pos, BlockState oldState, BlockState newState, int flags) {
     }
 
