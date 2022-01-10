@@ -1,6 +1,5 @@
 package org.purpurmc.purpur.client.mixin;
 
-
 import com.google.common.collect.Maps;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.ClientChatListener;
@@ -30,6 +29,12 @@ public class MixinInGameHud {
     @Shadow
     private Map<MessageType, List<ClientChatListener>> listeners = Maps.newHashMap();
 
+    @Shadow
+    @SuppressWarnings({"SameReturnValue", "unused"})
+    public UUID extractSender(Text message) {
+        return null;
+    }
+
     private final LinkedBlockingQueue<Chat> queue = new LinkedBlockingQueue<>();
     private boolean running;
 
@@ -38,6 +43,7 @@ public class MixinInGameHud {
         if (PurpurClient.instance().getConfig().fixChatStutter) {
             // queue up the chat
             this.queue.add(new Chat(type, message, sender));
+            // start loop if it's not running
             if (!this.running) {
                 runAsyncInfiniteLoop();
             }
@@ -46,6 +52,7 @@ public class MixinInGameHud {
         }
     }
 
+    // clone original method to prevent recursion
     private void addChatMessage0(MessageType type, Text message, UUID sender) {
         if (this.client.shouldBlockMessages(sender)) {
             return;
@@ -53,18 +60,12 @@ public class MixinInGameHud {
         if (this.client.options.hideMatchedNames && this.client.shouldBlockMessages(this.extractSender(message))) {
             return;
         }
-
         for (ClientChatListener clientChatListener : this.listeners.get(type)) {
             clientChatListener.onChatMessage(type, message, sender);
         }
     }
 
-    @Shadow
-    @SuppressWarnings({"SameReturnValue", "unused"})
-    public UUID extractSender(Text message) {
-        return null;
-    }
-
+    // the infinite magic
     private void runAsyncInfiniteLoop() {
         this.running = true;
         new Thread(() -> {
@@ -72,7 +73,8 @@ public class MixinInGameHud {
                 try {
                     Chat chat = this.queue.take();
                     addChatMessage0(chat.type(), chat.message(), chat.sender());
-                } catch (InterruptedException e) {
+                } catch (Throwable t) {
+                    // catch _everything_ so we can reset this bool if anything goes wrong
                     this.running = false;
                     Thread.currentThread().interrupt();
                 }
