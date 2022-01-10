@@ -1,0 +1,21 @@
+{
+  "purpurclient.options.title": "Ustawienia Klienta Purpur",
+
+  "purpurclient.options.fix-chat-stutter": "Naprawa zacinającego się czatu",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "Włączenie spowoduje ominięcie funkcji blokowania menu interakcji społecznościowych, ale pozbędzie się zacinania podczas odbierania wiadomości na czacie",
+  "purpurclient.options.bee-count-in-debug": "Liczba pszczół w debugowaniu",
+  "purpurclient.options.bee-count-in-debug.tooltip": "Włączenie spowoduje dodanie liczby pszczół na ekranie debugowania podczas przeglądania uli i gniazd pszczół",
+
+  "purpurclient.options.no-preview": "Podgląd wyłączony",
+  "purpurclient.options.not-implemented": "Jeszcze niezaimplementowane",
+
+  "purpurclient.options.seat.title": "Dostosuj siedzenie do %s",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Dostosuj przesunięcie do przodu/tyłu",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Dostosuj przesunięcie w górę/dół",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Dostosuj przesunięcie boczne",
+
+  "purpurclient.options.mod-settings": "Ustawienia mobów"
+}
