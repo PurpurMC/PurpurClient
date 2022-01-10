@@ -19,8 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @Mixin(InGameHud.class)
 public class MixinInGameHud {
@@ -31,7 +30,7 @@ public class MixinInGameHud {
     @Shadow
     private Map<MessageType, List<ClientChatListener>> listeners = Maps.newHashMap();
 
-    private final ConcurrentLinkedQueue<Chat> queue = new ConcurrentLinkedQueue<>();
+    private final LinkedBlockingQueue<Chat> queue = new LinkedBlockingQueue<>();
     private boolean running;
 
     @Inject(method = "addChatMessage", at = @At("HEAD"), cancellable = true)
@@ -68,20 +67,16 @@ public class MixinInGameHud {
 
     private void runAsyncInfiniteLoop() {
         this.running = true;
-        CompletableFuture.runAsync(() -> {
+        new Thread(() -> {
             while (this.running) {
-                Chat chat = this.queue.poll();
-                if (chat != null) {
-                    addChatMessage0(chat.type(), chat.message(), chat.sender());
-                    continue;
-                }
-
                 try {
-                    Thread.sleep(50);
-                } catch (InterruptedException ignore) {
+                    Chat chat = this.queue.take();
+                    addChatMessage0(chat.type(), chat.message(), chat.sender());
+                } catch (InterruptedException e) {
                     this.running = false;
+                    Thread.currentThread().interrupt();
                 }
             }
-        });
+        }).start();
     }
 }
