@@ -73,8 +73,7 @@ public class MixinInGameHud {
                 try {
                     Chat chat = this.queue.take();
                     addChatMessage0(chat.type(), chat.message(), chat.sender());
-                } catch (Throwable t) {
-                    // catch _everything_ so we can reset this bool if anything goes wrong
+                } catch (InterruptedException e) {
                     this.running = false;
                     Thread.currentThread().interrupt();
                 }
