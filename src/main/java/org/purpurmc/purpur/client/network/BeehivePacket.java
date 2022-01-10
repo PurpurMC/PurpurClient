@@ -20,6 +20,7 @@ public class BeehivePacket {
         Packet.send(Constants.BEEHIVE_C2S, out);
     }
 
+    @SuppressWarnings("unused")
     public static void receiveBeehiveData(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
         if (client.world == null) {
             return;

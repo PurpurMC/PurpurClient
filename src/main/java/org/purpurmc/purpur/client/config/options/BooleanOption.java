@@ -26,6 +26,7 @@ public class BooleanOption implements Option<Boolean> {
     }
 
     @Override
+    @SuppressWarnings("unused")
     public String key() {
         return this.key;
     }

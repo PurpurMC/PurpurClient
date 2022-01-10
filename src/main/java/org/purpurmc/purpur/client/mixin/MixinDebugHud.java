@@ -60,6 +60,7 @@ public class MixinDebugHud {
     }
 
     @Shadow
+    @SuppressWarnings("SameReturnValue")
     protected List<String> getRightText() {
         return null;
     }

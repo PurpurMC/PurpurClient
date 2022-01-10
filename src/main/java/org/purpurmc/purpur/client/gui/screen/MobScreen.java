@@ -18,6 +18,8 @@ import net.minecraft.entity.mob.AbstractPiglinEntity;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.mob.HoglinEntity;
+import net.minecraft.entity.mob.MagmaCubeEntity;
+import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.StriderEntity;
@@ -32,8 +34,11 @@ import org.purpurmc.purpur.client.entity.Seat;
 import org.purpurmc.purpur.client.fake.FakePlayer;
 import org.purpurmc.purpur.client.fake.FakeWorld;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
-import org.purpurmc.purpur.client.mixin.accessor.AbstractPiglin;
-import org.purpurmc.purpur.client.mixin.accessor.Hoglin;
+import org.purpurmc.purpur.client.mixin.accessor.AccessAbstractPiglin;
+import org.purpurmc.purpur.client.mixin.accessor.AccessEntity;
+import org.purpurmc.purpur.client.mixin.accessor.AccessHoglin;
+import org.purpurmc.purpur.client.mixin.accessor.AccessMagmaCube;
+import org.purpurmc.purpur.client.mixin.accessor.AccessSlime;
 
 import java.util.ArrayList;
 
@@ -123,6 +128,10 @@ public class MobScreen extends AbstractScreen {
         } else if (this.fakeEntity instanceof WitherEntity) {
             // wither is huge, reduce the zoom
             this.previewZoomMultiplier /= 1.5F;
+        } else if (this.fakeEntity instanceof MagmaCubeEntity magmaCube) {
+            ((AccessMagmaCube) magmaCube).invokeSetSize(3, true);
+        } else if (this.fakeEntity instanceof SlimeEntity slime) {
+            ((AccessSlime) slime).invokeSetSize(3, true);
         }
 
         // mount on the entity
@@ -263,21 +272,21 @@ public class MobScreen extends AbstractScreen {
             this.fakeEntity.tick();
 
             // prevent some logic from running by faking first tick every tick
-            ((org.purpurmc.purpur.client.mixin.accessor.Entity) this.fakeEntity).setFirstUpdate(true);
+            ((AccessEntity) this.fakeEntity).setFirstUpdate(true);
 
             // special cases that need to update every tick
             if (this.fakeEntity instanceof WaterCreatureEntity waterCreature) {
                 // put water creatures in their natural habitat
-                ((org.purpurmc.purpur.client.mixin.accessor.Entity) waterCreature).setTouchingWater(true);
+                ((AccessEntity) waterCreature).setTouchingWater(true);
             } else if (this.fakeEntity instanceof StriderEntity strider) {
                 // striders are naturally cold unless in the nether
                 strider.setCold(false);
             } else if (this.fakeEntity instanceof HoglinEntity hoglin) {
                 // hoglins will shake to convert if not in the nether
-                ((Hoglin) hoglin).setTimeInOverworld(-1);
+                ((AccessHoglin) hoglin).setTimeInOverworld(-1);
             } else if (this.fakeEntity instanceof AbstractPiglinEntity piglin) {
                 // piglins and brutes will shake to convert if not in the nether
-                ((AbstractPiglin) piglin).setTimeInOverworld(-1);
+                ((AccessAbstractPiglin) piglin).setTimeInOverworld(-1);
             }
         }
 

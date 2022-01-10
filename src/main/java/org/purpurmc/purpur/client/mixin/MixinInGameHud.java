@@ -55,6 +55,7 @@ public class MixinInGameHud {
     }
 
     @Shadow
+    @SuppressWarnings({"SameReturnValue", "unused"})
     public UUID extractSender(Text message) {
         return null;
     }

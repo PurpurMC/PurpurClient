@@ -5,6 +5,7 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public interface Option<T> {
     String key();
 

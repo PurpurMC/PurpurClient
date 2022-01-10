@@ -39,7 +39,7 @@ public abstract class AbstractScreen extends Screen {
     @Override
     public void renderBackground(MatrixStack matrixStack, int vOffset) {
         if (this.client != null && this.client.world != null) {
-            this.fillGradient(matrixStack, 0, 0, this.width, this.height, 0xD00F4863, 0xC0370038);
+            this.fillGradient(matrixStack, 0, 0, this.width, this.height, 0xF00F4863, 0xF0370038);
         } else {
             this.renderBackgroundTexture(vOffset);
         }

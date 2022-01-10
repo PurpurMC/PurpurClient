@@ -35,6 +35,6 @@ public class OptionsScreen extends AbstractScreen {
             }
         }
 
-        this.options.forEach(option -> addDrawableChild(option));
+        this.options.forEach(this::addDrawableChild);
     }
 }

@@ -25,6 +25,7 @@ public class DoubleOption implements Option<Double> {
     }
 
     @Override
+    @SuppressWarnings("unused")
     public String key() {
         return this.key;
     }

@@ -54,6 +54,7 @@ public class ConfigManager {
         }
     }
 
+    @SuppressWarnings("RedundantThrows")
     private Path getConfigFile() throws IOException {
         if (this.configFile != null) {
             return this.configFile;
