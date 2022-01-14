@@ -5,6 +5,21 @@
   "purpurclient.options.fix-chat-stutter.tooltip" : "Włączenie tej funkcji spowoduje, że czat będzie przetwarzany w innym wątku, dzięki czemu nie będzie zapychał wątku renderowania",
   "purpurclient.options.bee-count-in-debug": "Liczba pszczół w debugowaniu",
   "purpurclient.options.bee-count-in-debug.tooltip": "Włączenie spowoduje dodanie liczby pszczół na ekranie debugowania podczas przeglądania uli i gniazd pszczół",
+  "purpurclient.options.splash-screen": "Splash Screen",
+  "purpurclient.options.splash-screen.tooltip": "Włączenie spowoduje użycie splash screen'u Purpura zamiast Mojang'a",
+  "purpurclient.options.window-title": "Tytuł okna",
+  "purpurclient.options.window-title.tooltip": "Włączenie tej opcji spowoduje używanie tytułu okna Purpur zamiast tytułu Mojang.",
+  "purpurclient.options.mobs": "Moby",
+  "purpurclient.options.mobs.tooltip": "Otwórz ustawienia mobów",
+  
+  "purpurclient.title.singleplayer": "%s w grze Jednoosobowej",
+  "purpurclient.title.multiplayer.realms": "Gra Wieloosobowa (%s w trybie Realms)",
+  "purpurclient.title.multiplayer.lan": "Gra Wieloosobowa (%s w trybie LAN)",
+  "purpurclient.title.multiplayer.server": "Gra Wieloosobowa (%s na serwerze %s)",
+  "purpurclient.title.multiplayer.unknown": "Gra Wieloosobowa (%s na nieznanym serwerze)",
+
+  "purpurclient.options.on": "%s: \u00a7aON",
+  "purpurclient.options.off": "%s: \u00a7cOFF",
 
   "purpurclient.options.no-preview": "Podgląd wyłączony",
   "purpurclient.options.not-implemented": "Jeszcze niezaimplementowane",
