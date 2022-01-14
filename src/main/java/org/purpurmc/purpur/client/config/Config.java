@@ -7,6 +7,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 public class Config {
     public boolean fixChatStutter = true;
     public boolean beeCountInDebug = true;
+    public boolean usePurpurSplash = true;
 
     public Seats seats = new Seats();
 }

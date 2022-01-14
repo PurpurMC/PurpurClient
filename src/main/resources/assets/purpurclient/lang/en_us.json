@@ -1,10 +1,17 @@
 {
   "purpurclient.options.title": "Purpur Client Options",
 
-  "purpurclient.options.fix-chat-stutter": "Fix Chat Stutter",
+  "purpurclient.options.fix-chat-stutter": "Async Chat",
   "purpurclient.options.fix-chat-stutter.tooltip" : "Enabling will process chat on another thread so it doesn't clog up the render thread",
-  "purpurclient.options.bee-count-in-debug": "Bee Count In Debug",
-  "purpurclient.options.bee-count-in-debug.tooltip": "Enabling will add bee counts in the debug screen when looking at bee hives and nests",
+  "purpurclient.options.bee-count-in-debug": "Bee Counts",
+  "purpurclient.options.bee-count-in-debug.tooltip": "Enabling will add bee counts in the debug screen (F3) when looking at bee hives and nests",
+  "purpurclient.options.purpur-splash-screen": "Splash Screen",
+  "purpurclient.options.purpur-splash-screen.tooltip": "Enabling will use Purpur's splash screen instead of Mojang's",
+  "purpurclient.options.mobs": "Mobs",
+  "purpurclient.options.mobs.tooltip": "Open mob options screen",
+
+  "purpurclient.options.on": "%s: \u00a7aON",
+  "purpurclient.options.off": "%s: \u00a7cOFF",
 
   "purpurclient.options.no-preview": "Preview disabled",
   "purpurclient.options.not-implemented": "Not implemented yet",

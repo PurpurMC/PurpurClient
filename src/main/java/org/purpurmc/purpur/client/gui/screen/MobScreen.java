@@ -64,7 +64,7 @@ public class MobScreen extends AbstractScreen {
     private final Text notImplemented = new TranslatableText("purpurclient.options.not-implemented");
 
     public MobScreen(Screen parent, Mob mob) {
-        super(parent, new TranslatableText("purpurclient.options.title"));
+        super(parent);
         this.mob = mob;
         this.subtitle = new TranslatableText("purpurclient.options.seat.title", mob.getType().getName());
     }

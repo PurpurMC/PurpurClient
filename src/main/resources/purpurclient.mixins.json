@@ -8,6 +8,7 @@
     "MixinDebugHud",
     "MixinInGameHud",
     "MixinItemEntity",
+    "MixinSplashOverlay",
     "accessor.AccessAbstractPiglin",
     "accessor.AccessEntity",
     "accessor.AccessHoglin",
