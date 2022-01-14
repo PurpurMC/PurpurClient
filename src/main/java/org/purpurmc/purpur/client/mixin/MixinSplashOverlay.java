@@ -49,7 +49,7 @@ public class MixinSplashOverlay {
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (!PurpurClient.instance().getConfig().usePurpurSplash) {
+        if (!PurpurClient.instance().getConfig().useSplashScreen) {
             return;
         }
 

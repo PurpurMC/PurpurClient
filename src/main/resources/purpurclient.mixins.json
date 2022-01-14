@@ -8,6 +8,7 @@
     "MixinDebugHud",
     "MixinInGameHud",
     "MixinItemEntity",
+    "MixinMinecraftClient",
     "MixinSplashOverlay",
     "accessor.AccessAbstractPiglin",
     "accessor.AccessEntity",

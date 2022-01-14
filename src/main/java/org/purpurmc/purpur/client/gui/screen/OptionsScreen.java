@@ -26,8 +26,12 @@ public class OptionsScreen extends AbstractScreen {
         this.options = new ArrayList<>();
         this.options.add(new BooleanButton(this.centerX - 160, 50, 150, 20, new BooleanOption("fix-chat-stutter", () -> config.fixChatStutter, (value) -> config.fixChatStutter = value)));
         this.options.add(new BooleanButton(this.centerX + 10, 50, 150, 20, new BooleanOption("bee-count-in-debug", () -> config.beeCountInDebug, (value) -> config.beeCountInDebug = value)));
-        this.options.add(new BooleanButton(this.centerX - 160, 80, 150, 20, new BooleanOption("purpur-splash-screen", () -> config.usePurpurSplash, (value) -> config.usePurpurSplash = value)));
-        this.options.add(new Button(this.centerX + 10, 80, 150, 20, MOBS_BTN, button -> openScreen(new MobsScreen(this))));
+        this.options.add(new BooleanButton(this.centerX - 160, 80, 150, 20, new BooleanOption("splash-screen", () -> config.useSplashScreen, (value) -> config.useSplashScreen = value)));
+        this.options.add(new BooleanButton(this.centerX + 10, 80, 150, 20, new BooleanOption("window-title", () -> config.useWindowTitle, (value) -> {
+            config.useWindowTitle = value;
+            PurpurClient.instance().updateTitle();
+        })));
+        this.options.add(new Button(this.centerX - 160, 110, 150, 20, MOBS_BTN, button -> openScreen(new MobsScreen(this))));
 
         this.options.forEach(this::addDrawableChild);
     }
