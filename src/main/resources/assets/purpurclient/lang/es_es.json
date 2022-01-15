@@ -1,0 +1,21 @@
+{
+  "purpurclient.options.title": "Opciones del cliente de Purpur",
+
+  "purpurclient.options.fix-chat-stutter": "Solucionar el tartamudeo del chat",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "Habilitar esto hará que el chat sea procesado en otro hilo para que no obstruya el hilo de render",
+  "purpurclient.options.bee-count-in-debug": "Conteo de Abejas en la depuración",
+  "purpurclient.options.bee-count-in-debug.tooltip": "Habilitar esto agregará conteos de abejas en la pantalla de depuración al mirar colmenas y nidos de abejas",
+
+  "purpurclient.options.no-preview": "Vista previa deshabilitada",
+  "purpurclient.options.not-implemented": "Aún sin implementar",
+
+  "purpurclient.options.seat.title": "Ajustar asiento para %s",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Ajustar el desplazamiento hacia adelante/hacia atrás",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Ajustar compensación arriba/abajo",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Ajustar el desplazamiento de lado a lado",
+
+  "purpurclient.options.mod-settings": "Configuración de Mobs"
+}
