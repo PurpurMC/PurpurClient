@@ -81,8 +81,8 @@ public class MixinSplashOverlay {
             this.delta = 0;
             opacity = MathHelper.clamp(g, 0.0f, 1.0f);
         } else {
-            this.delta += MinecraftClient.getInstance().getTickDelta();
-            opacity = MathHelper.clampedLerp(-0.5F, 1.0F, this.delta / 20F);
+            this.delta += this.client.getTickDelta();
+            opacity = MathHelper.clampedLerp(-0.5F, 1.0F, this.delta / 30F);
         }
 
         RenderSystem.setShaderTexture(0, SplashTexture.SPLASH);
@@ -134,7 +134,7 @@ public class MixinSplashOverlay {
         return t * t;
     }
 
-    public float easeOut(float t) {
+    private float easeOut(float t) {
         return flip(easeIn(flip(t)));
     }
 
