@@ -1,0 +1,21 @@
+{
+  "purpurclient.options.title": "Paramètres de Purpur Client",
+
+  "purpurclient.options.fix-chat-stutter": "Correction du tchat saccadé",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "L'activera gérera le tchat sur un autre thread pour qu'il ne bloque pas le thread du rendu",
+  "purpurclient.options.bee-count-in-debug": "Débogage du nombre d'abeilles",
+  "purpurclient.options.bee-count-in-debug.tooltip": "L'activer ajoutera le nombre d'abeilles dans l'écran de débogage en regardant sur les ruches et les nids d'abeilles",
+
+  "purpurclient.options.no-preview": "Prévisualisation désactivée",
+  "purpurclient.options.not-implemented": "Pas encore implémenté",
+
+  "purpurclient.options.seat.title": "Ajuster le siège pour %s",
+  "purpurclient.options.seat.x": "x : %s",
+  "purpurclient.options.seat.x.tooltip": "Ajuster le décalage avant/arrière",
+  "purpurclient.options.seat.y": "y : %s",
+  "purpurclient.options.seat.y.tooltip": "Ajuster le décalage dessus/dessous",
+  "purpurclient.options.seat.z": "z : %s",
+  "purpurclient.options.seat.z.tooltip": "Ajuster le décalage côté par côté",
+
+  "purpurclient.options.mod-settings": "Paramètres des créatures"
+}
