@@ -1,0 +1,22 @@
+
+{
+  "purpurclient.options.title": "퍼퍼 클라이언트 설정",
+
+  "purpurclient.options.fix-chat-stutter": "채팅 렉 해결",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "활성화하면 렌더 스레드가 멈추지 않도록 다른 스레드에서 채팅을 처리합니다.",
+  "purpurclient.options.bee-count-in-debug": "디버그 화면에서 꿀벌 수 보기",
+  "purpurclient.options.bee-count-in-debug.tooltip": "활성화하면 벌집 또는 벌통을 보고 있을 때 벌 수를 표시합니다.",
+
+  "purpurclient.options.no-preview": "미리보기 비활성화 됨",
+  "purpurclient.options.not-implemented": "추가되지 않음",
+
+  "purpurclient.options.seat.title": "%s 시트 조정",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "앞/뒤 오프셋 조정",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "위/아래 오프셋 조정",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "옆 오프셋 조정",
+
+  "purpurclient.options.mod-settings": "몹 "
+}
