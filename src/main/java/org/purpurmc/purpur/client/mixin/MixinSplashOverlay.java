@@ -42,6 +42,8 @@ public class MixinSplashOverlay {
     @Final
     private Consumer<Optional<Throwable>> exceptionHandler;
 
+    private float delta;
+
     @Inject(method = "init", at = @At("HEAD"))
     private static void init(MinecraftClient client, CallbackInfo ci) {
         client.getTextureManager().registerTexture(SplashTexture.SPLASH, new SplashTexture());
@@ -70,14 +72,17 @@ public class MixinSplashOverlay {
             if (this.client.currentScreen != null) {
                 this.client.currentScreen.render(matrixStack, 0, 0, delta);
             }
+            this.delta = 0;
             opacity = 1.0f - MathHelper.clamp(f - 1.0f, 0.0f, 1.0f);
         } else if (this.reloading) {
             if (this.client.currentScreen != null && g < 1.0f) {
                 this.client.currentScreen.render(matrixStack, mouseX, mouseY, delta);
             }
+            this.delta = 0;
             opacity = MathHelper.clamp(g, 0.0f, 1.0f);
         } else {
-            opacity = 1.0f;
+            this.delta += MinecraftClient.getInstance().getTickDelta();
+            opacity = MathHelper.clampedLerp(-0.5F, 1.0F, this.delta / 20F);
         }
 
         RenderSystem.setShaderTexture(0, SplashTexture.SPLASH);
@@ -85,10 +90,10 @@ public class MixinSplashOverlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
         SplashOverlay.drawTexture(matrixStack, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
-        SplashOverlay.drawTexture(matrixStack, width - 112, 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
-        SplashOverlay.drawTexture(matrixStack, 20, height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
-        SplashOverlay.drawTexture(matrixStack, 20, height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
-        SplashOverlay.drawTexture(matrixStack, width - 105, height - 15, 100, 12, 256, 658, 200, 23, 1024, 1024); // url
+        SplashOverlay.drawTexture(matrixStack, (int) ((width - 112) * MathHelper.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
+        SplashOverlay.drawTexture(matrixStack, 40 + (int) ((20) * -MathHelper.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
+        SplashOverlay.drawTexture(matrixStack, (int) ((20) * MathHelper.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
+        SplashOverlay.drawTexture(matrixStack, width - 105, (int) ((height - 15) * MathHelper.lerp(easeOut(opacity), 0.75D, 1.0D)), 100, 12, 256, 658, 200, 23, 1024, 1024); // url
         RenderSystem.disableBlend();
 
         int scale = (int) ((double) this.client.getWindow().getScaledHeight() * 0.625D);
@@ -123,5 +128,17 @@ public class MixinSplashOverlay {
         SplashOverlay.fill(matrices, minX + 1, maxY, maxX - 1, maxY - 1, k);
         SplashOverlay.fill(matrices, minX, minY, minX + 1, maxY, k);
         SplashOverlay.fill(matrices, maxX, minY, maxX - 1, maxY, k);
+    }
+
+    private float easeIn(float t) {
+        return t * t;
+    }
+
+    public float easeOut(float t) {
+        return flip(easeIn(flip(t)));
+    }
+
+    private float flip(float x) {
+        return 1 - x;
     }
 }
