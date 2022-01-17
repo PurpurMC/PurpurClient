@@ -86,8 +86,8 @@ public class DoubleButton extends ClickableWidget implements Tickable {
             return;
         }
         switch (this.btn) {
-            case MINUS -> addValue(-0.01);
-            case PLUS -> addValue(0.01);
+            case MINUS -> addValue(-0.01D);
+            case PLUS -> addValue(0.01D);
         }
     }
 

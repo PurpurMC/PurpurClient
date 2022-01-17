@@ -47,8 +47,8 @@ public class DoubleOption implements Option<Double> {
 
     @Override
     public void set(Double value) {
-        this.setter.set(value);
-        this.text = new TranslatableText(this.key, String.format("%.2f", Math.round(value * 100.0) / 100.0));
+        this.setter.set(Math.round(value * 100.0) / 100.0);
+        this.text = new TranslatableText(this.key, String.format("%.2f", get()));
     }
 
     @FunctionalInterface
