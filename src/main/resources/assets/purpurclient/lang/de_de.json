@@ -1,0 +1,36 @@
+{
+  "purpurclient.options.title": "Purpur Client Einstellungen",
+
+  "purpurclient.options.fix-chat-stutter": "Asynchroner Chat",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "Durch die Aktivierung wird der Chat in einem anderen Thread verarbeitet, sodass der Render-Thread nicht überladen wird",
+  "purpurclient.options.bee-count-in-debug": "Bienen Anzahl",
+  "purpurclient.options.bee-count-in-debug.tooltip": "Durch die Aktivierung wird die Bienenanzahl im Debug-Bildschirm (F3) hinzugefügt, wenn Bienenstöcke und Nester betrachtet werden",
+  "purpurclient.options.splash-screen": "Begrüßungsbildschirm",
+  "purpurclient.options.splash-screen.tooltip": "Durch die Aktivierung wird der Begrüßungsbildschirm von Purpur anstelle der von Mojang verwendet",
+  "purpurclient.options.window-title": "Fenster Titel",
+  "purpurclient.options.window-title.tooltip": "Beim Aktivieren wird der Fenstertitel von Purpur anstelle der von Mojang verwendet",
+  "purpurclient.options.mobs": "Mobs",
+  "purpurclient.options.mobs.tooltip": "Öffne den Mob Einstellungs Bildschrim",
+
+  "purpurclient.title.singleplayer": "%s im Einzelspieler",
+  "purpurclient.title.multiplayer.realms": "Mehrspieler (%s auf Realms)",
+  "purpurclient.title.multiplayer.lan": "Mehrspieler (%s im LAN)",
+  "purpurclient.title.multiplayer.server": "Mehrspieler (%s auf %s)",
+  "purpurclient.title.multiplayer.unknown": "Mehrspieler (%s on 3rd-party Server)",
+
+  "purpurclient.options.on": "%s: \u00a7aAN",
+  "purpurclient.options.off": "%s: \u00a7cAUS",
+
+  "purpurclient.options.no-preview": "Vorschau deaktiviert",
+  "purpurclient.options.not-implemented": "Noch nicht implementiert",
+
+  "purpurclient.options.seat.title": "Position für %s bearbeiten",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Passen Sie den Vorwärts-/Rückwärtsversatz an",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Passen Sie den Auf-/Ab-Versatz an",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Passen Sie den seitlichen Versatz an",
+
+  "purpurclient.options.mod-settings": "Mob Einstellungen"
+}
