@@ -5,15 +5,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.Vec3d;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.Seats;
-import org.purpurmc.purpur.client.mixin.accessor.AccessEntity;
 
 public interface RidableEntity {
     default void updatePassengerPosition(Entity passenger, Seat seat) {
         LivingEntity entity = (LivingEntity) this;
         if (entity.hasPassenger(passenger)) {
             Vec3d vec = seat.rotate(entity, passenger);
-            passenger.setPos(vec.x, vec.y, vec.z);
-            passenger.setBoundingBox(((AccessEntity) passenger).invokeCalculateBoundingBox());
+            passenger.setPosition(vec.x, vec.y, vec.z);
         }
     }
 
