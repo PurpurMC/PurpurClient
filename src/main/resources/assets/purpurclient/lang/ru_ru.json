@@ -1,0 +1,36 @@
+{
+  "purpurclient.options.title": "Настройки Purpur Client",
+
+  "purpurclient.options.fix-chat-stutter": "Асинхронный чат",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "При включении чат будет обрабатываться в другом потоке, чтобы не засорять основной поток рендеринга.",
+  "purpurclient.options.bee-count-in-debug": "Подсчет пчел",
+  "purpurclient.options.bee-count-in-debug.tooltip": "При включении на экране отладки (F3) добавится подсчет пчел во время просмотра ульев и гнезд пчел.",
+  "purpurclient.options.splash-screen": "Экран сплэшей",
+  "purpurclient.options.splash-screen.tooltip": "При включении обычный экран сплэшей будет изменен на экран сплэшей от Purpur",
+  "purpurclient.options.window-title": "Заголовок в главном меню",
+  "purpurclient.options.window-title.tooltip": "При включении обычный заголовок в главном меню будет изменен на заголовок от Purpur",
+  "purpurclient.options.mobs": "Мобы",
+  "purpurclient.options.mobs.tooltip": "Открыть настройки мобов",
+
+  "purpurclient.title.singleplayer": "%s в одиночной игре",
+  "purpurclient.title.multiplayer.realms": "Сетевая игра (%s на Realms)",
+  "purpurclient.title.multiplayer.lan": "Сетевая игра (%s на локальной сети)",
+  "purpurclient.title.multiplayer.server": "Сетевая игра (%s на %s)",
+  "purpurclient.title.multiplayer.unknown": "Сетевая игра (%s на стороннем сервере)",
+
+  "purpurclient.options.on": "%s: \u00a7aВключено",
+  "purpurclient.options.off": "%s: \u00a7cВыключено",
+
+  "purpurclient.options.no-preview": "Предварительный просмотр отключен",
+  "purpurclient.options.not-implemented": "Пока не реализовано",
+
+  "purpurclient.options.seat.title": "Отрегулируйте сиденье для %s",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Регулировка смещения вперед/назад",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Регулировка смещения вверх/вниз",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Отрегулируйте боковое смещение",
+
+  "purpurclient.options.mod-settings": "Настройки мобов"
+}
