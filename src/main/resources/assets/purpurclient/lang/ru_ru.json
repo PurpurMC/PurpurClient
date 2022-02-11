@@ -32,5 +32,5 @@
   "purpurclient.options.seat.z": "z: %s",
   "purpurclient.options.seat.z.tooltip": "Боковое смещение.",
 
-  "purpurclient.options.mod-settings": "Настройки мобов"
+  "purpurclient.options.mod-settings": "Настройки мода"
 }
