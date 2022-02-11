@@ -2,10 +2,24 @@
   "purpurclient.options.title": "Paramètres de Purpur Client",
 
   "purpurclient.options.fix-chat-stutter": "Correction du tchat saccadé",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "L'activera gérera le tchat sur un autre thread pour qu'il ne bloque pas le thread du rendu",
-  "purpurclient.options.bee-count-in-debug": "Débogage du nombre d'abeilles",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "L'activer traitera le chat sur un autre thread pour qu'il ne bloque pas le thread du rendu",
+  "purpurclient.options.bee-count-in-debug": "Nombres d'Abeilles",
   "purpurclient.options.bee-count-in-debug.tooltip": "L'activer ajoutera le nombre d'abeilles dans l'écran de débogage en regardant sur les ruches et les nids d'abeilles",
-
+  
+  "purpurclient.options.splash-screen": "Écran de démarrage",
+  "purpurclient.options.splash-screen.tooltip": "L'activer changera l'écran de démarrage de Mojang par celui de Purpur",
+  "purpurclient.options.window-title": "Window Title",
+  "purpurclient.options.window-title.tooltip": "L'activer changera le titre de la fenêtre de Mojang par celui de Purpur",
+  
+  "purpurclient.options.mobs": "Créatures",
+  "purpurclient.options.mobs.tooltip": "Ouvrir l'écran des options des créatures",
+  
+  "purpurclient.title.singleplayer": "%s en Solo",
+  "purpurclient.title.multiplayer.realms": "Multijoueur (%s sur Realms)",
+  "purpurclient.title.multiplayer.lan": "Multijoueur (%s sur LAN)",
+  "purpurclient.title.multiplayer.server": "Multijoueur (%s sur %s)",
+  "purpurclient.title.multiplayer.unknown": "Multijoueur (%s sur Serveurs Tiers)",
+  
   "purpurclient.options.no-preview": "Prévisualisation désactivée",
   "purpurclient.options.not-implemented": "Pas encore implémenté",
 
@@ -16,6 +30,6 @@
   "purpurclient.options.seat.y.tooltip": "Ajuster le décalage dessus/dessous",
   "purpurclient.options.seat.z": "z : %s",
   "purpurclient.options.seat.z.tooltip": "Ajuster le décalage côté par côté",
-
+  
   "purpurclient.options.mod-settings": "Paramètres des créatures"
 }
