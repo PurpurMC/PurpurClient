@@ -18,11 +18,11 @@
   "purpurclient.title.multiplayer.server": "Сетевая игра (%s на %s)",
   "purpurclient.title.multiplayer.unknown": "Сетевая игра (%s на стороннем сервере)",
 
-  "purpurclient.options.on": "%s: \u00a7aВключено",
-  "purpurclient.options.off": "%s: \u00a7cВыключено",
+  "purpurclient.options.on": "%s: \u00a7aВкл",
+  "purpurclient.options.off": "%s: \u00a7cВыкл",
 
   "purpurclient.options.no-preview": "Предварительный просмотр отключен",
-  "purpurclient.options.not-implemented": "Пока что не реализовано",
+  "purpurclient.options.not-implemented": "Пока-что не реализовано",
 
   "purpurclient.options.seat.title": "Регулировка сидения для %s",
   "purpurclient.options.seat.x": "x: %s",
