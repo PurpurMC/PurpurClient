@@ -1,0 +1,36 @@
+{
+  "purpurclient.options.title": "Purpur Client Opties",
+
+  "purpurclient.options.fix-chat-stutter": "Asynchrone Chat",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "Inschakelen zal chat op een andere thread verwerken zodat de render thread niet blokkeert",
+  "purpurclient.options.bee-count-in-debug": "Bijen Telling",
+  "purpurclient.options.bee-count-in-debug.tooltip": "Inschakelen voegt de hoeveelheid bijen toe aan het debugscherm (F3) bij het bekijken van bijenkorven en nesten",
+  "purpurclient.options.splash-screen": "Opstartscherm",
+  "purpurclient.options.splash-screen.tooltip": "Inschakelen zal het Purpur opstartscherm gebruiken in plaats van de originele Mojang versie",
+  "purpurclient.options.window-title": "Venstertitel",
+  "purpurclient.options.window-title.tooltip": "Inschakelen zal het Purpur venstertitel gebruiken in plaats van de originele Mojang titel",
+  "purpurclient.options.mobs": "Mobs",
+  "purpurclient.options.mobs.tooltip": "Opent het mob opties scherm",
+
+  "purpurclient.title.singleplayer": "%s in alleen spelen",
+  "purpurclient.title.multiplayer.realms": "Samen spelen (%s op Realms)",
+  "purpurclient.title.multiplayer.lan": "Samen spelen (%s in LAN)",
+  "purpurclient.title.multiplayer.server": "Samen spelen (%s op %s)",
+  "purpurclient.title.multiplayer.unknown": "Samen spelen (%s op 3e partij server)",
+
+  "purpurclient.options.on": "%s: \u00a7aAAN",
+  "purpurclient.options.off": "%s: \u00a7cUIT",
+
+  "purpurclient.options.no-preview": "Voorbeeld uitgeschakeld",
+  "purpurclient.options.not-implemented": "Nog niet geïmplementeerd",
+
+  "purpurclient.options.seat.title": "Verstel zitlocatie voor %s",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Pas voorwaartse/achterwaartse verplaatsing aan",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Pas omhoog/omlaag verplaatsing aan",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Pas zijwaartse verplaatsing aan",
+
+  "purpurclient.options.mod-settings": "Mob Instellingen"
+}
