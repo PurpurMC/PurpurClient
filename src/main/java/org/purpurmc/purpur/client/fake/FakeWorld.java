@@ -17,13 +17,13 @@ import net.minecraft.recipe.RecipeManager;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.TagManager;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
@@ -34,17 +34,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.OptionalLong;
 import java.util.function.Predicate;
 
 public class FakeWorld extends ClientWorld {
-    private static final DimensionType OVERWORLD = DimensionType.create(OptionalLong.empty(), true, false, false, true, 1.0, false, false, true, false, true, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD.getId(), DimensionType.OVERWORLD_ID, 0.0f);
-    private static final DynamicRegistryManager registryManager = DynamicRegistryManager.create();
+    private static final DynamicRegistryManager registryManager = DynamicRegistryManager.BUILTIN.get();
 
     private final Scoreboard scoreboard;
 
     public FakeWorld() {
-        super(null, null, null, OVERWORLD, 3, 3, MinecraftClient.getInstance()::getProfiler, MinecraftClient.getInstance().worldRenderer, false, 0);
+        super(null, null, null, registryManager.get(Registry.DIMENSION_TYPE_KEY).entryOf(DimensionType.OVERWORLD_REGISTRY_KEY), 3, 3, MinecraftClient.getInstance()::getProfiler, MinecraftClient.getInstance().worldRenderer, false, 0);
         this.scoreboard = new Scoreboard();
     }
 
@@ -186,11 +184,6 @@ public class FakeWorld extends ClientWorld {
     }
 
     @Override
-    public TagManager getTagManager() {
-        return null;
-    }
-
-    @Override
     protected EntityLookup<Entity> getEntityLookup() {
         return null;
     }
@@ -234,7 +227,7 @@ public class FakeWorld extends ClientWorld {
     }
 
     @Override
-    public Biome getGeneratorStoredBiome(int biomeX, int biomeY, int biomeZ) {
+    public RegistryEntry<Biome> getGeneratorStoredBiome(int biomeX, int biomeY, int biomeZ) {
         return null;
     }
 }

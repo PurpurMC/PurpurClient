@@ -309,8 +309,8 @@ public class MobScreen extends AbstractScreen {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
+    public void close() {
+        super.close();
         if (this.fakePlayer != null) {
             this.fakePlayer.stopRiding();
         }

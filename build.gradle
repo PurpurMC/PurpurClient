@@ -12,7 +12,14 @@ group = project.maven_group
 
 repositories {
     maven {
-        url "https://maven.terraformersmc.com/"
+        url = "https://maven.terraformersmc.com/"
+    }
+    maven {
+        url = "https://repo.stellardrift.ca/repository/snapshots/"
+        name = "stellardriftSnapshots"
+        mavenContent {
+            snapshotsOnly()
+        }
     }
 }
 
