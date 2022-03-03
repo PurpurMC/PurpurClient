@@ -1,0 +1,36 @@
+{
+  "purpurclient.options.title": "Налаштування Purpur Client",
+
+  "purpurclient.options.fix-chat-stutter": "Асинхронний чат",
+  "purpurclient.options.fix-chat-stutter.tooltip" : "При увімкнені чат буде опрацьовуватися в окремому потоці, щоб не навантажувати основний потік рендерінгу.",
+  "purpurclient.options.bee-count-in-debug": "Підрахування бджіл у вуликах",
+  "purpurclient.options.bee-count-in-debug.tooltip": "При увімкненні на екрані налагодження (F3) додасться підрахування бджіл під час перегляду вуликів.",
+  "purpurclient.options.splash-screen": "Екран завантаження",
+  "purpurclient.options.splash-screen.tooltip": "При увімкненні екран завантаження Mojang будет замінений варіантом Purpur.",
+  "purpurclient.options.window-title": "Название и иконка окна",
+  "purpurclient.options.window-title.tooltip": "При увімкненні назва та іконка вікна Mojang будуть замінені варіантами Purpur.",
+  "purpurclient.options.mobs": "Мобы",
+  "purpurclient.options.mobs.tooltip": "Відкрити екран налаштування мобів",
+
+  "purpurclient.title.singleplayer": "%s в одиночній грі",
+  "purpurclient.title.multiplayer.realms": "Мережева гра (%s на Realms)",
+  "purpurclient.title.multiplayer.lan": "Мережева игра (%s по локальній мережі)",
+  "purpurclient.title.multiplayer.server": "Мережева гра (%s на %s)",
+  "purpurclient.title.multiplayer.unknown": "Мережева гра (%s на сторонньому сервері)",
+
+  "purpurclient.options.on": "%s: \u00a7aВкл",
+  "purpurclient.options.off": "%s: \u00a7cВикл",
+
+  "purpurclient.options.no-preview": "попередній перегляд вимкнений",
+  "purpurclient.options.not-implemented": "Поки що не реалізовано",
+
+  "purpurclient.options.seat.title": "Регулювання сидіння для %s",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Зміщення вперед/назад.",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Зміщення уверх/вниз.",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Бокове зміщення.",
+
+  "purpurclient.options.mod-settings": "Налштування мода"
+}
