@@ -14,7 +14,7 @@
 
   "purpurclient.title.singleplayer": "%s in alleen spelen",
   "purpurclient.title.multiplayer.realms": "Samen spelen (%s op Realms)",
-  "purpurclient.title.multiplayer.lan": "Samen spelen (%s in LAN)",
+  "purpurclient.title.multiplayer.lan": "Samen spelen (%s op LAN)",
   "purpurclient.title.multiplayer.server": "Samen spelen (%s op %s)",
   "purpurclient.title.multiplayer.unknown": "Samen spelen (%s op 3e partij server)",
 
