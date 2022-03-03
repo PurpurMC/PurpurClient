@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Ustawienia Klienta Purpur",
 
   "purpurclient.options.fix-chat-stutter": "Naprawa zacinającego się czatu",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "Włączenie tej funkcji spowoduje, że czat będzie przetwarzany w innym wątku, dzięki czemu nie będzie zapychał wątku renderowania",
+  "purpurclient.options.fix-chat-stutter.tooltip": "Włączenie tej funkcji spowoduje, że czat będzie przetwarzany w innym wątku, dzięki czemu nie będzie zapychał wątku renderowania",
   "purpurclient.options.bee-count-in-debug": "Liczba pszczół w debugowaniu",
   "purpurclient.options.bee-count-in-debug.tooltip": "Włączenie spowoduje dodanie liczby pszczół na ekranie debugowania podczas przeglądania uli i gniazd pszczół",
   "purpurclient.options.splash-screen": "Splash Screen",

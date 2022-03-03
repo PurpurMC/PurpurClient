@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Purpur Client Options",
 
   "purpurclient.options.fix-chat-stutter": "Async Chat",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "Enabling will process chat on another thread so it doesn't clog up the render thread",
+  "purpurclient.options.fix-chat-stutter.tooltip": "Enabling will process chat on another thread so it doesn't clog up the render thread",
   "purpurclient.options.bee-count-in-debug": "Bee Counts",
   "purpurclient.options.bee-count-in-debug.tooltip": "Enabling will add bee counts in the debug screen (F3) when looking at bee hives and nests",
   "purpurclient.options.splash-screen": "Splash Screen",

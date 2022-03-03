@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Purpur Client Einstellungen",
 
   "purpurclient.options.fix-chat-stutter": "Asynchroner Chat",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "Wenn aktiv wird der Chat in einem anderen Thread verarbeitet, sodass der Render-Thread nicht überladen wird",
+  "purpurclient.options.fix-chat-stutter.tooltip": "Wenn aktiv wird der Chat in einem anderen Thread verarbeitet, sodass der Render-Thread nicht überladen wird",
   "purpurclient.options.bee-count-in-debug": "Bienen Anzahl",
   "purpurclient.options.bee-count-in-debug.tooltip": "Wenn aktiv wird die Bienenanzahl von Bienenstöcke bzw. Bienennestern im Debug-Bildschirm (F3) angezeigt, wenn diese angeschaut werden",
   "purpurclient.options.splash-screen": "Begrüßungsbildschirm",

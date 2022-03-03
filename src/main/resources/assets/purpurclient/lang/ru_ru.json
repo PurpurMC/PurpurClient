@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Настройки Purpur Client",
 
   "purpurclient.options.fix-chat-stutter": "Асинхронный чат",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "При включении чат будет обрабатываться в отдельном потоке, чтобы не нагружать основной поток рендеринга.",
+  "purpurclient.options.fix-chat-stutter.tooltip": "При включении чат будет обрабатываться в отдельном потоке, чтобы не нагружать основной поток рендеринга.",
   "purpurclient.options.bee-count-in-debug": "Подсчет пчёл в ульях",
   "purpurclient.options.bee-count-in-debug.tooltip": "При включении на экране отладки (F3) добавится подсчет пчел во время просмотра ульев.",
   "purpurclient.options.splash-screen": "Загрузочный экран",

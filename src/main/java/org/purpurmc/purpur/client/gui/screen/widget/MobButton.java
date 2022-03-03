@@ -28,26 +28,26 @@ public class MobButton extends ButtonWidget {
         RenderSystem.setShaderTexture(0, MOBS_TEXTURE);
         RenderSystem.enableDepthTest();
         drawTexture(
-                matrices,
-                this.x,
-                this.y,
-                this.width * 15,
-                this.height * 14 + (this.isHovered() ? this.height : 0),
-                this.width,
-                this.height,
-                this.width * 16,
-                this.height * 16
+            matrices,
+            this.x,
+            this.y,
+            this.width * 15,
+            this.height * 14 + (this.isHovered() ? this.height : 0),
+            this.width,
+            this.height,
+            this.width * 16,
+            this.height * 16
         );
         drawTexture(
-                matrices,
-                this.x,
-                this.y,
-                this.mob.getU() * this.width,
-                this.mob.getV() * this.height,
-                this.width,
-                this.height,
-                this.width * 16,
-                this.height * 16
+            matrices,
+            this.x,
+            this.y,
+            this.mob.getU() * this.width,
+            this.mob.getV() * this.height,
+            this.width,
+            this.height,
+            this.width * 16,
+            this.height * 16
         );
         if (this.hovered) {
             this.renderTooltip(matrices, mouseX, mouseY);

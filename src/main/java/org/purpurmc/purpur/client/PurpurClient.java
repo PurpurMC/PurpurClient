@@ -76,8 +76,8 @@ public class PurpurClient implements ClientModInitializer {
             try {
                 DefaultResourcePack pack = client.getResourcePackProvider().getPack();
                 window.setIcon(
-                        pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_16x16.png")),
-                        pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_32x32.png")));
+                    pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_16x16.png")),
+                    pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_32x32.png")));
             } catch (IOException ignore) {
             }
         }

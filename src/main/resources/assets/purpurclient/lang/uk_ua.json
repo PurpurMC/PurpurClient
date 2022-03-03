@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Налаштування Purpur Client",
 
   "purpurclient.options.fix-chat-stutter": "Асинхронний чат",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "При увімкнені чат буде опрацьовуватися в окремому потоці, щоб не навантажувати основний потік рендерінгу.",
+  "purpurclient.options.fix-chat-stutter.tooltip": "При увімкнені чат буде опрацьовуватися в окремому потоці, щоб не навантажувати основний потік рендерінгу.",
   "purpurclient.options.bee-count-in-debug": "Підрахування бджіл у вуликах",
   "purpurclient.options.bee-count-in-debug.tooltip": "При увімкненні на екрані налагодження (F3) додасться підрахування бджіл під час перегляду вуликів.",
   "purpurclient.options.splash-screen": "Екран завантаження",

@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Opciones del cliente de Purpur",
 
   "purpurclient.options.fix-chat-stutter": "Solucionar el tartamudeo del chat",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "Habilitar esto hará que el chat sea procesado en otro hilo para que no obstruya el hilo de render",
+  "purpurclient.options.fix-chat-stutter.tooltip": "Habilitar esto hará que el chat sea procesado en otro hilo para que no obstruya el hilo de render",
   "purpurclient.options.bee-count-in-debug": "Conteo de Abejas en la depuración",
   "purpurclient.options.bee-count-in-debug.tooltip": "Habilitar esto agregará conteos de abejas en la pantalla de depuración al mirar colmenas y nidos de abejas",
 

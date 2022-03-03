@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Paramètres de Purpur Client",
 
   "purpurclient.options.fix-chat-stutter": "Chat Asynchrone",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "L'activer traitera le chat sur un autre thread pour qu'il ne bloque pas le thread du rendu",
+  "purpurclient.options.fix-chat-stutter.tooltip": "L'activer traitera le chat sur un autre thread pour qu'il ne bloque pas le thread du rendu",
   "purpurclient.options.bee-count-in-debug": "Nombres d'Abeilles",
   "purpurclient.options.bee-count-in-debug.tooltip": "L'activer ajoutera le nombre d'abeilles dans l'écran de débogage (F3) en regardant les ruches et les nids d'abeilles",
   "purpurclient.options.splash-screen": "Écran de démarrage",

@@ -2,7 +2,7 @@
   "purpurclient.options.title": "Purpur Client Opties",
 
   "purpurclient.options.fix-chat-stutter": "Asynchrone Chat",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "Inschakelen zal chat op een andere thread verwerken zodat de render thread niet blokkeert",
+  "purpurclient.options.fix-chat-stutter.tooltip": "Inschakelen zal chat op een andere thread verwerken zodat de render thread niet blokkeert",
   "purpurclient.options.bee-count-in-debug": "Bijen Telling",
   "purpurclient.options.bee-count-in-debug.tooltip": "Inschakelen voegt de hoeveelheid bijen toe aan het debugscherm (F3) bij het bekijken van bijenkorven en nesten",
   "purpurclient.options.splash-screen": "Opstartscherm",

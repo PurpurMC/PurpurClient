@@ -2,7 +2,7 @@
   "purpurclient.options.title": "퍼퍼 클라이언트 설정",
 
   "purpurclient.options.fix-chat-stutter": "채팅 렉 해결",
-  "purpurclient.options.fix-chat-stutter.tooltip" : "활성화하면 렌더 스레드가 멈추지 않도록 다른 스레드에서 채팅을 처리합니다.",
+  "purpurclient.options.fix-chat-stutter.tooltip": "활성화하면 렌더 스레드가 멈추지 않도록 다른 스레드에서 채팅을 처리합니다.",
   "purpurclient.options.bee-count-in-debug": "디버그 화면에서 꿀벌 수 보기",
   "purpurclient.options.bee-count-in-debug.tooltip": "활성화하면 벌집 또는 벌통을 보고 있을 때 벌 수를 표시합니다.",
 

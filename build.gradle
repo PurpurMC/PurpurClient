@@ -1,13 +1,15 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'com.modrinth.minotaur' version '1.2.1'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version + "-" + (System.getenv("BUILD_NUMBER") ?: "SNAPSHOT")
+project.build_num = System.getenv("GITHUB_RUN_NUMBER") ?: "SNAPSHOT"
+version = project.minecraft_version + "-" + project.build_num
 group = project.maven_group
 
 repositories {
@@ -55,10 +57,16 @@ loom {
     mixin.defaultRefmapName = "purpurclient.refmap.json"
 }
 
-loom {
-    runs {
-        client {
-            programArgs "--username", "BillyGalbreath"
-        }
-    }
+import com.modrinth.minotaur.TaskModrinthUpload
+
+task modrinth(type: TaskModrinthUpload) {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "AFirzqTJ"
+    versionName = project.minecraft_version + " build " + project.build_num
+    versionNumber = project.version
+    uploadFile = remapJar
+    addGameVersion(project.minecraft_version)
+    addLoader('fabric')
+    dependencies = []
+    changelog = System.getenv("COMMIT_MESSAGE")
 }

@@ -13,8 +13,8 @@ public class ConfigManager {
 
     private static HoconConfigurationLoader loader(final Path path) {
         return HoconConfigurationLoader.builder()
-                .path(path)
-                .build();
+            .path(path)
+            .build();
     }
 
     public Config getConfig() {
