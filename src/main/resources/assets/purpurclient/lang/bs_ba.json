@@ -1,0 +1,36 @@
+{
+  "purpurclient.options.title": "Purpur Client opcije",
+
+  "purpurclient.options.fix-chat-stutter": "Asinhroni chat",
+  "purpurclient.options.fix-chat-stutter.tooltip": "Procesiraj chat na drugom thread-u kako bi se spriječilo opterećenje render thread-a",
+  "purpurclient.options.bee-count-in-debug": "Broj pčela",
+  "purpurclient.options.bee-count-in-debug.tooltip": "Prikaži broj pčela u debug (F3) ekranu kada se nacilja košnica",
+  "purpurclient.options.splash-screen": "Početni ekran",
+  "purpurclient.options.splash-screen.tooltip": "Koristi Purpurov početni ekran umjesto Mojangovog",
+  "purpurclient.options.window-title": "Naslov prozora",
+  "purpurclient.options.window-title.tooltip": "Koristi Purpurov naslov prozora umjesto Mojangovog",
+  "purpurclient.options.mobs": "Mobovi",
+  "purpurclient.options.mobs.tooltip": "Otvori mob opcije",
+
+  "purpurclient.title.singleplayer": "%s u Samostalnoj igri",
+  "purpurclient.title.multiplayer.realms": "Mrežna igra (%s na Realms)",
+  "purpurclient.title.multiplayer.lan": "Mrežna igra (%s na LAN)",
+  "purpurclient.title.multiplayer.server": "Mrežna igra (%s na %s)",
+  "purpurclient.title.multiplayer.unknown": "Mrežna igra (%s na serveru treće strane)",
+
+  "purpurclient.options.on": "%s: \u00a7aUKLJUČENO",
+  "purpurclient.options.off": "%s: \u00a7cISKLJUČENO",
+
+  "purpurclient.options.no-preview": "Pregled je onemogućen",
+  "purpurclient.options.not-implemented": "Još nije napravljeno",
+
+  "purpurclient.options.seat.title": "Namjesti sjedište za %s",
+  "purpurclient.options.seat.x": "x: %s",
+  "purpurclient.options.seat.x.tooltip": "Podesite pomak naprijed/nazad",
+  "purpurclient.options.seat.y": "y: %s",
+  "purpurclient.options.seat.y.tooltip": "Podesite pomak gore/dolje",
+  "purpurclient.options.seat.z": "z: %s",
+  "purpurclient.options.seat.z.tooltip": "Podesite pomak sa strane na stranu",
+
+  "purpurclient.options.mod-settings": "Mob postavke"
+}
