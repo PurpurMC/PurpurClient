@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "purpurclient.refmap.json",
   "mixins": [
+    "GameTestDebugRendererMixin",
     "MixinDebugHud",
     "MixinInGameHud",
     "MixinItemEntity",
