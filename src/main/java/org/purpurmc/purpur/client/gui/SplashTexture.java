@@ -18,8 +18,8 @@ public class SplashTexture extends ResourceTexture {
     }
 
     @Override
-    protected ResourceTexture.TextureData loadTextureData(ResourceManager resourceManager) {
-        ResourceTexture.TextureData data;
+    protected TextureData loadTextureData(ResourceManager resourceManager) {
+        TextureData data;
         try (InputStream in = PurpurClient.class.getResourceAsStream("/assets/purpurclient/textures/splash.png")) {
             data = new TextureData(new TextureResourceMetadata(true, true), NativeImage.read(in));
         } catch (IOException e) {

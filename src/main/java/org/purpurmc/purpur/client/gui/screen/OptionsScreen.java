@@ -1,7 +1,7 @@
 package org.purpurmc.purpur.client.gui.screen;
 
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.Config;
 import org.purpurmc.purpur.client.config.options.BooleanOption;
@@ -11,7 +11,7 @@ import org.purpurmc.purpur.client.gui.screen.widget.BooleanButton;
 import java.util.ArrayList;
 
 public class OptionsScreen extends AbstractScreen {
-    public final static TranslatableText MOBS_BTN = new TranslatableText("purpurclient.options.mobs");
+    public final static TranslatableTextContent MOBS_BTN = new TranslatableTextContent("purpurclient.options.mobs");
 
     public OptionsScreen(Screen parent) {
         super(parent);

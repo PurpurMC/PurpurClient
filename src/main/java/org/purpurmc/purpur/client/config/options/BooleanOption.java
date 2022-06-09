@@ -3,7 +3,6 @@ package org.purpurmc.purpur.client.config.options;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 import java.util.List;
 
@@ -18,9 +17,9 @@ public class BooleanOption implements Option<Boolean> {
 
     public BooleanOption(String key, Getter getter, Setter setter) {
         this.key = "purpurclient.options." + key;
-        this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(new TranslatableText(this.key + ".tooltip"), 170);
-        this.on = new TranslatableText("purpurclient.options.on", new TranslatableText(this.key));
-        this.off = new TranslatableText("purpurclient.options.off", new TranslatableText(this.key));
+        this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(Text.translatable(this.key + ".tooltip"), 170);
+        this.on = Text.translatable("purpurclient.options.on", Text.translatable(this.key));
+        this.off = Text.translatable("purpurclient.options.off", Text.translatable(this.key));
         this.getter = getter;
         this.setter = setter;
     }

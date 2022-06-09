@@ -7,6 +7,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 @ConfigSerializable
 @SuppressWarnings("CanBeFinal")
 public class Seats {
+    public Seat allay = new Seat(0.0D, 0.0D, 0.0D);
     public Seat axolotl = new Seat(-0.25D, 0.4D, 0.0D);
     public Seat bat = new Seat(-0.25D, 0.5D, 0.0D);
     public Seat bee = new Seat(-0.1D, 0.6D, 0.0D);
@@ -26,6 +27,7 @@ public class Seats {
     public Seat endermite = new Seat(-0.05D, 0.16D, 0.0D);
     public Seat evoker = new Seat(-0.12D, 0.91D, 0.0D);
     public Seat fox = new Seat(-0.25D, 0.6D, 0.0D);
+    public Seat frog = new Seat(0.0D, 0.0D, 0.0D);
     public Seat ghast = new Seat(0.0D, 0.96D, 0.0D);
     public Seat giant = new Seat(0.0D, 0.98D, 0.0D);
     public Seat glowSquid = new Seat(0.0D, 0.75D, 0.0D);
@@ -64,6 +66,7 @@ public class Seats {
     public Seat squid = new Seat(0.0D, 0.75D, 0.0D);
     public Seat stray = new Seat(-0.13D, 0.9D, 0.0D);
     public Seat strider = new Seat(-0.2D, 0.91D, 0.0D);
+    public Seat tadpole = new Seat(0.0D, 0.0D, 0.0D);
     public Seat traderLlama = new Seat(-0.17D, 0.63D, 0.0D);
     public Seat tropicalFish = new Seat(-0.1D, 0.1D, 0.0D);
     public Seat turtle = new Seat(-0.25D, 0.9D, 0.0D);
@@ -71,6 +74,7 @@ public class Seats {
     public Seat villager = new Seat(-0.13D, 0.92D, 0.0D);
     public Seat vindicator = new Seat(-0.13D, 0.92D, 0.0D);
     public Seat wanderingTrader = new Seat(-0.13D, 0.91D, 0.0D);
+    public Seat warden = new Seat(0.0D, 0.0D, 0.0D);
     public Seat witch = new Seat(-0.13D, 0.92D, 0.0D);
     public Seat wither = new Seat(-0.1D, 0.94D, 0.0D);
     public Seat witherSkeleton = new Seat(-0.17D, 0.92D, 0.0D);
@@ -83,6 +87,7 @@ public class Seats {
 
     public Seat getSeat(Mob mob) {
         return switch (mob) {
+            case ALLAY -> this.allay;
             case AXOLOTL -> this.axolotl;
             case BAT -> this.bat;
             case BEE -> this.bee;
@@ -102,6 +107,7 @@ public class Seats {
             case ENDERMITE -> this.endermite;
             case EVOKER -> this.evoker;
             case FOX -> this.fox;
+            case FROG -> this.frog;
             case GHAST -> this.ghast;
             case GIANT -> this.giant;
             case GLOW_SQUID -> this.glowSquid;
@@ -140,6 +146,7 @@ public class Seats {
             case SQUID -> this.squid;
             case STRAY -> this.stray;
             case STRIDER -> this.strider;
+            case TADPOLE -> this.tadpole;
             case TRADER_LLAMA -> this.traderLlama;
             case TROPICAL_FISH -> this.tropicalFish;
             case TURTLE -> this.turtle;
@@ -147,6 +154,7 @@ public class Seats {
             case VILLAGER -> this.villager;
             case VINDICATOR -> this.vindicator;
             case WANDERING_TRADER -> this.wanderingTrader;
+            case WARDEN -> this.warden;
             case WITCH -> this.witch;
             case WITHER -> this.wither;
             case WITHER_SKELETON -> this.witherSkeleton;
