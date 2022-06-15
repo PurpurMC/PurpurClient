@@ -4,7 +4,7 @@ import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
@@ -19,7 +19,7 @@ public abstract class AbstractScreen extends Screen {
     protected int centerX;
 
     public AbstractScreen(Screen parent) {
-        super(new TranslatableText("purpurclient.options.title"));
+        super(Text.translatable("purpurclient.options.title"));
         this.parent = parent;
     }
 

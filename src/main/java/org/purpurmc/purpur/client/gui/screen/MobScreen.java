@@ -14,17 +14,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
-import net.minecraft.entity.mob.AbstractPiglinEntity;
-import net.minecraft.entity.mob.GhastEntity;
-import net.minecraft.entity.mob.GiantEntity;
-import net.minecraft.entity.mob.HoglinEntity;
-import net.minecraft.entity.mob.MagmaCubeEntity;
-import net.minecraft.entity.mob.SlimeEntity;
-import net.minecraft.entity.mob.WaterCreatureEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.StriderEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
 import org.purpurmc.purpur.client.PurpurClient;
@@ -34,11 +27,7 @@ import org.purpurmc.purpur.client.entity.Seat;
 import org.purpurmc.purpur.client.fake.FakePlayer;
 import org.purpurmc.purpur.client.fake.FakeWorld;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
-import org.purpurmc.purpur.client.mixin.accessor.AccessAbstractPiglin;
-import org.purpurmc.purpur.client.mixin.accessor.AccessEntity;
-import org.purpurmc.purpur.client.mixin.accessor.AccessHoglin;
-import org.purpurmc.purpur.client.mixin.accessor.AccessMagmaCube;
-import org.purpurmc.purpur.client.mixin.accessor.AccessSlime;
+import org.purpurmc.purpur.client.mixin.accessor.*;
 
 import java.util.ArrayList;
 
@@ -60,13 +49,13 @@ public class MobScreen extends AbstractScreen {
     private float previewZoom = 60;
     private float previewZoomMultiplier = 1.0F;
 
-    private final Text noPreview = new TranslatableText("purpurclient.options.no-preview");
-    private final Text notImplemented = new TranslatableText("purpurclient.options.not-implemented");
+    private final Text noPreview = Text.translatable("purpurclient.options.no-preview");
+    private final Text notImplemented = Text.translatable("purpurclient.options.not-implemented");
 
     public MobScreen(Screen parent, Mob mob) {
         super(parent);
         this.mob = mob;
-        this.subtitle = new TranslatableText("purpurclient.options.seat.title", mob.getType().getName());
+        this.subtitle = Text.translatable("purpurclient.options.seat.title", mob.getType().getName());
     }
 
     @Override
@@ -192,6 +181,7 @@ public class MobScreen extends AbstractScreen {
         renderer.setRenderShadows(false);
         VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
+        //noinspection deprecation
         RenderSystem.runAsFancy(() -> {
             fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0));
             renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);

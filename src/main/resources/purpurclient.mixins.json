@@ -7,7 +7,6 @@
   "mixins": [
     "GameTestDebugRendererMixin",
     "MixinDebugHud",
-    "MixinInGameHud",
     "MixinItemEntity",
     "MixinMinecraftClient",
     "MixinSplashOverlay",
