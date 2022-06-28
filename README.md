@@ -40,6 +40,8 @@ Note: PurpurClient adds a fancy animated splash screen on game startup alongside
 Join us on [Discord](https://purpurmc.org/discord)
 
 ## Downloads
+[![Downloads](https://img.shields.io/modrinth/dt/PurpurClient?label=Downloads)](https://modrinth.com/mod/purpurclient/versions)
+
 Downloads can be obtained from our page on [Modrinth](https://modrinth.com/mod/purpurclient/versions).
 
 ## License
