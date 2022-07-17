@@ -25,6 +25,7 @@ import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.entity.EntityLookup;
@@ -42,7 +43,7 @@ public class FakeWorld extends ClientWorld {
     private final Scoreboard scoreboard;
 
     public FakeWorld() {
-        super(null, null, null, registryManager.get(Registry.DIMENSION_TYPE_KEY).entryOf(DimensionType.OVERWORLD_REGISTRY_KEY), 3, 3, MinecraftClient.getInstance()::getProfiler, MinecraftClient.getInstance().worldRenderer, false, 0);
+        super(null, null, null, MinecraftClient.getInstance().world.getDimensionEntry(), 3, 3, MinecraftClient.getInstance()::getProfiler, MinecraftClient.getInstance().worldRenderer, false, 0);
         this.scoreboard = new Scoreboard();
     }
 

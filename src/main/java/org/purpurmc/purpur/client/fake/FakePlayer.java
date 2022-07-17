@@ -5,7 +5,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 
 public class FakePlayer extends AbstractClientPlayerEntity {
     public FakePlayer(FakeWorld world, ClientPlayerEntity player) {
-        super(world, player.getGameProfile());
+        super(world, player.getGameProfile(), null);
     }
 
     @Override

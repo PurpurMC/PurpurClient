@@ -3,7 +3,6 @@ package org.purpurmc.purpur.client.config.options;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class DoubleOption implements Option<Double> {
 
     public DoubleOption(String key, Getter getter, Setter setter) {
         this.key = "purpurclient.options." + key;
-        this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(new TranslatableText(this.key + ".tooltip"), 170);
+        this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(Text.translatable(this.key + ".tooltip"), 170);
         this.getter = getter;
         this.setter = setter;
 
@@ -48,7 +47,7 @@ public class DoubleOption implements Option<Double> {
     @Override
     public void set(Double value) {
         this.setter.set(Math.round(value * 100.0) / 100.0);
-        this.text = new TranslatableText(this.key, String.format("%.2f", get()));
+        this.text = Text.translatable(this.key, String.format("%.2f", get()));
     }
 
     @FunctionalInterface
