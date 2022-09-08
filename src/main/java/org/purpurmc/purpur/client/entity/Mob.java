@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
 
 public enum Mob {
+    ALLAY(EntityType.ALLAY, 9, 4),
     AXOLOTL(EntityType.AXOLOTL, 0, 0),
     BAT(EntityType.BAT, 1, 0),
     BEE(EntityType.BEE, 2, 0),
@@ -23,6 +24,7 @@ public enum Mob {
     ENDERMITE(EntityType.ENDERMITE, 0, 1),
     EVOKER(EntityType.EVOKER, 1, 1),
     FOX(EntityType.FOX, 2, 1),
+    FROG(EntityType.FROG, 10, 4),
     GHAST(EntityType.GHAST, 3, 1),
     GIANT(EntityType.GIANT, 4, 1),
     GLOW_SQUID(EntityType.GLOW_SQUID, 5, 1),
@@ -61,6 +63,7 @@ public enum Mob {
     SQUID(EntityType.SQUID, 6, 3),
     STRAY(EntityType.STRAY, 7, 3),
     STRIDER(EntityType.STRIDER, 8, 3),
+    TADPOLE(EntityType.TADPOLE, 11, 4),
     TRADER_LLAMA(EntityType.TRADER_LLAMA, 9, 3),
     TROPICAL_FISH(EntityType.TROPICAL_FISH, 10, 3),
     TURTLE(EntityType.TURTLE, 11, 3),
@@ -68,6 +71,7 @@ public enum Mob {
     VILLAGER(EntityType.VILLAGER, 13, 3),
     VINDICATOR(EntityType.VINDICATOR, 14, 3),
     WANDERING_TRADER(EntityType.WANDERING_TRADER, 15, 3),
+    WARDEN(EntityType.WARDEN, 12, 4),
     WITCH(EntityType.WITCH, 0, 4),
     WITHER(EntityType.WITHER, 1, 4),
     WITHER_SKELETON(EntityType.WITHER_SKELETON, 2, 4),

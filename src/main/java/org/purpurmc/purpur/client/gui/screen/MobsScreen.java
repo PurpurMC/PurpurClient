@@ -1,11 +1,14 @@
 package org.purpurmc.purpur.client.gui.screen;
 
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.recipebook.SmokerRecipeBookScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.gui.screen.widget.MobButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class MobsScreen extends AbstractScreen {
     public MobsScreen(Screen parent) {

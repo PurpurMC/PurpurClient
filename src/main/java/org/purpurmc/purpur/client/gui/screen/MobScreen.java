@@ -114,6 +114,9 @@ public class MobScreen extends AbstractScreen {
         } else if (this.fakeEntity instanceof GiantEntity) {
             // giant is huge, reduce the zoom
             this.previewZoomMultiplier /= 5F;
+        } else if (this.fakeEntity instanceof WardenEntity) {
+            // warden is huge, reduce the zoom
+            this.previewZoomMultiplier /= 1.5F;
         } else if (this.fakeEntity instanceof WitherEntity) {
             // wither is huge, reduce the zoom
             this.previewZoomMultiplier /= 1.5F;
