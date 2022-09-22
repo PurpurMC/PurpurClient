@@ -22,7 +22,8 @@ public class MixinMinecraftClient {
 
     @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
     private void getWindowTitle(CallbackInfoReturnable<String> cir) {
-        if (!PurpurClient.instance().getConfig().useWindowTitle) {
+        PurpurClient purpur = PurpurClient.instance();
+        if (purpur == null || !purpur.getConfig().useWindowTitle) {
             return;
         }
         MinecraftClient client = MinecraftClient.getInstance();
