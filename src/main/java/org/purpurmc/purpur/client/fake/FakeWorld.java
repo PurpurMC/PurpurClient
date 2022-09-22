@@ -22,12 +22,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.entity.EntityLookup;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.QueryableTickScheduler;
@@ -201,7 +198,7 @@ public class FakeWorld extends ClientWorld {
 
     @Override
     public ClientChunkManager getChunkManager() {
-        return null;
+        return super.getChunkManager();
     }
 
     @Override
