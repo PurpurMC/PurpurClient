@@ -1,0 +1,36 @@
+{
+    "purpurclient.options.title": "पुरपुर ग्राहक विकल्प",
+
+    "purpurclient.options.fix-chat-stutter":  "अतुल्यकालिक चैट",
+    "purpurclient.options.fix-chat-stutter.tooltip": "सक्षम करने से चैट दूसरे थ्रेड पर प्रोसेस हो जाएगी ताकि यह रेंडर थ्रेड को बंद न करे",
+    "purpurclient.options.bee-count-in-debug": "मधुमक्खी की गिनती",
+    "purpurclient.options.bee-count-in-debug.tooltip": "मधुमक्खी के छत्ते और घोंसलों को देखते समय सक्षम करने से डिबग स्क्रीन (F3) में मधुमक्खियों की संख्या जुड़ जाएगी",
+    "purpurclient.options.splash-screen": "स्प्लैश स्क्रीन",
+    "purpurclient.options.splash-screen.tooltip": "सक्षम करने से Mojang's . के बजाय पुरपुर की स्प्लैश स्क्रीन का उपयोग किया जाएगा",
+    "purpurclient.options.window-title": "विंडो शीर्षक",
+    "purpurclient.options.window-title.tooltip": "सक्षम करने से Mojang के विंडो शीर्षक के बजाय पुरपुर के विंडो शीर्षक का उपयोग किया जाएगा",
+    "purpurclient.options.mobs": "मोब्स",
+    "purpurclient.options.mobs.tooltip": "मोब्स विकल्प स्क्रीन खोलें",
+  
+    "purpurclient.title.singleplayer": "सिंगलप्लेयर पर %s",
+    "purpurclient.title.multiplayer.realms": "मल्टीप्लेयर (%s रेलमस पर )",
+    "purpurclient.title.multiplayer.lan": "मल्टीप्लेयर (%s लैन पर )",
+    "purpurclient.title.multiplayer.server": "मल्टीप्लेयर (%s पर %s)",
+    "purpurclient.title.multiplayer.unknown": "मल्टीप्लेयर (%s पर 3rd-party सर्वर)",
+
+    "purpurclient.options.on": "%s: \u00a7aचालू",
+    "purpurclient.options.off": "%s: \u00a7cबंद",
+  
+    "purpurclient.options.no-preview": "पूर्वावलोकन अक्षम",
+    "purpurclient.options.not-implemented": "अभी तक लागू नहीं किया गया",
+  
+    "purpurclient.options.seat.title": "%s के लिए सीट समायोजित करें",
+    "purpurclient.options.seat.x": "x: %s",
+    "purpurclient.options.seat.x.tooltip": "आगे / पीछे ऑफसेट समायोजित करें",
+    "purpurclient.options.seat.y": "y: %s",
+    "purpurclient.options.seat.y.tooltip": "ऊपर/नीचे ऑफसेट समायोजित करें",
+    "purpurclient.options.seat.z": "z: %s",
+    "purpurclient.options.seat.z.tooltip": "अगल-बगल ऑफ़सेट समायोजित करें",
+  
+    "purpurclient.options.mod-settings": "मोब सेटिंग्स"
+}
