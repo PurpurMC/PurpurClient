@@ -14,20 +14,30 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
-import net.minecraft.entity.mob.*;
+import net.minecraft.entity.mob.AbstractPiglinEntity;
+import net.minecraft.entity.mob.GhastEntity;
+import net.minecraft.entity.mob.GiantEntity;
+import net.minecraft.entity.mob.HoglinEntity;
+import net.minecraft.entity.mob.MagmaCubeEntity;
+import net.minecraft.entity.mob.SlimeEntity;
+import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.StriderEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
+import org.joml.Quaternionf;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.options.DoubleOption;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.entity.Seat;
 import org.purpurmc.purpur.client.fake.FakePlayer;
-import org.purpurmc.purpur.client.fake.FakeWorld;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
-import org.purpurmc.purpur.client.mixin.accessor.*;
+import org.purpurmc.purpur.client.mixin.accessor.AccessAbstractPiglin;
+import org.purpurmc.purpur.client.mixin.accessor.AccessEntity;
+import org.purpurmc.purpur.client.mixin.accessor.AccessHoglin;
+import org.purpurmc.purpur.client.mixin.accessor.AccessMagmaCube;
+import org.purpurmc.purpur.client.mixin.accessor.AccessSlime;
 
 import java.util.ArrayList;
 
@@ -85,10 +95,8 @@ public class MobScreen extends AbstractScreen {
             return;
         }
 
-        FakeWorld fakeWorld = new FakeWorld();
-
-        this.fakePlayer = new FakePlayer(fakeWorld, this.client.player);
-        this.fakeEntity = this.mob.getType().create(fakeWorld);
+        this.fakePlayer = new FakePlayer(this.client.world, this.client.player);
+        this.fakeEntity = this.mob.getType().create(this.client.world);
         if (this.fakeEntity == null) {
             // we need an entity to ride
             this.fakePlayer = null;
@@ -134,7 +142,7 @@ public class MobScreen extends AbstractScreen {
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
         renderBackground(matrixStack);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, HandledScreen.BACKGROUND_TEXTURE);
 
@@ -170,11 +178,11 @@ public class MobScreen extends AbstractScreen {
         float zoom = this.previewZoom * this.previewZoomMultiplier;
         matrixStack2.scale(zoom, zoom, zoom);
 
-        Quaternion quaternion = Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
-        Quaternion quaternion2 = Vec3f.POSITIVE_X.getDegreesQuaternion(this.previewPitch);
-        Quaternion quaternion3 = Vec3f.POSITIVE_Y.getDegreesQuaternion(-this.previewYaw);
-        quaternion2.hamiltonProduct(quaternion3);
-        quaternion.hamiltonProduct(quaternion2);
+        Quaternionf quaternion = RotationAxis.POSITIVE_Z.rotationDegrees(180.0F);
+        Quaternionf quaternion2 = RotationAxis.POSITIVE_X.rotationDegrees(this.previewPitch);
+        Quaternionf quaternion3 = RotationAxis.POSITIVE_Y.rotationDegrees(-this.previewYaw);
+        quaternion2.mul(quaternion3);
+        quaternion.mul(quaternion2);
         quaternion2.conjugate();
         matrixStack2.multiply(quaternion);
 
@@ -202,7 +210,7 @@ public class MobScreen extends AbstractScreen {
         if (entity instanceof EnderDragonEntity) {
             // dragon model is backwards, flip it
             matrixStack.push();
-            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-180.0F));
+            matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-180.0F));
             runnable.run();
             matrixStack.pop();
         } else {

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -34,9 +33,9 @@ public class DoubleButton extends ClickableWidget implements Tickable {
     @Override
     public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
         if (this.isHovered()) {
-            if (mouseX >= this.x && mouseX < this.x + this.height) {
+            if (mouseX >= this.getX() && mouseX < this.getX() + this.height) {
                 this.btn = Btn.MINUS;
-            } else if (mouseX >= this.x + this.width - this.height && mouseX < this.x + this.width) {
+            } else if (mouseX >= this.getX() + this.width - this.height && mouseX < this.getX() + this.width) {
                 this.btn = Btn.PLUS;
             } else {
                 onRelease(0, 0);
@@ -45,10 +44,10 @@ public class DoubleButton extends ClickableWidget implements Tickable {
             onRelease(0, 0);
         }
 
-        drawButton(matrixStack, MINUS, this.x, this.getYImage(this.btn == Btn.MINUS || this.selected == Btn.MINUS));
-        drawButton(matrixStack, PLUS, this.x + this.width - this.height, this.getYImage(this.btn == Btn.PLUS || this.selected == Btn.PLUS));
+        drawButton(matrixStack, MINUS, this.getX(), this.getYImage(this.btn == Btn.MINUS || this.selected == Btn.MINUS));
+        drawButton(matrixStack, PLUS, this.getX() + this.width - this.height, this.getYImage(this.btn == Btn.PLUS || this.selected == Btn.PLUS));
 
-        ClickableWidget.drawCenteredText(matrixStack, MinecraftClient.getInstance().textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | MathHelper.ceil(this.alpha * 255.0f) << 24);
+        ClickableWidget.drawCenteredText(matrixStack, MinecraftClient.getInstance().textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | MathHelper.ceil(this.alpha * 255.0f) << 24);
 
         if (this.hovered) {
             this.renderTooltip(matrixStack, mouseX, mouseY);
@@ -56,15 +55,15 @@ public class DoubleButton extends ClickableWidget implements Tickable {
     }
 
     private void drawButton(MatrixStack matrixStack, Text text, int x, int i) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, this.alpha);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
-        this.drawTexture(matrixStack, x, this.y, 0, 46 + i * 20, this.height / 2, this.height);
-        this.drawTexture(matrixStack, x + this.height / 2, this.y, 200 - this.height / 2, 46 + i * 20, this.height / 2, this.height);
-        ClickableWidget.drawCenteredText(matrixStack, MinecraftClient.getInstance().textRenderer, text, x + this.height / 2, this.y + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | MathHelper.ceil(this.alpha * 255.0f) << 24);
+        this.drawTexture(matrixStack, x, this.getY(), 0, 46 + i * 20, this.height / 2, this.height);
+        this.drawTexture(matrixStack, x + this.height / 2, this.getY(), 200 - this.height / 2, 46 + i * 20, this.height / 2, this.height);
+        ClickableWidget.drawCenteredText(matrixStack, MinecraftClient.getInstance().textRenderer, text, x + this.height / 2, this.getY() + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | MathHelper.ceil(this.alpha * 255.0f) << 24);
     }
 
     @Override
@@ -97,7 +96,6 @@ public class DoubleButton extends ClickableWidget implements Tickable {
         this.mouseDownTicks = 0;
     }
 
-    @Override
     public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
         if (this.tooltipDelay > 15 && MinecraftClient.getInstance().currentScreen != null) {
             matrixStack.push();
@@ -121,9 +119,8 @@ public class DoubleButton extends ClickableWidget implements Tickable {
     }
 
     @Override
-    public void appendNarrations(NarrationMessageBuilder builder) {
+    public void appendClickableNarrations(NarrationMessageBuilder builder) {
         this.appendDefaultNarrations(builder);
-        builder.put(NarrationPart.HINT, this.getMessage());
     }
 
     @Override

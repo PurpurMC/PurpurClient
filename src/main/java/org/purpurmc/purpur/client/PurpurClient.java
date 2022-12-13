@@ -15,9 +15,6 @@ import org.purpurmc.purpur.client.network.BeehivePacket;
 import org.purpurmc.purpur.client.network.Packet;
 import org.purpurmc.purpur.client.util.Constants;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 public class PurpurClient implements ClientModInitializer {
     private static PurpurClient instance;
 
@@ -69,17 +66,15 @@ public class PurpurClient implements ClientModInitializer {
         Window window = client.getWindow();
         client.updateWindowTitle();
         if (getConfig().useWindowTitle) {
-            InputStream icon16 = PurpurClient.class.getResourceAsStream("/assets/icon16.png");
-            InputStream icon32 = PurpurClient.class.getResourceAsStream("/assets/icon32.png");
-            window.setIcon(icon16, icon32);
+            window.setIcon(
+                () -> PurpurClient.class.getResourceAsStream("/assets/icon16.png"),
+                () -> PurpurClient.class.getResourceAsStream("/assets/icon32.png"));
         } else {
-            try {
-                DefaultResourcePack pack = client.getResourcePackProvider().getPack();
-                window.setIcon(
-                    pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_16x16.png")),
-                    pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_32x32.png")));
-            } catch (IOException ignore) {
-            }
+            DefaultResourcePack pack = client.getDefaultResourcePack();
+            window.setIcon(
+                pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_16x16.png")),
+                pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_32x32.png"))
+            );
         }
     }
 }

@@ -13,11 +13,10 @@ public class BooleanButton extends ButtonWidget implements Tickable {
     private int tooltipDelay;
 
     public BooleanButton(int x, int y, int width, int height, BooleanOption option) {
-        super(x, y, width, height, option.text(), (button) -> option.toggle());
+        super(x, y, width, height, option.text(), (button) -> option.toggle(), DEFAULT_NARRATION_SUPPLIER);
         this.option = option;
     }
 
-    @Override
     public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
         if (this.hovered && this.tooltipDelay > 15 && MinecraftClient.getInstance().currentScreen != null) {
             MinecraftClient.getInstance().currentScreen.renderOrderedTooltip(matrixStack, this.option.tooltip(), mouseX, mouseY);
@@ -25,9 +24,8 @@ public class BooleanButton extends ButtonWidget implements Tickable {
     }
 
     @Override
-    public void appendNarrations(NarrationMessageBuilder builder) {
+    public void appendClickableNarrations(NarrationMessageBuilder builder) {
         this.appendDefaultNarrations(builder);
-        builder.put(NarrationPart.HINT, this.getMessage());
     }
 
     @Override

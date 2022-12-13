@@ -16,13 +16,7 @@ repositories {
     maven {
         url = "https://maven.terraformersmc.com/"
     }
-    maven {
-        url = "https://repo.stellardrift.ca/repository/snapshots/"
-        name = "stellardriftSnapshots"
-        mavenContent {
-            snapshotsOnly()
-        }
-    }
+    mavenCentral()
 }
 
 dependencies {
@@ -31,7 +25,13 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
-    include(modImplementation("ca.stellardrift:confabricate:${project.confabricate_version}"))
+
+    // this is dumb as hell. bloats jar way too much. todo: switch to a different config provider
+    include(modImplementation("org.spongepowered:configurate-hocon:${project.configurate_version}"))
+    include("org.spongepowered:configurate-core:${project.configurate_version}")
+    include("com.google.guava:guava:31.1-jre")
+    include("com.typesafe:config:1.4.2")
+    include("io.leangen.geantyref:geantyref:1.3.12")
 }
 
 processResources {

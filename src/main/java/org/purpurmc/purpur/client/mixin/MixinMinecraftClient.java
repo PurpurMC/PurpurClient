@@ -18,7 +18,9 @@ public class MixinMinecraftClient {
     @Shadow
     private IntegratedServer server;
     @Shadow
-    private ServerInfo currentServerEntry;
+    public ServerInfo getCurrentServerEntry() {
+        return null;
+    }
 
     @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
     private void getWindowTitle(CallbackInfoReturnable<String> cir) {
@@ -36,13 +38,13 @@ public class MixinMinecraftClient {
                 sb.append(I18n.translate("purpurclient.title.singleplayer", username));
             } else if (client.isConnectedToRealms()) {
                 sb.append(I18n.translate("purpurclient.title.multiplayer.realms", username));
-            } else if (this.server != null || this.currentServerEntry != null && this.currentServerEntry.isLocal()) {
+            } else if (this.server != null || this.getCurrentServerEntry() != null && this.getCurrentServerEntry().isLocal()) {
                 sb.append(I18n.translate("purpurclient.title.multiplayer.lan", username));
             } else {
-                if (this.currentServerEntry == null) {
+                if (this.getCurrentServerEntry() == null) {
                     sb.append(I18n.translate("purpurclient.title.multiplayer.unknown", username));
                 } else {
-                    sb.append(I18n.translate("purpurclient.title.multiplayer.server", username, this.currentServerEntry.name));
+                    sb.append(I18n.translate("purpurclient.title.multiplayer.server", username, this.getCurrentServerEntry().name));
                 }
             }
         }

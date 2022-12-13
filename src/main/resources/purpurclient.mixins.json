@@ -9,6 +9,7 @@
     "MixinDebugHud",
     "MixinEnchantmentHelper",
     "MixinItemEntity",
+    "MixinItemStack",
     "MixinMinecraftClient",
     "MixinSplashOverlay",
     "accessor.AccessAbstractPiglin",

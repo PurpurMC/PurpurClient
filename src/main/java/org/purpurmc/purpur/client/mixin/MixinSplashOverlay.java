@@ -87,7 +87,7 @@ public class MixinSplashOverlay {
 
         RenderSystem.setShaderTexture(0, SplashTexture.SPLASH);
         RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
         SplashOverlay.drawTexture(matrixStack, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
         SplashOverlay.drawTexture(matrixStack, (int) ((width - 112) * MathHelper.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo

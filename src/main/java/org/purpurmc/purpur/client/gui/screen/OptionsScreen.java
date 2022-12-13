@@ -34,7 +34,7 @@ public class OptionsScreen extends AbstractScreen {
             PurpurClient.instance().updateTitle();
         })));
         this.options.add(new Button(this.centerX + 10, 80, 150, 20, MOBS_BTN, button -> openScreen(new MobsScreen(this))));
-        this.options.add(new ButtonWidget(this.centerX - 100, 150, 200, 20, ScreenTexts.DONE, (button) -> close()));
+        this.options.add(ButtonWidget.builder(ScreenTexts.DONE, (button) -> close()).dimensions(this.centerX - 100, 150, 200, 20).build());
 
         this.options.forEach(this::addDrawableChild);
     }

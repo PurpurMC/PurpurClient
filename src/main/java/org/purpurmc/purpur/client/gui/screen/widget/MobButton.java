@@ -18,19 +18,19 @@ public class MobButton extends ButtonWidget {
     private final Mob mob;
 
     public MobButton(AbstractScreen screen, Mob mob, int x, int y) {
-        super(x, y, 16, 16, mob.getType().getName(), (button) -> screen.openScreen(new MobScreen(screen, mob)));
+        super(x, y, 16, 16, mob.getType().getName(), (button) -> screen.openScreen(new MobScreen(screen, mob)), DEFAULT_NARRATION_SUPPLIER);
         this.screen = screen;
         this.mob = mob;
     }
 
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, MOBS_TEXTURE);
         RenderSystem.enableDepthTest();
         drawTexture(
             matrices,
-            this.x,
-            this.y,
+            this.getX(),
+            this.getY(),
             this.width * 15,
             this.height * 14 + (this.isHovered() ? this.height : 0),
             this.width,
@@ -40,8 +40,8 @@ public class MobButton extends ButtonWidget {
         );
         drawTexture(
             matrices,
-            this.x,
-            this.y,
+            this.getX(),
+            this.getY(),
             this.mob.getU() * this.width,
             this.mob.getV() * this.height,
             this.width,
@@ -58,8 +58,8 @@ public class MobButton extends ButtonWidget {
         this.screen.renderTooltip(matrixStack, this.getMessage(), mouseX, mouseY);
     }
 
-    public void appendNarrations(NarrationMessageBuilder builder) {
+    @Override
+    public void appendClickableNarrations(NarrationMessageBuilder builder) {
         this.appendDefaultNarrations(builder);
-        builder.put(NarrationPart.HINT, this.getMessage());
     }
 }
