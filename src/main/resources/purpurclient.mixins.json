@@ -12,7 +12,6 @@
     "MixinItemStack",
     "MixinMinecraftClient",
     "MixinSplashOverlay",
-    "accessor.AccessAbstractHorse",
     "accessor.AccessAbstractPiglin",
     "accessor.AccessEntity",
     "accessor.AccessHoglin",
