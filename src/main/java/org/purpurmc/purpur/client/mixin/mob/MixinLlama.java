@@ -7,6 +7,9 @@ import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LlamaEntity.class)
 public abstract class MixinLlama extends MobEntity implements RidableEntity {
@@ -19,8 +22,8 @@ public abstract class MixinLlama extends MobEntity implements RidableEntity {
         return (double) getHeight() * getSeats().llama.y;
     }
 
-    @Override
-    public void updatePassengerPosition(Entity passenger) {
+    @Inject(method = "updatePassengerPosition", at = @At(value = "TAIL"))
+    public void purpurclient$updatePassengerPosition(Entity passenger, CallbackInfo ci) {
         updatePassengerPosition(passenger, getSeats().llama);
     }
 }
