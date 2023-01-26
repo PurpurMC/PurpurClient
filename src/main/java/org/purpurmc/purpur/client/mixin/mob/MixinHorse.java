@@ -22,5 +22,6 @@ public abstract class MixinHorse extends MobEntity implements RidableEntity {
     @Override
     public void updatePassengerPosition(Entity passenger) {
         updatePassengerPosition(passenger, getSeats().horse);
+        super.updatePassengerPosition(passenger);
     }
 }
