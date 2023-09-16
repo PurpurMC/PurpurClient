@@ -22,8 +22,8 @@ public abstract class MixinLlama extends MobEntity implements RidableEntity {
         return (double) getHeight() * getSeats().llama.y;
     }
 
-    @Inject(method = "updatePassengerPosition", at = @At(value = "TAIL"))
-    public void purpurclient$updatePassengerPosition(Entity passenger, CallbackInfo ci) {
+    @Override
+    public void updatePassengerPosition(Entity passenger) {
         updatePassengerPosition(passenger, getSeats().llama);
     }
 }
