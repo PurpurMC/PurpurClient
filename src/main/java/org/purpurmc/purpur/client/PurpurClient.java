@@ -1,12 +1,18 @@
 package org.purpurmc.purpur.client;
 
 import com.google.common.io.ByteArrayDataOutput;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.Icons;
 import net.minecraft.client.util.Window;
 import net.minecraft.resource.DefaultResourcePack;
+import net.minecraft.resource.InputSupplier;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import org.purpurmc.purpur.client.config.Config;
@@ -21,6 +27,8 @@ public class PurpurClient implements ClientModInitializer {
     public static PurpurClient instance() {
         return instance;
     }
+
+    public static List<InputSupplier<InputStream>> ICON_LIST = Arrays.asList(() -> PurpurClient.class.getResourceAsStream("/assets/icon16.png"), () -> PurpurClient.class.getResourceAsStream("/assets/icon32.png"));
 
     private final ConfigManager configManager;
 
@@ -65,16 +73,11 @@ public class PurpurClient implements ClientModInitializer {
         MinecraftClient client = MinecraftClient.getInstance();
         Window window = client.getWindow();
         client.updateWindowTitle();
-        if (getConfig().useWindowTitle) {
-            window.setIcon(
-                () -> PurpurClient.class.getResourceAsStream("/assets/icon16.png"),
-                () -> PurpurClient.class.getResourceAsStream("/assets/icon32.png"));
-        } else {
-            DefaultResourcePack pack = client.getDefaultResourcePack();
-            window.setIcon(
-                pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_16x16.png")),
-                pack.open(ResourceType.CLIENT_RESOURCES, new Identifier("icons/icon_32x32.png"))
-            );
-        }
+        DefaultResourcePack pack = client.getDefaultResourcePack();
+        try {
+            window.setIcon(pack, Icons.RELEASE);
+        } catch (IOException e) {
+            // ignore
+        };
     }
 }

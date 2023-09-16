@@ -1,6 +1,8 @@
 package org.purpurmc.purpur.client.gui.screen.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -23,43 +25,42 @@ public class MobButton extends ButtonWidget {
         this.mob = mob;
     }
 
-    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, MOBS_TEXTURE);
         RenderSystem.enableDepthTest();
         drawTexture(
-            matrices,
+            context,
+            MOBS_TEXTURE,
             this.getX(),
             this.getY(),
             this.width * 15,
-            this.height * 14 + (this.isHovered() ? this.height : 0),
+            this.height * 14 + (this.isSelected() ? this.height : 0),
+            0,
             this.width,
             this.height,
             this.width * 16,
             this.height * 16
         );
         drawTexture(
-            matrices,
+            context,
+            MOBS_TEXTURE,
             this.getX(),
             this.getY(),
             this.mob.getU() * this.width,
             this.mob.getV() * this.height,
+            0,
             this.width,
             this.height,
             this.width * 16,
             this.height * 16
         );
         if (this.hovered) {
-            this.renderTooltip(matrices, mouseX, mouseY);
+            this.renderTooltip(context, mouseX, mouseY);
         }
     }
 
-    public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
-        this.screen.renderTooltip(matrixStack, this.getMessage(), mouseX, mouseY);
-    }
-
-    @Override
-    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-        this.appendDefaultNarrations(builder);
+    public void renderTooltip(DrawContext context, int mouseX, int mouseY) {
+        context.drawTooltip(MinecraftClient.getInstance().textRenderer, this.getMessage(), mouseX, mouseY);
     }
 }

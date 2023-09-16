@@ -2,6 +2,7 @@ package org.purpurmc.purpur.client.gui.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -139,8 +140,8 @@ public class MobScreen extends AbstractScreen {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
-        renderBackground(matrixStack);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        renderBackground(context);
 
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -149,21 +150,22 @@ public class MobScreen extends AbstractScreen {
         if (this.fakePlayer != null && this.fakeEntity != null) {
             drawPreviewModel(this.fakePlayer, this.fakeEntity);
         } else {
-            drawCenteredText(matrixStack, this.textRenderer, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
+            context.drawCenteredTextWithShadow(this.textRenderer, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
         }
 
-        matrixStack.push();
-        matrixStack.translate(0, 0, 900);
-        drawCenteredText(matrixStack, this.textRenderer, this.title, this.centerX, 15, 0xFFFFFFFF);
-        drawCenteredText(matrixStack, this.textRenderer, this.subtitle, this.centerX, 30, 0xFFFFFFFF);
+        MatrixStack matrices = context.getMatrices();
+        matrices.push();
+        matrices.translate(0, 0, 900);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.centerX, 15, 0xFFFFFFFF);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.subtitle, this.centerX, 30, 0xFFFFFFFF);
         if (this.options == null || this.options.isEmpty()) {
-            drawCenteredText(matrixStack, this.textRenderer, this.notImplemented, this.centerX + 120, 125, 0xFFFFFFFF);
+            context.drawCenteredTextWithShadow(this.textRenderer, this.notImplemented, this.centerX + 120, 125, 0xFFFFFFFF);
         } else {
             for (Drawable drawable : this.options) {
-                drawable.render(matrixStack, mouseX, mouseY, delta);
+                drawable.render(context, mouseX, mouseY, delta);
             }
         }
-        matrixStack.pop();
+        matrices.pop();
     }
 
     public void drawPreviewModel(FakePlayer player, Entity vehicle) {
@@ -246,8 +248,8 @@ public class MobScreen extends AbstractScreen {
             return false;
         }
         if (button == 0) {
-            this.previewYaw -= (mouseX - this.mouseDownX);
-            this.previewPitch -= (mouseY - this.mouseDownY);
+            this.previewYaw -= (float) (mouseX - this.mouseDownX);
+            this.previewPitch -= (float) (mouseY - this.mouseDownY);
             clampYawPitch();
         } else if (button == 1) {
             this.previewX += (mouseX - this.mouseDownX);
@@ -260,7 +262,7 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        this.previewZoom += amount;
+        this.previewZoom += (float) amount;
         clampZoom();
         return true;
     }

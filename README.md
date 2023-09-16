@@ -16,21 +16,26 @@ PurpurClient is designed to work together with [Purpur](https://github.com/Purpu
 
 </div>
 
-### Current Features in 1.19:
+### Current Features in 1.20.1:
 
 * Customizable mob passenger offsets
 * Adds bee counts inside beehives to debug screen¹
-* Prevent client from preemptively removing item entities from the world
+* Fancy Purpur-themed Loading Screen (can be disabled in the config)
+* Fancy Window Title that changes based on what kind of server you're in ([translations can be PR'd](./src/main/resources/assets/purpurclient/lang/))
+* Displays Custom Enchantments instead of stripping them from the client
+* Removes the client-side limit of 255 levels
 
 ¹ only works when connected to [Purpur](https://github.com/PurpurMC/Purpur) servers
 
 ### Past Features (to get an idea of what this mod has done and will do in the future):
 
-* Asynchronous chat processing (not updating this to 1.19 because Mojang's new chat system confuses me)
+* Asynchronous chat processing (removed since Mojang's new chat system is confusing)
 * Fix rain particles appearing under water [MC-131770](https://bugs.mojang.com/browse/MC-131770)
 * Fix sky darkening when riding minecart not on tracks [MC-51150](https://bugs.mojang.com/browse/MC-51150)
 * Fix chat stutter [MC-218167](https://bugs.mojang.com/browse/MC-218167)
 * Fix warnings in logs about invalid flying attributes [Purpur-744](https://github.com/PurpurMC/Purpur/pull/744)
+* Fix debug markers ignoring the blue and red values that are set [MC-234030](https://bugs.mojang.com/browse/MC-234030) (Shows as Unresolved even though it's been fixed)
+* Fix client preemptively removing item entities from the world (MC-???)
 
 Note: PurpurClient adds a fancy animated splash screen on game startup alongside a better window title message. Both of these can be disabled in the config if preferred.
 

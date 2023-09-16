@@ -1,6 +1,7 @@
 package org.purpurmc.purpur.client.gui.screen.widget;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -17,15 +18,10 @@ public class BooleanButton extends ButtonWidget implements Tickable {
         this.option = option;
     }
 
-    public void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
+    public void renderTooltip(DrawContext context, int mouseX, int mouseY) {
         if (this.hovered && this.tooltipDelay > 15 && MinecraftClient.getInstance().currentScreen != null) {
-            MinecraftClient.getInstance().currentScreen.renderOrderedTooltip(matrixStack, this.option.tooltip(), mouseX, mouseY);
+            context.drawOrderedTooltip(MinecraftClient.getInstance().textRenderer, this.option.tooltip(), mouseX, mouseY);
         }
-    }
-
-    @Override
-    public void appendClickableNarrations(NarrationMessageBuilder builder) {
-        this.appendDefaultNarrations(builder);
     }
 
     @Override
@@ -35,7 +31,7 @@ public class BooleanButton extends ButtonWidget implements Tickable {
 
     @Override
     public void tick() {
-        if (this.isHovered() && this.active) {
+        if (this.isSelected() && this.active) {
             this.tooltipDelay++;
         } else if (this.tooltipDelay > 0) {
             this.tooltipDelay = 0;

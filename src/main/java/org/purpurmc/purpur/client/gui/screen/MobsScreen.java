@@ -1,5 +1,6 @@
 package org.purpurmc.purpur.client.gui.screen;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.recipebook.SmokerRecipeBookScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -33,8 +34,8 @@ public class MobsScreen extends AbstractScreen {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
-        super.render(matrixStack, mouseX, mouseY, delta);
-        drawCenteredText(matrixStack, this.textRenderer, OptionsScreen.MOBS_BTN, this.centerX, 30, 0xFFFFFFFF);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
+        context.drawCenteredTextWithShadow(this.textRenderer, OptionsScreen.MOBS_BTN, this.centerX, 30, 0xFFFFFFFF);
     }
 }

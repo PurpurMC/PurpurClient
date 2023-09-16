@@ -2,6 +2,7 @@ package org.purpurmc.purpur.client.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.SplashOverlay;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -14,6 +15,7 @@ import org.purpurmc.purpur.client.gui.SplashTexture;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -42,6 +44,7 @@ public class MixinSplashOverlay {
     @Final
     private Consumer<Optional<Throwable>> exceptionHandler;
 
+    @Unique
     private float delta;
 
     @Inject(method = "init", at = @At("HEAD"))
@@ -50,7 +53,7 @@ public class MixinSplashOverlay {
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (!PurpurClient.instance().getConfig().useSplashScreen) {
             return;
         }
@@ -70,13 +73,13 @@ public class MixinSplashOverlay {
 
         if (f >= 1.0f) {
             if (this.client.currentScreen != null) {
-                this.client.currentScreen.render(matrixStack, 0, 0, delta);
+                this.client.currentScreen.render(context, 0, 0, delta);
             }
             this.delta = 0;
             opacity = 1.0f - MathHelper.clamp(f - 1.0f, 0.0f, 1.0f);
         } else if (this.reloading) {
             if (this.client.currentScreen != null && g < 1.0f) {
-                this.client.currentScreen.render(matrixStack, mouseX, mouseY, delta);
+                this.client.currentScreen.render(context, mouseX, mouseY, delta);
             }
             this.delta = 0;
             opacity = MathHelper.clamp(g, 0.0f, 1.0f);
@@ -89,18 +92,18 @@ public class MixinSplashOverlay {
         RenderSystem.enableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
-        SplashOverlay.drawTexture(matrixStack, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
-        SplashOverlay.drawTexture(matrixStack, (int) ((width - 112) * MathHelper.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
-        SplashOverlay.drawTexture(matrixStack, 40 + (int) ((20) * -MathHelper.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
-        SplashOverlay.drawTexture(matrixStack, (int) ((20) * MathHelper.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
-        SplashOverlay.drawTexture(matrixStack, width - 105, (int) ((height - 15) * MathHelper.lerp(easeOut(opacity), 0.75D, 1.0D)), 100, 12, 256, 658, 200, 23, 1024, 1024); // url
+        context.drawTexture(SplashTexture.SPLASH, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
+        context.drawTexture(SplashTexture.SPLASH, (int) ((width - 112) * MathHelper.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
+        context.drawTexture(SplashTexture.SPLASH, 40 + (int) ((20) * -MathHelper.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
+        context.drawTexture(SplashTexture.SPLASH, (int) ((20) * MathHelper.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
+        context.drawTexture(SplashTexture.SPLASH, width - 105, (int) ((height - 15) * MathHelper.lerp(easeOut(opacity), 0.75D, 1.0D)), 100, 12, 256, 658, 200, 23, 1024, 1024); // url
         RenderSystem.disableBlend();
 
         int scale = (int) ((double) this.client.getWindow().getScaledHeight() * 0.625D);
         float reloadProgress = this.reload.getProgress();
         this.progress = MathHelper.clamp(this.progress * 0.95f + reloadProgress * 0.050000012f, 0.0f, 1.0f);
         if (f < 1.0f) {
-            this.renderProgressBar(matrixStack, width / 2 - 100, scale - 5, width / 2 + 100, scale + 5, 1.0f - MathHelper.clamp(f, 0.0f, 1.0f));
+            this.renderProgressBar(context, width / 2 - 100, scale - 5, width / 2 + 100, scale + 5, 1.0f - MathHelper.clamp(f, 0.0f, 1.0f));
         }
         if (f >= 2.0f) {
             this.client.setOverlay(null);
@@ -119,25 +122,29 @@ public class MixinSplashOverlay {
         }
     }
 
-    private void renderProgressBar(MatrixStack matrices, int minX, int minY, int maxX, int maxY, float opacity) {
+    @Unique
+    private void renderProgressBar(DrawContext context, int minX, int minY, int maxX, int maxY, float opacity) {
         int i = MathHelper.ceil((float) (maxX - minX - 2) * this.progress);
         int j = Math.round(opacity * 255.0f);
         int k = ColorHelper.Argb.getArgb(j, 255, 255, 255);
-        SplashOverlay.fill(matrices, minX + 2, minY + 2, minX + i, maxY - 2, k);
-        SplashOverlay.fill(matrices, minX + 1, minY, maxX - 1, minY + 1, k);
-        SplashOverlay.fill(matrices, minX + 1, maxY, maxX - 1, maxY - 1, k);
-        SplashOverlay.fill(matrices, minX, minY, minX + 1, maxY, k);
-        SplashOverlay.fill(matrices, maxX, minY, maxX - 1, maxY, k);
+        context.fill(minX + 2, minY + 2, minX + i, maxY - 2, k);
+        context.fill(minX + 1, minY, maxX - 1, minY + 1, k);
+        context.fill(minX + 1, maxY, maxX - 1, maxY - 1, k);
+        context.fill(minX, minY, minX + 1, maxY, k);
+        context.fill(maxX, minY, maxX - 1, maxY, k);
     }
 
+    @Unique
     private float easeIn(float t) {
         return t * t;
     }
 
+    @Unique
     private float easeOut(float t) {
         return flip(easeIn(flip(t)));
     }
 
+    @Unique
     private float flip(float x) {
         return 1 - x;
     }
