@@ -32,13 +32,12 @@ public abstract class AbstractScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.centerX, 15, 0xFFFFFFFF);
         super.render(context, mouseX, mouseY, delta);
     }
 
     @Override
-    public void renderBackground(DrawContext context) {
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
         if (this.client != null && this.client.world != null) {
             context.fillGradient(0, 0, this.width, this.height, 0xF00F4863, 0xF0370038);
         } else {

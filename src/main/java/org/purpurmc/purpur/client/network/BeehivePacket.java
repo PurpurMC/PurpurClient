@@ -26,7 +26,7 @@ public class BeehivePacket {
             return;
         }
 
-        ByteArrayDataInput in = Packet.in(buf.getWrittenBytes());
+        ByteArrayDataInput in = Packet.in(buf.readByteArray());
         int count = in.readInt();
         long packedPos = in.readLong();
         BlockPos pos = BlockPos.fromLong(packedPos);

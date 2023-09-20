@@ -2,3 +2,4 @@ accessWidener v2 named
 
 extendable method net/minecraft/entity/Entity updatePassengerPosition (Lnet/minecraft/entity/Entity;)V
 extendable class net/minecraft/client/util/Window
+extendable method net/minecraft/entity/Entity getPassengerAttachmentPos (Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/EntityDimensions;F)Lorg/joml/Vector3f;

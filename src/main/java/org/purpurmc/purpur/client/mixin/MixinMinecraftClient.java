@@ -34,18 +34,19 @@ public class MixinMinecraftClient {
         if (network != null && network.getConnection().isOpen()) {
             sb.append(" - ");
             String username = client.getSession().getUsername();
+            ServerInfo serverInfo = this.getCurrentServerEntry();
             if (this.server != null && !this.server.isRemote()) {
                 sb.append(I18n.translate("purpurclient.title.singleplayer", username));
-            } else if (client.isConnectedToRealms()) {
+            } else if (serverInfo != null && serverInfo.isRealm()) {
                 sb.append(I18n.translate("purpurclient.title.multiplayer.realms", username));
-            } else if (this.server != null || this.getCurrentServerEntry() != null && this.getCurrentServerEntry().isLocal()) {
-                sb.append(I18n.translate("purpurclient.title.multiplayer.lan", username));
-            } else {
-                if (this.getCurrentServerEntry() == null) {
+            } else if (this.server == null && (serverInfo == null || !serverInfo.isLocal())) {
+                if (serverInfo == null) {
                     sb.append(I18n.translate("purpurclient.title.multiplayer.unknown", username));
                 } else {
-                    sb.append(I18n.translate("purpurclient.title.multiplayer.server", username, this.getCurrentServerEntry().name));
+                    sb.append(I18n.translate("purpurclient.title.multiplayer.server", username, serverInfo.name));
                 }
+            } else {
+                sb.append(I18n.translate("purpurclient.title.multiplayer.lan", username));
             }
         }
         cir.setReturnValue(sb.toString());

@@ -29,27 +29,23 @@ public class MobButton extends ButtonWidget {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, MOBS_TEXTURE);
         RenderSystem.enableDepthTest();
-        drawTexture(
-            context,
+        context.drawTexture(
             MOBS_TEXTURE,
             this.getX(),
             this.getY(),
             this.width * 15,
             this.height * 14 + (this.isSelected() ? this.height : 0),
-            0,
             this.width,
             this.height,
             this.width * 16,
             this.height * 16
         );
-        drawTexture(
-            context,
+        context.drawTexture(
             MOBS_TEXTURE,
             this.getX(),
             this.getY(),
             this.mob.getU() * this.width,
             this.mob.getV() * this.height,
-            0,
             this.width,
             this.height,
             this.width * 16,

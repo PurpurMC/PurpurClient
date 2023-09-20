@@ -19,6 +19,9 @@
     "client": [
       "org.purpurmc.purpur.client.PurpurClient"
     ],
+    "server": [
+      "org.purpurmc.purpur.server.PurpurServer"
+    ],
     "modmenu": [
       "org.purpurmc.purpur.client.gui.ModMenu"
     ]
@@ -30,7 +33,7 @@
   "depends": {
     "fabricloader": ">=0.14.11",
     "fabric": "*",
-    "minecraft": "1.20.1"
+    "minecraft": "1.20.2-rc.2"
   },
   "custom": {
     "modmenu": {

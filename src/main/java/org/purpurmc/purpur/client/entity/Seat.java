@@ -32,7 +32,7 @@ public class Seat {
 
         double x = (this.x * cos + this.z * sin) + entity.getX();
         double z = (this.z * cos - this.x * sin) + entity.getZ();
-        double y = entity.getY() + entity.getMountedHeightOffset() + passenger.getHeightOffset();
+        double y = entity.getPassengerRidingPos(passenger).y + (double) passenger.getRidingOffset(entity);
 
         return new Vec3d(x, y, z);
     }
