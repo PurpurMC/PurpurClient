@@ -195,7 +195,7 @@ public class MobScreen extends AbstractScreen {
         VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
         //noinspection deprecation
-        RenderSystem.runAsFancy(() -> {
+        MinecraftClient.getInstance().execute(() -> {
             fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0));
             renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
         });

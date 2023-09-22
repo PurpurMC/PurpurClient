@@ -25,15 +25,9 @@ public class Seat {
         this.z = z;
     }
 
-    public Vec3d rotate(LivingEntity entity, Entity passenger) {
-        float angle = -entity.bodyYaw * Constants.DEG2RAD - Constants.HALF_PI;
-        double cos = MathHelper.cos(angle);
-        double sin = MathHelper.sin(angle);
-
-        double x = (this.x * cos + this.z * sin) + entity.getX();
-        double z = (this.z * cos - this.x * sin) + entity.getZ();
-        double y = entity.getPassengerRidingPos(passenger).y + (double) passenger.getRidingOffset(entity);
-
-        return new Vec3d(x, y, z);
+    public void setSeat(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 }
