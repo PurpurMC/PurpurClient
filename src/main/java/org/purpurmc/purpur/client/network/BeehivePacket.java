@@ -26,10 +26,8 @@ public class BeehivePacket {
             return;
         }
 
-        ByteArrayDataInput in = Packet.in(buf.readByteArray());
-        int count = in.readInt();
-        long packedPos = in.readLong();
-        BlockPos pos = BlockPos.fromLong(packedPos);
+        int count = buf.readInt();
+        BlockPos pos = buf.readBlockPos();
 
         BlockState state = client.world.getBlockState(pos);
         if (!(state.getBlock() instanceof BeehiveBlock)) {

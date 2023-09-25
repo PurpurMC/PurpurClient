@@ -1,2 +1,0 @@
-- [x] fix seat offset
-- [ ] verify beehive bee count in debug screen works correctly
