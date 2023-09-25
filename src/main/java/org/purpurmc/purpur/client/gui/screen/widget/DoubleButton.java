@@ -3,18 +3,22 @@ package org.purpurmc.purpur.client.gui.screen.widget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.purpurmc.purpur.client.config.options.DoubleOption;
 
 public class DoubleButton extends ClickableWidget implements Tickable {
     private final static Text PLUS = Text.of("+");
     private final static Text MINUS = Text.of("-");
+    private static final ButtonTextures TEXTURES = new ButtonTextures(new Identifier("widget/button"), new Identifier("widget/button_disabled"), new Identifier("widget/button_highlighted"));
 
     private final DoubleOption option;
     private int tooltipDelay;
@@ -45,8 +49,8 @@ public class DoubleButton extends ClickableWidget implements Tickable {
             onRelease(0, 0);
         }
 
-        drawButton(context, MINUS, this.getX(), this.getYImage(this.btn == Btn.MINUS || this.selected == Btn.MINUS));
-        drawButton(context, PLUS, this.getX() + this.width - this.height, this.getYImage(this.btn == Btn.PLUS || this.selected == Btn.PLUS));
+        drawButton(context, MINUS, this.getX(), this.btn == Btn.MINUS || this.selected == Btn.MINUS);
+        drawButton(context, PLUS, this.getX() + this.width - this.height, this.btn == Btn.PLUS || this.selected == Btn.PLUS);
 
         context.drawCenteredTextWithShadow(MinecraftClient.getInstance().textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | MathHelper.ceil(this.alpha * 255.0f) << 24);
 
@@ -55,12 +59,11 @@ public class DoubleButton extends ClickableWidget implements Tickable {
         }
     }
 
-    private void drawButton(DrawContext context, Text text, int x, int i) {
+    private void drawButton(DrawContext context, Text text, int x, boolean i) {
         RenderSystem.enableDepthTest();
         context.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
         RenderSystem.enableBlend();
-        this.drawTexture(context, WIDGETS_TEXTURE, x, this.getY(), 0, 46 + i * 20, 0, this.height / 2, this.height, 256, 256);
-        this.drawTexture(context, WIDGETS_TEXTURE, x + this.height / 2, this.getY(), 200 - this.height / 2, 46 + i * 20, 0, this.height / 2, this.height, 256, 256);
+        context.drawGuiTexture(TEXTURES.get(this.active, i), x, this.getY(), this.height, this.height);
         context.drawCenteredTextWithShadow(MinecraftClient.getInstance().textRenderer, text, x + this.height / 2, this.getY() + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | MathHelper.ceil(this.alpha * 255.0f) << 24);
     }
 
@@ -149,16 +152,5 @@ public class DoubleButton extends ClickableWidget implements Tickable {
     private void addValue(double value) {
         this.playDownSound(MinecraftClient.getInstance().getSoundManager());
         this.option.set(this.option.get() + value);
-    }
-
-    private int getYImage(boolean hovered) {
-        int i = 1;
-        if (!this.active) {
-            i = 0;
-        } else if (hovered) {
-            i = 2;
-        }
-
-        return i;
     }
 }

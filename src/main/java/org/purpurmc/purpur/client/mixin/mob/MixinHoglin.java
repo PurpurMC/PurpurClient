@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.purpurmc.purpur.client.mixin.accessor.AccessHoglin;
@@ -16,13 +17,8 @@ public abstract class MixinHoglin extends MobEntity implements RidableEntity {
     }
 
     @Override
-    public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().hoglin.y;
-    }
-
-    @Override
-    public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().hoglin);
+    public Vec3d getPassengerRidingPos(Entity passenger) {
+        return super.getPassengerRidingPos(passenger).add(getSeats().hoglin.x, getSeats().hoglin.y, getSeats().hoglin.z);
     }
 
     @Override

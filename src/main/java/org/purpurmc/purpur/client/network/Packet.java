@@ -11,18 +11,11 @@ import net.minecraft.util.Identifier;
 
 public abstract class Packet {
     public static void send(Identifier channel, ByteArrayDataOutput out) {
-        if (MinecraftClient.getInstance().getNetworkHandler() != null) {
-            ClientPlayNetworking.send(channel, new PacketByteBuf(Unpooled.wrappedBuffer(out.toByteArray())));
-        }
+        ClientPlayNetworking.send(channel, new PacketByteBuf(Unpooled.wrappedBuffer(out.toByteArray())));
     }
 
     @SuppressWarnings("UnstableApiUsage")
     public static ByteArrayDataOutput out() {
         return ByteStreams.newDataOutput();
-    }
-
-    @SuppressWarnings("UnstableApiUsage")
-    public static ByteArrayDataInput in(byte[] bytes) {
-        return ByteStreams.newDataInput(bytes);
     }
 }

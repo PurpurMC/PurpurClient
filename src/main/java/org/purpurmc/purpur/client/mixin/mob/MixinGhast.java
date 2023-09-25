@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,12 +16,7 @@ public abstract class MixinGhast extends MobEntity implements RidableEntity {
     }
 
     @Override
-    public double getMountedHeightOffset() {
-        return (double) getHeight() * getSeats().ghast.y;
-    }
-
-    @Override
-    public void updatePassengerPosition(Entity passenger) {
-        updatePassengerPosition(passenger, getSeats().ghast);
+    public Vec3d getPassengerRidingPos(Entity passenger) {
+        return super.getPassengerRidingPos(passenger).add(getSeats().ghast.x, getSeats().ghast.y, getSeats().ghast.z);
     }
 }

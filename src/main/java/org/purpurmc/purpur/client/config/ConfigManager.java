@@ -1,5 +1,7 @@
 package org.purpurmc.purpur.client.config;
 
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import net.fabricmc.loader.api.FabricLoader;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
@@ -9,6 +11,7 @@ import java.nio.file.Path;
 
 public class ConfigManager {
     private Path configFile;
+    private Path backupConfigFile;
     private Config config;
 
     private static HoconConfigurationLoader loader(final Path path) {
@@ -25,19 +28,31 @@ public class ConfigManager {
     }
 
     public void reload() {
-        final Path file;
+        final Path config;
         try {
-            file = this.getConfigFile();
+            config = this.getConfigFile();
         } catch (final IOException e) {
             throw rethrow(e);
         }
 
+        boolean hasConfigVersion = false;
         try {
-            final HoconConfigurationLoader loader = loader(file);
+            final HoconConfigurationLoader loader = loader(config);
             final CommentedConfigurationNode node = loader.load();
+            hasConfigVersion = node.hasChild("config-version");
             this.config = node.get(Config.class);
         } catch (IOException e) {
             rethrow(e);
+        }
+
+        if (!hasConfigVersion) {
+            try {
+                Path backupConfig = this.getBackupConfigFile();
+                Files.copy(configFile, backupConfig, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                rethrow(e);
+            }
+            this.config.seats.setAllSeats(0, 0, 0);
         }
 
         this.save();
@@ -52,6 +67,16 @@ public class ConfigManager {
         } catch (final IOException e) {
             rethrow(e);
         }
+    }
+
+    @SuppressWarnings("RedundantThrows")
+    private Path getBackupConfigFile() throws IOException {
+        if (this.backupConfigFile != null) {
+            return this.backupConfigFile;
+        }
+        final Path configDir = FabricLoader.getInstance().getConfigDir();
+        this.backupConfigFile = configDir.resolve("purpurclient.conf.backup");
+        return this.backupConfigFile;
     }
 
     @SuppressWarnings("RedundantThrows")
