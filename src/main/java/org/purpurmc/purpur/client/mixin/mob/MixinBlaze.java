@@ -1,7 +1,6 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.mob.MobEntity;
@@ -20,6 +19,4 @@ public abstract class MixinBlaze extends MobEntity implements RidableEntity {
     public Vec3d getPassengerRidingPos(Entity passenger) {
         return super.getPassengerRidingPos(passenger).add(getSeats().blaze.x, getSeats().blaze.y, getSeats().blaze.z);
     }
-
-
 }
