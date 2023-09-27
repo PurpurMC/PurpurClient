@@ -45,7 +45,7 @@ public class ConfigManager {
             rethrow(e);
         }
 
-        if (!hasConfigVersion) {
+        if (Files.exists(config) && !hasConfigVersion) {
             try {
                 Path backupConfig = this.getBackupConfigFile();
                 Files.copy(configFile, backupConfig, StandardCopyOption.REPLACE_EXISTING);
