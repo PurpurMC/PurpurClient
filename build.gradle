@@ -23,9 +23,7 @@ dependencies {
     minecraft("com.mojang:minecraft:${project.minecraft_version}")
     mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}") {
-        exclude(module = "fabric-api-deprecated")
-    }
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     // this is dumb as hell. bloats jar way too much. todo: switch to a different config provider
@@ -57,7 +55,6 @@ jar {
 
 loom {
     mixin.defaultRefmapName = "purpurclient.refmap.json"
-    accessWidenerPath = file("src/main/resources/purpurclient.accesswidener")
 }
 
 modrinth {
