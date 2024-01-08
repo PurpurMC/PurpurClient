@@ -36,7 +36,7 @@ public class DoubleButton extends ClickableWidget implements Tickable {
     }
 
     @Override
-    public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         if (this.hovered) {
             if (mouseX >= this.getX() && mouseX < this.getX() + this.height) {
                 this.btn = Btn.MINUS;

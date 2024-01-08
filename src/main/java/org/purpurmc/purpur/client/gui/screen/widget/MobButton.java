@@ -25,7 +25,7 @@ public class MobButton extends ButtonWidget {
         this.mob = mob;
     }
 
-    public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, MOBS_TEXTURE);
         RenderSystem.enableDepthTest();

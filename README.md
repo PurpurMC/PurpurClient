@@ -16,7 +16,7 @@ PurpurClient is designed to work together with [Purpur](https://github.com/Purpu
 
 </div>
 
-### Current Features in 1.20.2:
+### Current Features in 1.20.4:
 
 * Customizable mob passenger offsets
 * Adds bee counts inside beehives to debug screen¹
