@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.DolphinEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Dolphin;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(DolphinEntity.class)
-public abstract class MixinDolphin extends MobEntity implements RidableEntity {
-    public MixinDolphin(EntityType<? extends DolphinEntity> entityType, World world) {
+@Mixin(Dolphin.class)
+public abstract class MixinDolphin extends Mob implements RidableEntity {
+    public MixinDolphin(EntityType<? extends Dolphin> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().dolphin.x, getSeats().dolphin.y, getSeats().dolphin.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().dolphin.x, getSeats().dolphin.y, getSeats().dolphin.z);
     }
 }

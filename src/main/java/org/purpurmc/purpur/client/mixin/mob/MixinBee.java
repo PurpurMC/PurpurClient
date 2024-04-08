@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(BeeEntity.class)
-public abstract class MixinBee extends MobEntity implements RidableEntity {
-    public MixinBee(EntityType<? extends BeeEntity> entityType, World world) {
+@Mixin(Bee.class)
+public abstract class MixinBee extends Mob implements RidableEntity {
+    public MixinBee(EntityType<? extends Bee> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().bee.x, getSeats().bee.y, getSeats().bee.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().bee.x, getSeats().bee.y, getSeats().bee.z);
     }
 }

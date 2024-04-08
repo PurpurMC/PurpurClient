@@ -1,22 +1,21 @@
 package org.purpurmc.purpur.client.config.options;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Text;
-
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 
 public class DoubleOption implements Option<Double> {
     private final String key;
-    private final List<OrderedText> tooltip;
+    private final List<FormattedCharSequence> tooltip;
     private final Getter getter;
     private final Setter setter;
 
-    private Text text;
+    private Component text;
 
     public DoubleOption(String key, Getter getter, Setter setter) {
         this.key = "purpurclient.options." + key;
-        this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(Text.translatable(this.key + ".tooltip"), 170);
+        this.tooltip = Minecraft.getInstance().font.split(Component.translatable(this.key + ".tooltip"), 170);
         this.getter = getter;
         this.setter = setter;
 
@@ -30,12 +29,12 @@ public class DoubleOption implements Option<Double> {
     }
 
     @Override
-    public Text text() {
+    public Component text() {
         return this.text;
     }
 
     @Override
-    public List<OrderedText> tooltip() {
+    public List<FormattedCharSequence> tooltip() {
         return this.tooltip;
     }
 
@@ -47,7 +46,7 @@ public class DoubleOption implements Option<Double> {
     @Override
     public void set(Double value) {
         this.setter.set(Math.round(value * 100.0) / 100.0);
-        this.text = Text.translatable(this.key, String.format("%.2f", get()));
+        this.text = Component.translatable(this.key, String.format("%.2f", get()));
     }
 
     @FunctionalInterface

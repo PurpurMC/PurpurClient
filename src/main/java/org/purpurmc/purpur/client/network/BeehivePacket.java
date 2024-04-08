@@ -3,12 +3,12 @@ package org.purpurmc.purpur.client.network;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.block.BeehiveBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.BeehiveBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.purpurmc.purpur.client.util.Constants;
 
 public class BeehivePacket {
@@ -21,15 +21,15 @@ public class BeehivePacket {
     }
 
     @SuppressWarnings("unused")
-    public static void receiveBeehiveData(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
-        if (client.world == null) {
+    public static void receiveBeehiveData(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender sender) {
+        if (client.level == null) {
             return;
         }
 
         int count = buf.readInt();
         BlockPos pos = buf.readBlockPos();
 
-        BlockState state = client.world.getBlockState(pos);
+        BlockState state = client.level.getBlockState(pos);
         if (!(state.getBlock() instanceof BeehiveBlock)) {
             return;
         }

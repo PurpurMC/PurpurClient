@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.BlazeEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(BlazeEntity.class)
-public abstract class MixinBlaze extends MobEntity implements RidableEntity {
-    public MixinBlaze(EntityType<? extends BlazeEntity> entityType, World world) {
+@Mixin(Blaze.class)
+public abstract class MixinBlaze extends Mob implements RidableEntity {
+    public MixinBlaze(EntityType<? extends Blaze> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().blaze.x, getSeats().blaze.y, getSeats().blaze.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().blaze.x, getSeats().blaze.y, getSeats().blaze.z);
     }
 }

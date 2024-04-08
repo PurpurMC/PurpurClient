@@ -1,9 +1,5 @@
 package org.purpurmc.purpur.client.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import org.purpurmc.purpur.client.util.Constants;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 

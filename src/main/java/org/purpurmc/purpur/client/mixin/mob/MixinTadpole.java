@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.TadpoleEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.frog.Tadpole;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(TadpoleEntity.class)
-public abstract class MixinTadpole extends MobEntity implements RidableEntity {
-    public MixinTadpole(EntityType<? extends TadpoleEntity> entityType, World world) {
+@Mixin(Tadpole.class)
+public abstract class MixinTadpole extends Mob implements RidableEntity {
+    public MixinTadpole(EntityType<? extends Tadpole> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().tadpole.x, getSeats().tadpole.y, getSeats().tadpole.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().tadpole.x, getSeats().tadpole.y, getSeats().tadpole.z);
     }
 }

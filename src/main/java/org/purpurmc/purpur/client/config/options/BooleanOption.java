@@ -1,25 +1,24 @@
 package org.purpurmc.purpur.client.config.options;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Text;
-
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 
 public class BooleanOption implements Option<Boolean> {
     private final String key;
-    private final List<OrderedText> tooltip;
+    private final List<FormattedCharSequence> tooltip;
     private final Getter getter;
     private final Setter setter;
 
-    private final Text on;
-    private final Text off;
+    private final Component on;
+    private final Component off;
 
     public BooleanOption(String key, Getter getter, Setter setter) {
         this.key = "purpurclient.options." + key;
-        this.tooltip = MinecraftClient.getInstance().textRenderer.wrapLines(Text.translatable(this.key + ".tooltip"), 170);
-        this.on = Text.translatable("purpurclient.options.on", Text.translatable(this.key));
-        this.off = Text.translatable("purpurclient.options.off", Text.translatable(this.key));
+        this.tooltip = Minecraft.getInstance().font.split(Component.translatable(this.key + ".tooltip"), 170);
+        this.on = Component.translatable("purpurclient.options.on", Component.translatable(this.key));
+        this.off = Component.translatable("purpurclient.options.off", Component.translatable(this.key));
         this.getter = getter;
         this.setter = setter;
     }
@@ -31,12 +30,12 @@ public class BooleanOption implements Option<Boolean> {
     }
 
     @Override
-    public Text text() {
+    public Component text() {
         return get() ? this.on : this.off;
     }
 
     @Override
-    public List<OrderedText> tooltip() {
+    public List<FormattedCharSequence> tooltip() {
         return this.tooltip;
     }
 

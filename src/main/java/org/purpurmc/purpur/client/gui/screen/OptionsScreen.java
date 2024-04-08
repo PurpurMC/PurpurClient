@@ -1,10 +1,5 @@
 package org.purpurmc.purpur.client.gui.screen;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.Config;
 import org.purpurmc.purpur.client.config.options.BooleanOption;
@@ -12,9 +7,13 @@ import org.purpurmc.purpur.client.config.options.Button;
 import org.purpurmc.purpur.client.gui.screen.widget.BooleanButton;
 
 import java.util.ArrayList;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 public class OptionsScreen extends AbstractScreen {
-    public final static MutableText MOBS_BTN = Text.translatable("purpurclient.options.mobs");
+    public final static MutableComponent MOBS_BTN = Component.translatable("purpurclient.options.mobs");
 
     public OptionsScreen(Screen parent) {
         super(parent);
@@ -34,8 +33,8 @@ public class OptionsScreen extends AbstractScreen {
             PurpurClient.instance().updateTitle();
         })));
         this.options.add(new Button(this.centerX + 10, 80, 150, 20, MOBS_BTN, button -> openScreen(new MobsScreen(this))));
-        this.options.add(ButtonWidget.builder(ScreenTexts.DONE, (button) -> close()).dimensions(this.centerX - 100, 150, 200, 20).build());
+        this.options.add(net.minecraft.client.gui.components.Button.builder(CommonComponents.GUI_DONE, (button) -> onClose()).bounds(this.centerX - 100, 150, 200, 20).build());
 
-        this.options.forEach(this::addDrawableChild);
+        this.options.forEach(this::addRenderableWidget);
     }
 }

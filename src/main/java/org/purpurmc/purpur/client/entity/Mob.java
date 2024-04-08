@@ -1,7 +1,6 @@
 package org.purpurmc.purpur.client.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.entity.EntityType;
 
 public enum Mob {
     ALLAY(EntityType.ALLAY, 9, 4),
@@ -82,16 +81,16 @@ public enum Mob {
     ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER, 7, 4),
     ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN, 8, 4);
 
-    private final EntityType<? extends MobEntity> mob;
+    private final EntityType<? extends net.minecraft.world.entity.Mob> mob;
     private final int u, v;
 
-    Mob(EntityType<? extends MobEntity> mob, int u, int v) {
+    Mob(EntityType<? extends net.minecraft.world.entity.Mob> mob, int u, int v) {
         this.mob = mob;
         this.u = u;
         this.v = v;
     }
 
-    public EntityType<? extends MobEntity> getType() {
+    public EntityType<? extends net.minecraft.world.entity.Mob> getType() {
         return this.mob;
     }
 

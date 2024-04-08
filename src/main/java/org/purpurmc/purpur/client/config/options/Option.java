@@ -1,17 +1,16 @@
 package org.purpurmc.purpur.client.config.options;
 
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Text;
-
 import java.util.List;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 
 @SuppressWarnings("unused")
 public interface Option<T> {
     String key();
 
-    Text text();
+    Component text();
 
-    List<OrderedText> tooltip();
+    List<FormattedCharSequence> tooltip();
 
     T get();
 

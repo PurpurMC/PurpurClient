@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.SkeletonHorseEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.horse.SkeletonHorse;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(SkeletonHorseEntity.class)
-public abstract class MixinSkeletonHorse extends MobEntity implements RidableEntity {
-    public MixinSkeletonHorse(EntityType<? extends SkeletonHorseEntity> entityType, World world) {
+@Mixin(SkeletonHorse.class)
+public abstract class MixinSkeletonHorse extends Mob implements RidableEntity {
+    public MixinSkeletonHorse(EntityType<? extends SkeletonHorse> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().skeletonHorse.x, getSeats().skeletonHorse.y, getSeats().skeletonHorse.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().skeletonHorse.x, getSeats().skeletonHorse.y, getSeats().skeletonHorse.z);
     }
 }

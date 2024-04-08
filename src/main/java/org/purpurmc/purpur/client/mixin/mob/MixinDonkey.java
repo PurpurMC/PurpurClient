@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.DonkeyEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.horse.Donkey;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(DonkeyEntity.class)
-public abstract class MixinDonkey extends MobEntity implements RidableEntity {
-    public MixinDonkey(EntityType<? extends DonkeyEntity> entityType, World world) {
+@Mixin(Donkey.class)
+public abstract class MixinDonkey extends Mob implements RidableEntity {
+    public MixinDonkey(EntityType<? extends Donkey> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().donkey.x, getSeats().donkey.y, getSeats().donkey.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().donkey.x, getSeats().donkey.y, getSeats().donkey.z);
     }
 }

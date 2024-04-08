@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.TropicalFishEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.TropicalFish;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(TropicalFishEntity.class)
-public abstract class MixinTropicalFish extends MobEntity implements RidableEntity {
-    public MixinTropicalFish(EntityType<? extends TropicalFishEntity> entityType, World world) {
+@Mixin(TropicalFish.class)
+public abstract class MixinTropicalFish extends Mob implements RidableEntity {
+    public MixinTropicalFish(EntityType<? extends TropicalFish> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().tropicalFish.x, getSeats().tropicalFish.y, getSeats().tropicalFish.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().tropicalFish.x, getSeats().tropicalFish.y, getSeats().tropicalFish.z);
     }
 }

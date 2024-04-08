@@ -1,29 +1,28 @@
 package org.purpurmc.purpur.client.gui;
 
-import net.minecraft.client.resource.metadata.TextureResourceMetadata;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.ResourceTexture;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
 import org.purpurmc.purpur.client.PurpurClient;
-
+import com.mojang.blaze3d.platform.NativeImage;
 import java.io.IOException;
 import java.io.InputStream;
+import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.resources.metadata.texture.TextureMetadataSection;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 
-public class SplashTexture extends ResourceTexture {
-    public static final Identifier SPLASH = new Identifier("purpurclient", "textures/splash.png");
+public class SplashTexture extends SimpleTexture {
+    public static final ResourceLocation SPLASH = new ResourceLocation("purpurclient", "textures/splash.png");
 
     public SplashTexture() {
         super(SPLASH);
     }
 
     @Override
-    protected TextureData loadTextureData(ResourceManager resourceManager) {
-        TextureData data;
+    protected TextureImage getTextureImage(ResourceManager resourceManager) {
+        TextureImage data;
         try (InputStream in = PurpurClient.class.getResourceAsStream("/assets/purpurclient/textures/splash.png")) {
-            data = new TextureData(new TextureResourceMetadata(true, true), NativeImage.read(in));
+            data = new TextureImage(new TextureMetadataSection(true, true), NativeImage.read(in));
         } catch (IOException e) {
-            return new TextureData(e);
+            return new TextureImage(e);
         }
         return data;
     }

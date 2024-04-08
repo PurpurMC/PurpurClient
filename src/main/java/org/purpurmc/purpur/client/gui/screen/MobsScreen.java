@@ -1,15 +1,13 @@
 package org.purpurmc.purpur.client.gui.screen;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.recipebook.SmokerRecipeBookScreen;
-import net.minecraft.client.util.math.MatrixStack;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.gui.screen.widget.MobButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 
 public class MobsScreen extends AbstractScreen {
     public MobsScreen(Screen parent) {
@@ -30,12 +28,12 @@ public class MobsScreen extends AbstractScreen {
             }
         }
 
-        this.options.forEach(this::addDrawableChild);
+        this.options.forEach(this::addRenderableWidget);
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, OptionsScreen.MOBS_BTN, this.centerX, 30, 0xFFFFFFFF);
+        context.drawCenteredString(this.font, OptionsScreen.MOBS_BTN, this.centerX, 30, 0xFFFFFFFF);
     }
 }

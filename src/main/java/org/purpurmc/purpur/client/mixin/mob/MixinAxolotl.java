@@ -1,22 +1,22 @@
 package org.purpurmc.purpur.client.mixin.mob;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AxolotlEntity;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.purpurmc.purpur.client.entity.RidableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(AxolotlEntity.class)
-public abstract class MixinAxolotl extends MobEntity implements RidableEntity {
-    public MixinAxolotl(EntityType<? extends AxolotlEntity> entityType, World world) {
+@Mixin(Axolotl.class)
+public abstract class MixinAxolotl extends Mob implements RidableEntity {
+    public MixinAxolotl(EntityType<? extends Axolotl> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public Vec3d getPassengerRidingPos(Entity passenger) {
-        return super.getPassengerRidingPos(passenger).add(getSeats().axolotl.x, getSeats().axolotl.y, getSeats().axolotl.z);
+    public Vec3 getPassengerRidingPosition(Entity passenger) {
+        return super.getPassengerRidingPosition(passenger).add(getSeats().axolotl.x, getSeats().axolotl.y, getSeats().axolotl.z);
     }
 }

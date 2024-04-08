@@ -1,6 +1,8 @@
 package org.purpurmc.purpur.client;
 
 import com.google.common.io.ByteArrayDataOutput;
+import com.mojang.blaze3d.platform.IconSet;
+import com.mojang.blaze3d.platform.Window;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -8,13 +10,9 @@ import java.util.List;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.Icons;
-import net.minecraft.client.util.Window;
-import net.minecraft.resource.DefaultResourcePack;
-import net.minecraft.resource.InputSupplier;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.packs.VanillaPackResources;
+import net.minecraft.server.packs.resources.IoSupplier;
 import org.purpurmc.purpur.client.config.Config;
 import org.purpurmc.purpur.client.config.ConfigManager;
 import org.purpurmc.purpur.client.network.BeehivePacket;
@@ -28,7 +26,7 @@ public class PurpurClient implements ClientModInitializer {
         return instance;
     }
 
-    public static List<InputSupplier<InputStream>> ICON_LIST = Arrays.asList(() -> PurpurClient.class.getResourceAsStream("/assets/icon16.png"), () -> PurpurClient.class.getResourceAsStream("/assets/icon32.png"));
+    public static List<IoSupplier<InputStream>> ICON_LIST = Arrays.asList(() -> PurpurClient.class.getResourceAsStream("/assets/icon16.png"), () -> PurpurClient.class.getResourceAsStream("/assets/icon32.png"));
 
     private final ConfigManager configManager;
 
@@ -47,7 +45,7 @@ public class PurpurClient implements ClientModInitializer {
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             BeehivePacket.numOfBees = null;
-            if (!client.isInSingleplayer()) {
+            if (!client.isLocalServer()) {
                 ByteArrayDataOutput out = Packet.out();
                 out.writeInt(Constants.PROTOCOL);
                 Packet.send(Constants.HELLO, out);
@@ -57,7 +55,7 @@ public class PurpurClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(Constants.BEEHIVE_S2C, BeehivePacket::receiveBeehiveData);
 
         if (getConfig().useWindowTitle) {
-            MinecraftClient.getInstance().execute(this::updateTitle);
+            Minecraft.getInstance().execute(this::updateTitle);
         }
     }
 
@@ -70,12 +68,12 @@ public class PurpurClient implements ClientModInitializer {
     }
 
     public void updateTitle() {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         Window window = client.getWindow();
-        client.updateWindowTitle();
-        DefaultResourcePack pack = client.getDefaultResourcePack();
+        client.updateTitle();
+        VanillaPackResources pack = client.getVanillaPackResources();
         try {
-            window.setIcon(pack, Icons.RELEASE);
+            window.setIcon(pack, IconSet.RELEASE);
         } catch (IOException e) {
             // ignore
         };

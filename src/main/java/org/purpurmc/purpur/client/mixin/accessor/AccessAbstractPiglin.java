@@ -1,10 +1,10 @@
 package org.purpurmc.purpur.client.mixin.accessor;
 
-import net.minecraft.entity.mob.AbstractPiglinEntity;
+import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(AbstractPiglinEntity.class)
+@Mixin(AbstractPiglin.class)
 public interface AccessAbstractPiglin {
     @Accessor
     int getTimeInOverworld();

@@ -1,11 +1,11 @@
 package org.purpurmc.purpur.client.mixin;
 
 import net.minecraft.SharedConstants;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ServerInfo;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.server.IntegratedServer;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,40 +13,40 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public class MixinMinecraftClient {
     @Shadow
-    private IntegratedServer server;
+    private IntegratedServer singleplayerServer;
     @Shadow
-    public ServerInfo getCurrentServerEntry() {
+    public ServerData getCurrentServer() {
         return null;
     }
 
-    @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
-    private void getWindowTitle(CallbackInfoReturnable<String> cir) {
+    @Inject(method = "createTitle", at = @At("HEAD"), cancellable = true)
+    private void createTitle(CallbackInfoReturnable<String> cir) {
         PurpurClient purpur = PurpurClient.instance();
         if (purpur == null || !purpur.getConfig().useWindowTitle) {
             return;
         }
-        MinecraftClient client = MinecraftClient.getInstance();
-        StringBuilder sb = new StringBuilder(I18n.translate("PurpurClient %s", SharedConstants.getGameVersion().getName()));
-        ClientPlayNetworkHandler network = client.getNetworkHandler();
-        if (network != null && network.getConnection().isOpen()) {
+        Minecraft client = Minecraft.getInstance();
+        StringBuilder sb = new StringBuilder(I18n.get("PurpurClient %s", SharedConstants.getCurrentVersion().getName()));
+        ClientPacketListener network = client.getConnection();
+        if (network != null && network.getConnection().isConnected()) {
             sb.append(" - ");
-            String username = client.getSession().getUsername();
-            ServerInfo serverInfo = this.getCurrentServerEntry();
-            if (this.server != null && !this.server.isRemote()) {
-                sb.append(I18n.translate("purpurclient.title.singleplayer", username));
+            String username = client.getUser().getName();
+            ServerData serverInfo = this.getCurrentServer();
+            if (this.singleplayerServer != null && !this.singleplayerServer.isPublished()) {
+                sb.append(I18n.get("purpurclient.title.singleplayer", username));
             } else if (serverInfo != null && serverInfo.isRealm()) {
-                sb.append(I18n.translate("purpurclient.title.multiplayer.realms", username));
-            } else if (this.server == null && (serverInfo == null || !serverInfo.isLocal())) {
+                sb.append(I18n.get("purpurclient.title.multiplayer.realms", username));
+            } else if (this.singleplayerServer == null && (serverInfo == null || !serverInfo.isLan())) {
                 if (serverInfo == null) {
-                    sb.append(I18n.translate("purpurclient.title.multiplayer.unknown", username));
+                    sb.append(I18n.get("purpurclient.title.multiplayer.unknown", username));
                 } else {
-                    sb.append(I18n.translate("purpurclient.title.multiplayer.server", username, serverInfo.name));
+                    sb.append(I18n.get("purpurclient.title.multiplayer.server", username, serverInfo.name));
                 }
             } else {
-                sb.append(I18n.translate("purpurclient.title.multiplayer.lan", username));
+                sb.append(I18n.get("purpurclient.title.multiplayer.lan", username));
             }
         }
         cir.setReturnValue(sb.toString());
