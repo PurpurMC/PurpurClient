@@ -16,13 +16,12 @@ PurpurClient is designed to work together with [Purpur](https://github.com/Purpu
 
 </div>
 
-### Current Features in 1.20.4:
+### Current Features in 1.20.5:
 
 * Customizable mob passenger offsets
 * Adds bee counts inside beehives to debug screen¹
 * Fancy Purpur-themed Loading Screen (can be disabled in the config)
 * Fancy Window Title that changes based on what kind of server you're in ([translations can be PR'd](./src/main/resources/assets/purpurclient/lang/))
-* Displays Custom Enchantments instead of stripping them from the client
 * Removes the client-side limit of 255 levels
 
 ¹ only works when connected to [Purpur](https://github.com/PurpurMC/Purpur) servers
@@ -36,6 +35,7 @@ PurpurClient is designed to work together with [Purpur](https://github.com/Purpu
 * Fix warnings in logs about invalid flying attributes [Purpur-744](https://github.com/PurpurMC/Purpur/pull/744)
 * Fix debug markers ignoring the blue and red values that are set [MC-234030](https://bugs.mojang.com/browse/MC-234030) (Shows as Unresolved even though it's been fixed)
 * Fix client preemptively removing item entities from the world (MC-???)
+* Displays Custom Enchantments instead of stripping them from the client (1.20.5 - the Components Update)
 
 Note: PurpurClient adds a fancy animated splash screen on game startup alongside a better window title message. Both of these can be disabled in the config if preferred.
 

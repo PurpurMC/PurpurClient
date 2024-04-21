@@ -7,7 +7,6 @@
   "mixins": [
     "MixinDebugScreenOverlay",
     "MixinEnchantmentHelper",
-    "MixinItemStack",
     "MixinMinecraftClient",
     "MixinLoadingOverlay",
     "MixinWindow",
