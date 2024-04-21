@@ -6,7 +6,8 @@
   "refmap": "purpurclient.refmap.json",
   "mixins": [
     "MixinDebugScreenOverlay",
-    "MixinEnchantmentHelper",
+    "MixinItemEnchantments",
+    "MixinItemEnchantmentsMutable",
     "MixinMinecraftClient",
     "MixinLoadingOverlay",
     "MixinWindow",
