@@ -1,0 +1,3 @@
+- [ ] make mob screens transparent like in vanilla settings
+- [ ] fix keyboard accessibility in mob settings
+- [ ] override the 255 int value on static variables `LEVEL_CODEC` & `FULL_CODEC` in `ItemEnchantments.java`
