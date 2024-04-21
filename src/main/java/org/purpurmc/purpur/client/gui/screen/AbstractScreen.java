@@ -36,10 +36,10 @@ public abstract class AbstractScreen extends Screen {
 
     @Override
     public void renderBackground(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        if (this.minecraft != null && this.minecraft.level != null) {
-            context.fillGradient(0, 0, this.width, this.height, 0xF00F4863, 0xF0370038);
+        if (this.minecraft.level == null) {
+            this.renderPanorama(context, delta);
         } else {
-            this.renderDirtBackground(context);
+            context.fillGradient(0, 0, this.width, this.height, 0xF00F4863, 0xF0370038);
         }
     }
 
