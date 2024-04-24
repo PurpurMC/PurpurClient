@@ -57,6 +57,7 @@ jar {
 
 loom {
     mixin.defaultRefmapName = "purpurclient.refmap.json"
+    accessWidenerPath = file("src/main/resources/purpurclient.accesswidener")
 }
 
 modrinth {

@@ -82,23 +82,23 @@ public enum Mob {
     ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN, 8, 4);
 
     private final EntityType<? extends net.minecraft.world.entity.Mob> mob;
-    private final int u, v;
+    private final int spriteWidth, spriteHeight;
 
-    Mob(EntityType<? extends net.minecraft.world.entity.Mob> mob, int u, int v) {
+    Mob(EntityType<? extends net.minecraft.world.entity.Mob> mob, int spriteWidth, int spriteHeight) {
         this.mob = mob;
-        this.u = u;
-        this.v = v;
+        this.spriteWidth = spriteWidth;
+        this.spriteHeight = spriteHeight;
     }
 
     public EntityType<? extends net.minecraft.world.entity.Mob> getType() {
         return this.mob;
     }
 
-    public int getU() {
-        return this.u;
+    public int getSpriteWidth() {
+        return this.spriteWidth;
     }
 
-    public int getV() {
-        return this.v;
+    public int getSpriteHeight() {
+        return this.spriteHeight;
     }
 }

@@ -3,26 +3,36 @@ package org.purpurmc.purpur.client.gui.screen.widget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.purpurmc.purpur.client.entity.Mob;
-import org.purpurmc.purpur.client.gui.screen.AbstractScreen;
 import org.purpurmc.purpur.client.gui.screen.MobScreen;
 
-public class MobButton extends Button {
+public class MobButton extends SpriteIconButton {
     public static final ResourceLocation MOBS_TEXTURE = new ResourceLocation("purpurclient", "textures/mobs.png");
 
-    private final AbstractScreen screen;
-    private final Mob mob;
-
-    public MobButton(AbstractScreen screen, Mob mob, int x, int y) {
-        super(x, y, 16, 16, mob.getType().getDescription(), (button) -> screen.openScreen(new MobScreen(screen, mob)), DEFAULT_NARRATION);
-        this.screen = screen;
-        this.mob = mob;
+    public MobButton(Minecraft client, Screen screen, Mob mob) {
+        super(16, 16,
+            mob.getType().getDescription(),
+            mob.getSpriteWidth(),
+            mob.getSpriteHeight(),
+            MOBS_TEXTURE,
+            (button) -> client.setScreen(new MobScreen(screen, mob)), null);
     }
 
+//    @Override
+//    public void renderWidget(GuiGraphics guiGraphics, int i, int j, float f) {
+//        super.renderWidget(guiGraphics, i, j, f);
+//        int k = this.getX() + this.getWidth() / 2 - this.spriteWidth / 2;
+//        int l = this.getY() + this.getHeight() / 2 - this.spriteHeight / 2;
+//        guiGraphics.blitSprite(this.sprite, k, l, this.spriteWidth, this.spriteHeight);
+//    }
+
+    @Override
     public void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        //TODO: replace with guiGraphics.blitSprite()
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, MOBS_TEXTURE);
         RenderSystem.enableDepthTest();
@@ -41,8 +51,8 @@ public class MobButton extends Button {
             MOBS_TEXTURE,
             this.getX(),
             this.getY(),
-            this.mob.getU() * this.width,
-            this.mob.getV() * this.height,
+            this.spriteWidth * this.width,
+            this.spriteHeight * this.height,
             this.width,
             this.height,
             this.width * 16,

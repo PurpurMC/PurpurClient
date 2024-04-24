@@ -1,3 +1,5 @@
-- [ ] make mob screens transparent like in vanilla settings
+- [x] make mob screens transparent like in vanilla settings
+- [ ] fix mob button spacing in MobsScreen
+- [ ] refactor MobScreen
 - [ ] fix keyboard accessibility in mob settings
 - [ ] override the 255 int value on static variables `LEVEL_CODEC` & `FULL_CODEC` in `ItemEnchantments.java`

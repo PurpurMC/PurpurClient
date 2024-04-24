@@ -23,6 +23,7 @@
       "org.purpurmc.purpur.client.gui.ModMenu"
     ]
   },
+  "accessWidener": "purpurclient.accesswidener",
   "mixins": [
     "purpurclient.mixins.json"
   ],
