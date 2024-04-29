@@ -6,11 +6,11 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
-public record ServerboundBeehivePacket(BlockPos pos) implements CustomPacketPayload {
-    public static final StreamCodec<FriendlyByteBuf, ServerboundBeehivePacket> STREAM_CODEC = CustomPacketPayload.codec(ServerboundBeehivePacket::write, ServerboundBeehivePacket::new);
-    public static final Type<ServerboundBeehivePacket> TYPE = new Type<>(new ResourceLocation("purpur", "beehive_c2s"));
+public record ServerboundBeehivePayload(BlockPos pos) implements CustomPacketPayload {
+    public static final StreamCodec<FriendlyByteBuf, ServerboundBeehivePayload> STREAM_CODEC = CustomPacketPayload.codec(ServerboundBeehivePayload::write, ServerboundBeehivePayload::new);
+    public static final Type<ServerboundBeehivePayload> TYPE = new Type<>(new ResourceLocation("purpur", "beehive_c2s"));
 
-    public ServerboundBeehivePacket(FriendlyByteBuf friendlyByteBuf) {
+    public ServerboundBeehivePayload(FriendlyByteBuf friendlyByteBuf) {
         this(friendlyByteBuf.readBlockPos());
     }
 

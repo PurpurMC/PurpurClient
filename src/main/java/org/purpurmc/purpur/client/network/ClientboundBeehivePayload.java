@@ -9,12 +9,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public record ClientboundBeehivePacket(BlockPos pos, int numOfBees) implements CustomPacketPayload {
-    public static final StreamCodec<FriendlyByteBuf, ClientboundBeehivePacket> STREAM_CODEC = CustomPacketPayload.codec(ClientboundBeehivePacket::write, ClientboundBeehivePacket::new);
-    public static final Type<ClientboundBeehivePacket> TYPE = new Type<>(new ResourceLocation("purpur", "beehive_s2c"));
+public record ClientboundBeehivePayload(BlockPos pos, int numOfBees) implements CustomPacketPayload {
+    public static final StreamCodec<FriendlyByteBuf, ClientboundBeehivePayload> STREAM_CODEC = CustomPacketPayload.codec(ClientboundBeehivePayload::write, ClientboundBeehivePayload::new);
+    public static final Type<ClientboundBeehivePayload> TYPE = new Type<>(new ResourceLocation("purpur", "beehive_s2c"));
     public static String NUM_OF_BEES = null;
 
-    public ClientboundBeehivePacket(FriendlyByteBuf friendlyByteBuf) {
+    public ClientboundBeehivePayload(FriendlyByteBuf friendlyByteBuf) {
         this(friendlyByteBuf.readBlockPos(),  friendlyByteBuf.readInt());
     }
 
@@ -28,7 +28,7 @@ public record ClientboundBeehivePacket(BlockPos pos, int numOfBees) implements C
         return TYPE;
     }
 
-    public static void handle(ClientboundBeehivePacket payload, ClientPlayNetworking.Context context) {
+    public static void handle(ClientboundBeehivePayload payload, ClientPlayNetworking.Context context) {
         if (context.client().level == null) {
             return;
         }
@@ -38,6 +38,6 @@ public record ClientboundBeehivePacket(BlockPos pos, int numOfBees) implements C
             return;
         }
 
-        ClientboundBeehivePacket.NUM_OF_BEES = String.valueOf(payload.numOfBees());
+        ClientboundBeehivePayload.NUM_OF_BEES = String.valueOf(payload.numOfBees());
     }
 }

@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.purpurmc.purpur.client.PurpurClient;
-import org.purpurmc.purpur.client.network.ClientboundBeehivePacket;
-import org.purpurmc.purpur.client.network.ServerboundBeehivePacket;
+import org.purpurmc.purpur.client.network.ClientboundBeehivePayload;
+import org.purpurmc.purpur.client.network.ServerboundBeehivePayload;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -48,12 +48,12 @@ public class MixinDebugScreenOverlay {
             if (now > this.lastTime + 500 || !pos.equals(this.lastPos)) {
                 this.lastPos = pos;
                 this.lastTime = now;
-                ClientPlayNetworking.send(new ServerboundBeehivePacket(pos));
+                ClientPlayNetworking.send(new ServerboundBeehivePayload(pos));
             }
-            if (ClientboundBeehivePacket.NUM_OF_BEES != null) {
+            if (ClientboundBeehivePayload.NUM_OF_BEES != null) {
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).contains("honey_level")) {
-                        list.add(i + 1, "num_of_bees: " + ClientboundBeehivePacket.NUM_OF_BEES);
+                        list.add(i + 1, "num_of_bees: " + ClientboundBeehivePayload.NUM_OF_BEES);
                         break;
                     }
                 }

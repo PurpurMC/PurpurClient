@@ -16,9 +16,9 @@ import net.minecraft.server.packs.VanillaPackResources;
 import net.minecraft.server.packs.resources.IoSupplier;
 import org.purpurmc.purpur.client.config.Config;
 import org.purpurmc.purpur.client.config.ConfigManager;
-import org.purpurmc.purpur.client.network.ClientboundBeehivePacket;
-import org.purpurmc.purpur.client.network.ServerboundBeehivePacket;
-import org.purpurmc.purpur.client.network.ServerboundPurpurClientHelloPacket;
+import org.purpurmc.purpur.client.network.ClientboundBeehivePayload;
+import org.purpurmc.purpur.client.network.ServerboundBeehivePayload;
+import org.purpurmc.purpur.client.network.ServerboundPurpurClientHelloPayload;
 
 public class PurpurClient implements ClientModInitializer {
     private static PurpurClient instance;
@@ -44,14 +44,14 @@ public class PurpurClient implements ClientModInitializer {
             return;
         }
 
-        PayloadTypeRegistry.configurationC2S().register(ServerboundPurpurClientHelloPacket.TYPE, ServerboundPurpurClientHelloPacket.STREAM_CODEC);
-        PayloadTypeRegistry.playC2S().register(ServerboundBeehivePacket.TYPE, ServerboundBeehivePacket.STREAM_CODEC);
-        PayloadTypeRegistry.playS2C().register(ClientboundBeehivePacket.TYPE, ClientboundBeehivePacket.STREAM_CODEC);
+        PayloadTypeRegistry.configurationC2S().register(ServerboundPurpurClientHelloPayload.TYPE, ServerboundPurpurClientHelloPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(ServerboundBeehivePayload.TYPE, ServerboundBeehivePayload.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(ClientboundBeehivePayload.TYPE, ClientboundBeehivePayload.STREAM_CODEC);
 
-        ClientPlayNetworking.registerGlobalReceiver(ClientboundBeehivePacket.TYPE, ClientboundBeehivePacket::handle);
+        ClientPlayNetworking.registerGlobalReceiver(ClientboundBeehivePayload.TYPE, ClientboundBeehivePayload::handle);
         ClientConfigurationConnectionEvents.READY.register((handler, client) -> {
-            ClientboundBeehivePacket.NUM_OF_BEES = null;
-            ClientConfigurationNetworking.send(new ServerboundPurpurClientHelloPacket());
+            ClientboundBeehivePayload.NUM_OF_BEES = null;
+            ClientConfigurationNetworking.send(new ServerboundPurpurClientHelloPayload());
         });
 
 

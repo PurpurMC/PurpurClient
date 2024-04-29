@@ -5,16 +5,16 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
-public record ServerboundPurpurClientHelloPacket(int protocol) implements CustomPacketPayload {
-    public static final StreamCodec<FriendlyByteBuf, ServerboundPurpurClientHelloPacket> STREAM_CODEC = CustomPacketPayload.codec(ServerboundPurpurClientHelloPacket::write, ServerboundPurpurClientHelloPacket::new);
-    public static final Type<ServerboundPurpurClientHelloPacket> TYPE = new Type<>(new ResourceLocation("purpur", "client"));
+public record ServerboundPurpurClientHelloPayload(int protocol) implements CustomPacketPayload {
+    public static final StreamCodec<FriendlyByteBuf, ServerboundPurpurClientHelloPayload> STREAM_CODEC = CustomPacketPayload.codec(ServerboundPurpurClientHelloPayload::write, ServerboundPurpurClientHelloPayload::new);
+    public static final Type<ServerboundPurpurClientHelloPayload> TYPE = new Type<>(new ResourceLocation("purpur", "client"));
     public static final int PROTOCOL = 0;
 
-    public ServerboundPurpurClientHelloPacket(){
+    public ServerboundPurpurClientHelloPayload(){
         this(PROTOCOL);
     }
 
-    public ServerboundPurpurClientHelloPacket(FriendlyByteBuf friendlyByteBuf) {
+    public ServerboundPurpurClientHelloPayload(FriendlyByteBuf friendlyByteBuf) {
         this(friendlyByteBuf.readInt());
     }
 
