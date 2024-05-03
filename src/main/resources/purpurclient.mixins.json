@@ -7,7 +7,6 @@
   "mixins": [
     "MixinDebugScreenOverlay",
     "MixinItemEnchantments",
-    "MixinItemEnchantmentsMutable",
     "MixinMinecraftClient",
     "MixinLoadingOverlay",
     "MixinWindow",
