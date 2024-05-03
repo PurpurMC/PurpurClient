@@ -1,18 +1,18 @@
 package org.purpurmc.purpur.client.gui.screen;
 
-import org.purpurmc.purpur.client.entity.Mob;
-import org.purpurmc.purpur.client.gui.screen.widget.MobButton;
-
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.MobsList;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import org.purpurmc.purpur.client.entity.Mob;
+import org.purpurmc.purpur.client.gui.screen.widget.MobButton;
 
 public class MobsScreen extends OptionsSubScreen {
     public final static MutableComponent MOBS_BTN = Component.translatable("purpurclient.options.mobs");
@@ -26,14 +26,19 @@ public class MobsScreen extends OptionsSubScreen {
 
     @Override
     protected void init() {
-        this.options = this.addRenderableWidget(new OptionsList(this.minecraft, this.height, this.height, this));
-        List<AbstractWidget> list = new ArrayList<>();
+        MobsList widget = new MobsList(this.minecraft, this.height, this.height, this);
 
+        int amount = 15;
+        List<AbstractWidget> list = new ArrayList<>();
         for (Mob mob : Mob.values()) {
             list.add(new MobButton(this.minecraft, this, mob));
+            if (list.size() == amount) {
+                widget.addEntry(list);
+                list.clear();
+            }
         }
-
-        this.options.addSmall(list);
+        widget.addEntry(list);
+        this.options = this.addRenderableWidget(widget);
         super.init();
     }
 
