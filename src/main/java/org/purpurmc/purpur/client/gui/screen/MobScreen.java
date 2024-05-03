@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.options.DoubleOption;
@@ -169,9 +170,9 @@ public class MobScreen extends AbstractScreen {
     }
 
     public void drawPreviewModel(FakePlayer player, Entity vehicle) {
-        PoseStack matrixStack = RenderSystem.getModelViewStack();
-        matrixStack.pushPose();
-        matrixStack.translate(this.centerX + this.previewX, this.previewY, 1500);
+        Matrix4fStack matrixStack = RenderSystem.getModelViewStack();
+        matrixStack.pushMatrix();
+        matrixStack.translate((float) (this.centerX + this.previewX), (float) this.previewY, 1500);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
 
         RenderSystem.applyModelViewMatrix();
@@ -202,7 +203,7 @@ public class MobScreen extends AbstractScreen {
 
         immediate.endBatch();
         renderer.setRenderShadow(true);
-        matrixStack.popPose();
+        matrixStack.popMatrix();
 
         RenderSystem.applyModelViewMatrix();
         Lighting.setupFor3DItems();

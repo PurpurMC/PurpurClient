@@ -1,6 +1,5 @@
 package org.purpurmc.purpur.client;
 
-import com.google.common.io.ByteArrayDataOutput;
 import com.mojang.blaze3d.platform.IconSet;
 import com.mojang.blaze3d.platform.Window;
 import java.io.IOException;
@@ -8,16 +7,18 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.VanillaPackResources;
 import net.minecraft.server.packs.resources.IoSupplier;
 import org.purpurmc.purpur.client.config.Config;
 import org.purpurmc.purpur.client.config.ConfigManager;
-import org.purpurmc.purpur.client.network.BeehivePacket;
-import org.purpurmc.purpur.client.network.Packet;
-import org.purpurmc.purpur.client.util.Constants;
+import org.purpurmc.purpur.client.network.ClientboundBeehivePayload;
+import org.purpurmc.purpur.client.network.ServerboundBeehivePayload;
+import org.purpurmc.purpur.client.network.ServerboundPurpurClientHelloPayload;
 
 public class PurpurClient implements ClientModInitializer {
     private static PurpurClient instance;
@@ -43,16 +44,16 @@ public class PurpurClient implements ClientModInitializer {
             return;
         }
 
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            BeehivePacket.numOfBees = null;
-            if (!client.isLocalServer()) {
-                ByteArrayDataOutput out = Packet.out();
-                out.writeInt(Constants.PROTOCOL);
-                Packet.send(Constants.HELLO, out);
-            }
+        PayloadTypeRegistry.configurationC2S().register(ServerboundPurpurClientHelloPayload.TYPE, ServerboundPurpurClientHelloPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(ServerboundBeehivePayload.TYPE, ServerboundBeehivePayload.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(ClientboundBeehivePayload.TYPE, ClientboundBeehivePayload.STREAM_CODEC);
+
+        ClientPlayNetworking.registerGlobalReceiver(ClientboundBeehivePayload.TYPE, ClientboundBeehivePayload::handle);
+        ClientConfigurationConnectionEvents.READY.register((handler, client) -> {
+            ClientboundBeehivePayload.NUM_OF_BEES = null;
+            ClientConfigurationNetworking.send(new ServerboundPurpurClientHelloPayload());
         });
 
-        ClientPlayNetworking.registerGlobalReceiver(Constants.BEEHIVE_S2C, BeehivePacket::receiveBeehiveData);
 
         if (getConfig().useWindowTitle) {
             Minecraft.getInstance().execute(this::updateTitle);

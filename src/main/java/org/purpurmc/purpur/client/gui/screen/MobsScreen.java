@@ -1,39 +1,56 @@
 package org.purpurmc.purpur.client.gui.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.MobsList;
+import net.minecraft.client.gui.components.OptionsList;
+import net.minecraft.client.gui.screens.OptionsSubScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.gui.screen.widget.MobButton;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
+public class MobsScreen extends OptionsSubScreen {
+    public final static MutableComponent MOBS_BTN = Component.translatable("purpurclient.options.mobs");
 
-public class MobsScreen extends AbstractScreen {
-    public MobsScreen(Screen parent) {
-        super(parent);
+    protected OptionsList options;
+    protected int centerX;
+
+    public MobsScreen(Screen screen) {
+        super(screen, Minecraft.getInstance().options, MOBS_BTN);
     }
 
     @Override
-    public void init() {
-        super.init();
+    protected void init() {
+        MobsList widget = new MobsList(this.minecraft, this.height, this.height, this);
 
-        this.options = new ArrayList<>();
-        int x = -7, y = 80;
+        int amount = 15;
+        List<AbstractWidget> list = new ArrayList<>();
         for (Mob mob : Mob.values()) {
-            this.options.add(new MobButton(this, mob, this.centerX + x * 21 - 8, y));
-            if (x++ >= 7) {
-                x = -7;
-                y += 20;
+            list.add(new MobButton(this.minecraft, this, mob));
+            if (list.size() == amount) {
+                widget.addEntry(list);
+                list.clear();
             }
         }
-
-        this.options.forEach(this::addRenderableWidget);
+        widget.addEntry(list);
+        this.options = this.addRenderableWidget(widget);
+        super.init();
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredString(this.font, OptionsScreen.MOBS_BTN, this.centerX, 30, 0xFFFFFFFF);
+    public void renderBackground(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        super.renderBackground(context, mouseX, mouseY, delta);
+        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
+    }
+
+    @Override
+    protected void repositionElements() {
+        super.repositionElements();
+        this.options.updateSize(this.width, this.layout);
     }
 }
