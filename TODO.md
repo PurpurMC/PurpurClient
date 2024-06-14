@@ -4,11 +4,3 @@
 
 - [ ] MobsScreen: Mob buttons are darker than they should be
 - [ ] MobScreen: buttons and fake player render aren't centered
-
-## Missing Mobs
-
-- [ ] armadillo
-- [ ] bogged
-- [ ] breeze
-- [ ] camel
-

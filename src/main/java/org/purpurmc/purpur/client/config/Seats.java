@@ -8,10 +8,14 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 @SuppressWarnings("CanBeFinal")
 public class Seats {
     public Seat axolotl = new Seat(0.0D, 0.0D, 0.0D);
+    public Seat armadillo = new Seat(0.0D, 0.0D, 0.0D);
     public Seat allay = new Seat(0.0D, 0.0D, 0.0D);
     public Seat bat = new Seat(0.0D, 0.0D, 0.0D);
     public Seat bee = new Seat(0.0D, 0.0D, 0.0D);
     public Seat blaze = new Seat(0.0D, 0.0D, 0.0D);
+    public Seat bogged = new Seat(0.0D, 0.0D, 0.0D);
+    public Seat breeze = new Seat(0.0D, 0.0D, 0.0D);
+    public Seat camel = new Seat(0.0D, 0.0D, 0.0D);
     public Seat cat = new Seat(0.0D, 0.0D, 0.0D);
     public Seat caveSpider = new Seat(0.0D, 0.0D, 0.0D);
     public Seat chicken = new Seat(0.0D, 0.0D, 0.0D);
@@ -87,10 +91,14 @@ public class Seats {
 
     public void setAllSeats(double x, double y, double z) {
         allay.setSeat(z, y, z);
+        armadillo.setSeat(z, y, z);
         axolotl.setSeat(z, y, z);
         bat.setSeat(z, y, z);
         bee.setSeat(z, y, z);
         blaze.setSeat(z, y, z);
+        bogged.setSeat(z, y, z);
+        breeze.setSeat(z, y, z);
+        camel.setSeat(z, y, z);
         cat.setSeat(z, y, z);
         caveSpider.setSeat(z, y, z);
         chicken.setSeat(z, y, z);
@@ -168,10 +176,14 @@ public class Seats {
     public Seat getSeat(Mob mob) {
         return switch (mob) {
             case ALLAY -> this.allay;
+            case ARMADILLO -> this.armadillo;
             case AXOLOTL -> this.axolotl;
             case BAT -> this.bat;
             case BEE -> this.bee;
             case BLAZE -> this.blaze;
+            case BOGGED -> this.bogged;
+            case BREEZE -> this.breeze;
+            case CAMEL -> this.camel;
             case CAT -> this.cat;
             case CAVE_SPIDER -> this.caveSpider;
             case CHICKEN -> this.chicken;
