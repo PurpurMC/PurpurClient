@@ -3,11 +3,15 @@ package org.purpurmc.purpur.client.entity;
 import net.minecraft.world.entity.EntityType;
 
 public enum Mob {
+    ARMADILLO(EntityType.ARMADILLO, 13, 4),
     ALLAY(EntityType.ALLAY, 9, 4),
     AXOLOTL(EntityType.AXOLOTL, 0, 0),
     BAT(EntityType.BAT, 1, 0),
     BEE(EntityType.BEE, 2, 0),
     BLAZE(EntityType.BLAZE, 3, 0),
+    BOGGED(EntityType.BOGGED, 14, 4),
+    BREEZE(EntityType.BREEZE, 15, 4),
+    CAMEL(EntityType.CAMEL, 0, 5),
     CAT(EntityType.CAT, 4, 0),
     CAVE_SPIDER(EntityType.CAVE_SPIDER, 5, 0),
     CHICKEN(EntityType.CHICKEN, 6, 0),
