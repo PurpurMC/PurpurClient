@@ -86,8 +86,8 @@ public class Seats {
     public Seat zombifiedPiglin = new Seat(0.0D, 0.0D, 0.0D);
 
     public void setAllSeats(double x, double y, double z) {
-        axolotl.setSeat(z, y, z);
         allay.setSeat(z, y, z);
+        axolotl.setSeat(z, y, z);
         bat.setSeat(z, y, z);
         bee.setSeat(z, y, z);
         blaze.setSeat(z, y, z);

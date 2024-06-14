@@ -9,3 +9,6 @@
 
 - [ ] armadillo
 - [ ] bogged
+- [ ] breeze
+- [ ] camel
+
