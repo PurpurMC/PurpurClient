@@ -83,7 +83,7 @@ public class MixinLoadingOverlay {
             this.delta = 0;
             opacity = Mth.clamp(g, 0.0f, 1.0f);
         } else {
-            this.delta += this.minecraft.getFrameTime();
+            this.delta += this.minecraft.getTimer().getRealtimeDeltaTicks();
             opacity = Mth.clampedLerp(-0.5F, 1.0F, this.delta / 30F);
         }
 

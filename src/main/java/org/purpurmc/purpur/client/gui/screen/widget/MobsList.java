@@ -12,7 +12,7 @@ import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
-import net.minecraft.client.gui.screens.OptionsSubScreen;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,8 +22,8 @@ public class MobsList extends OptionsList {
     private static final int DEFAULT_ITEM_HEIGHT = 25;
     private final OptionsSubScreen screen;
 
-    public MobsList(Minecraft minecraft, int width, int height, OptionsSubScreen screen) {
-        super(minecraft, width, height, screen);
+    public MobsList(Minecraft minecraft, int width, OptionsSubScreen screen) {
+        super(minecraft, width, screen);
         this.screen = screen;
     }
 

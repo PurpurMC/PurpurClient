@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.MobsList;
 import net.minecraft.client.gui.components.OptionsList;
-import net.minecraft.client.gui.screens.OptionsSubScreen;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -25,8 +25,8 @@ public class MobsScreen extends OptionsSubScreen {
     }
 
     @Override
-    protected void init() {
-        MobsList widget = new MobsList(this.minecraft, this.height, this.height, this);
+    protected void addOptions() {
+        MobsList widget = new MobsList(this.minecraft, this.height, this);
 
         int amount = 15;
         List<AbstractWidget> list = new ArrayList<>();
@@ -39,7 +39,6 @@ public class MobsScreen extends OptionsSubScreen {
         }
         widget.addEntry(list);
         this.options = this.addRenderableWidget(widget);
-        super.init();
     }
 
     @Override

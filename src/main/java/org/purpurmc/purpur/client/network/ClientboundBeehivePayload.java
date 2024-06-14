@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ClientboundBeehivePayload(BlockPos pos, int numOfBees) implements CustomPacketPayload {
     public static final StreamCodec<FriendlyByteBuf, ClientboundBeehivePayload> STREAM_CODEC = CustomPacketPayload.codec(ClientboundBeehivePayload::write, ClientboundBeehivePayload::new);
-    public static final Type<ClientboundBeehivePayload> TYPE = new Type<>(new ResourceLocation("purpur", "beehive_s2c"));
+    public static final Type<ClientboundBeehivePayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("purpur", "beehive_s2c"));
     public static String NUM_OF_BEES = null;
 
     public ClientboundBeehivePayload(FriendlyByteBuf friendlyByteBuf) {
