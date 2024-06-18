@@ -3,4 +3,4 @@
 ## General
 
 - [ ] MobsScreen: Mob buttons are darker than they should be
-- [ ] MobScreen: buttons and fake player render aren't centered
+- [x] MobScreen: buttons and fake player render aren't centered

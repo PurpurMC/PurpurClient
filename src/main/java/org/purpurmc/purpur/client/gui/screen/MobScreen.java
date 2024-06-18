@@ -73,6 +73,18 @@ public class MobScreen extends AbstractScreen {
     @Override
     public void init() {
         super.init();
+
+        final Seat seat = PurpurClient.instance().getConfig().seats.getSeat(this.mob);
+
+        this.options = new ArrayList<>();
+        if (seat != null) {
+            this.options.add(new DoubleButton(this.centerX + 70, 90, 100, 20, new DoubleOption("seat.x", () -> seat.x, (value) -> seat.x = value)));
+            this.options.add(new DoubleButton(this.centerX + 70, 120, 100, 20, new DoubleOption("seat.y", () -> seat.y, (value) -> seat.y = value)));
+            this.options.add(new DoubleButton(this.centerX + 70, 150, 100, 20, new DoubleOption("seat.z", () -> seat.z, (value) -> seat.z = value)));
+        }
+
+        this.options.forEach(this::addRenderableWidget);
+
         if (this.alreadyInit) {
             // we only need to set everything up once
             // not every time the window resizes
@@ -130,16 +142,6 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     protected void addOptions() {
-        final Seat seat = PurpurClient.instance().getConfig().seats.getSeat(this.mob);
-
-        this.options = new ArrayList<>();
-        if (seat != null) {
-            this.options.add(new DoubleButton(this.centerX + 70, 90, 100, 20, new DoubleOption("seat.x", () -> seat.x, (value) -> seat.x = value)));
-            this.options.add(new DoubleButton(this.centerX + 70, 120, 100, 20, new DoubleOption("seat.y", () -> seat.y, (value) -> seat.y = value)));
-            this.options.add(new DoubleButton(this.centerX + 70, 150, 100, 20, new DoubleOption("seat.z", () -> seat.z, (value) -> seat.z = value)));
-        }
-
-        this.options.forEach(this::addRenderableWidget);
     }
 
     @Override
