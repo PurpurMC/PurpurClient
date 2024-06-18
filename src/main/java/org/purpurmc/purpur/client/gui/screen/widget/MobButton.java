@@ -13,7 +13,7 @@ import org.purpurmc.purpur.client.gui.screen.MobScreen;
 public class MobButton extends SpriteIconButton {
     public static final int MOBS_ATLAS_WIDTH = 512;
     public static final int MOBS_TEXTURE_WIDTH = 16;
-    public static final ResourceLocation MOBS_TEXTURE = new ResourceLocation("purpurclient", "textures/mobs.png");
+    public static final ResourceLocation MOBS_TEXTURE = ResourceLocation.fromNamespaceAndPath("purpurclient", "textures/mobs.png");
 
     public MobButton(Minecraft client, Screen screen, Mob mob) {
         super(MOBS_TEXTURE_WIDTH, MOBS_TEXTURE_WIDTH,

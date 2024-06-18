@@ -15,7 +15,7 @@ import org.purpurmc.purpur.client.config.options.DoubleOption;
 public class DoubleButton extends AbstractWidget implements Tickable {
     private final static Component PLUS = Component.nullToEmpty("+");
     private final static Component MINUS = Component.nullToEmpty("-");
-    private static final WidgetSprites TEXTURES = new WidgetSprites(new ResourceLocation("widget/button"), new ResourceLocation("widget/button_disabled"), new ResourceLocation("widget/button_highlighted"));
+    private static final WidgetSprites TEXTURES = new WidgetSprites(ResourceLocation.parse("widget/button"), ResourceLocation.parse("widget/button_disabled"), ResourceLocation.parse("widget/button_highlighted"));
 
     private final DoubleOption option;
     private int tooltipDelay;

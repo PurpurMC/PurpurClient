@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 public class SplashTexture extends SimpleTexture {
-    public static final ResourceLocation SPLASH = new ResourceLocation("purpurclient", "textures/splash.png");
+    public static final ResourceLocation SPLASH = ResourceLocation.fromNamespaceAndPath("purpurclient", "textures/splash.png");
 
     public SplashTexture() {
         super(SPLASH);

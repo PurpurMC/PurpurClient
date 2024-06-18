@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ServerboundBeehivePayload(BlockPos pos) implements CustomPacketPayload {
     public static final StreamCodec<FriendlyByteBuf, ServerboundBeehivePayload> STREAM_CODEC = CustomPacketPayload.codec(ServerboundBeehivePayload::write, ServerboundBeehivePayload::new);
-    public static final Type<ServerboundBeehivePayload> TYPE = new Type<>(new ResourceLocation("purpur", "beehive_c2s"));
+    public static final Type<ServerboundBeehivePayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("purpur", "beehive_c2s"));
 
     public ServerboundBeehivePayload(FriendlyByteBuf friendlyByteBuf) {
         this(friendlyByteBuf.readBlockPos());

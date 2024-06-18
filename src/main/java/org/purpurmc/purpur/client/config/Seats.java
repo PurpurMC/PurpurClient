@@ -93,7 +93,6 @@ public class Seats {
         allay.setSeat(z, y, z);
         armadillo.setSeat(z, y, z);
         axolotl.setSeat(z, y, z);
-        allay.setSeat(z, y, z);
         bat.setSeat(z, y, z);
         bee.setSeat(z, y, z);
         blaze.setSeat(z, y, z);
