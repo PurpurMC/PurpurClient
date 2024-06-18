@@ -17,7 +17,6 @@ import org.purpurmc.purpur.client.gui.screen.widget.MobButton;
 public class MobsScreen extends OptionsSubScreen {
     public final static MutableComponent MOBS_BTN = Component.translatable("purpurclient.options.mobs");
 
-    protected OptionsList options;
     protected int centerX;
 
     public MobsScreen(Screen screen) {
@@ -25,7 +24,7 @@ public class MobsScreen extends OptionsSubScreen {
     }
 
     @Override
-    protected void addOptions() {
+    protected void addContents() {
         MobsList widget = new MobsList(this.minecraft, this.height, this);
 
         int amount = 15;
@@ -38,18 +37,16 @@ public class MobsScreen extends OptionsSubScreen {
             }
         }
         widget.addEntry(list);
-        this.options = this.addRenderableWidget(widget);
+        this.list = this.layout.addToContents(widget);
+    }
+
+    @Override
+    protected void addOptions() {
     }
 
     @Override
     public void renderBackground(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.renderBackground(context, mouseX, mouseY, delta);
         context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
-    }
-
-    @Override
-    protected void repositionElements() {
-        super.repositionElements();
-        this.options.updateSize(this.width, this.layout);
     }
 }
