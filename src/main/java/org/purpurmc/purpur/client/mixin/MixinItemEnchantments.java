@@ -14,19 +14,19 @@ public class MixinItemEnchantments {
     private static final Codec<Integer> LEVEL_CODEC = Codec.intRange(0, Integer.MAX_VALUE);
 
     @ModifyConstant(method = "<init>", constant = @Constant(intValue = 255))
-    private static int injectConstructor(int constant) {
+    private int injectConstructor(int constant) {
         return Integer.MAX_VALUE;
     }
 
     @Mixin(ItemEnchantments.Mutable.class)
     public static class MixinItemEnchantmentsMutable {
         @ModifyConstant(method = "set", constant = @Constant(intValue = 255))
-        private static int injectSet(int constant) {
+        private int injectSet(int constant) {
             return Integer.MAX_VALUE;
         }
 
         @ModifyConstant(method = "upgrade", constant = @Constant(intValue = 255))
-        private static int injectUpgrade(int constant) {
+        private int injectUpgrade(int constant) {
             return Integer.MAX_VALUE;
         }
     }
