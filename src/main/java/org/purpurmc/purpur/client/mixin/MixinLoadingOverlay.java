@@ -1,6 +1,9 @@
 package org.purpurmc.purpur.client.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.renderer.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.gui.SplashTexture;
 import org.spongepowered.asm.mixin.Final;
@@ -13,13 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
+
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.LoadingOverlay;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.server.packs.resources.ReloadInstance;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 
 @Mixin(LoadingOverlay.class)
@@ -83,19 +86,20 @@ public class MixinLoadingOverlay {
             this.delta = 0;
             opacity = Mth.clamp(g, 0.0f, 1.0f);
         } else {
-            this.delta += this.minecraft.getTimer().getRealtimeDeltaTicks();
+            this.delta += this.minecraft.getDeltaTracker().getRealtimeDeltaTicks();
             opacity = Mth.clampedLerp(-0.5F, 1.0F, this.delta / 30F);
         }
 
         RenderSystem.setShaderTexture(0, SplashTexture.SPLASH);
         RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
-        context.blit(SplashTexture.SPLASH, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
-        context.blit(SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
-        context.blit(SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
-        context.blit(SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
-        context.blit(SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 100, 12, 256, 658, 200, 23, 1024, 1024); // url
+//        RenderSystem.setShader(new ShaderProgram(ResourceLocation.parse("position_tex"), VertexFormat.builder().add("test", VertexFormatElement.POSITION).build(), ShaderDefines.EMPTY));
+//        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
+        Function<ResourceLocation, RenderType> renderTypeFunction = RenderType::guiTextured;
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 100, 12, 256, 658, 200, 23, 1024, 1024); // url
         RenderSystem.disableBlend();
 
         int scale = (int) ((double) this.minecraft.getWindow().getGuiScaledHeight() * 0.625D);
@@ -125,7 +129,7 @@ public class MixinLoadingOverlay {
     private void renderProgressBar(GuiGraphics context, int minX, int minY, int maxX, int maxY, float opacity) {
         int i = Mth.ceil((float) (maxX - minX - 2) * this.currentProgress);
         int j = Math.round(opacity * 255.0f);
-        int k = FastColor.ARGB32.color(j, 255, 255, 255);
+        int k = ARGB.color(j, 255, 255, 255);
         context.fill(minX + 2, minY + 2, minX + i, maxY - 2, k);
         context.fill(minX + 1, minY, maxX - 1, minY + 1, k);
         context.fill(minX + 1, maxY, maxX - 1, maxY - 1, k);

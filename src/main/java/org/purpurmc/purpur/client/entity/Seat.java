@@ -1,6 +1,5 @@
 package org.purpurmc.purpur.client.entity;
 
-import org.purpurmc.purpur.client.util.Constants;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 @ConfigSerializable

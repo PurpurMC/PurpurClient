@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.gui.screen.MobScreen;
@@ -29,6 +30,7 @@ public class MobButton extends SpriteIconButton {
     public void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.renderWidget(context, mouseX, mouseY, delta);
         context.blit(
+            RenderType::guiTextured,
             MOBS_TEXTURE,
             this.getX(),
             this.getY(),
