@@ -92,7 +92,8 @@ public class MixinLoadingOverlay {
 
         RenderSystem.setShaderTexture(0, SplashTexture.SPLASH);
         RenderSystem.enableBlend();
-//        RenderSystem.setShader(new ShaderProgram(ResourceLocation.parse("position_tex"), VertexFormat.builder().add("test", VertexFormatElement.POSITION).build(), ShaderDefines.EMPTY));
+        // TODO: Currently not working because the shader is not loaded yet I guess?
+//        RenderSystem.setShader(CoreShaders.POSITION_TEX);
 //        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
         Function<ResourceLocation, RenderType> renderTypeFunction = RenderType::guiTextured;
         context.blit(renderTypeFunction, SplashTexture.SPLASH, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background

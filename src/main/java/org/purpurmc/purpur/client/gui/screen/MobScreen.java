@@ -4,6 +4,8 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.*;
 import net.minecraft.world.entity.EntitySpawnReason;
 import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
@@ -13,11 +15,7 @@ import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.entity.Seat;
 import org.purpurmc.purpur.client.fake.FakePlayer;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
-import org.purpurmc.purpur.client.mixin.accessor.AccessAbstractPiglin;
-import org.purpurmc.purpur.client.mixin.accessor.AccessEntity;
-import org.purpurmc.purpur.client.mixin.accessor.AccessHoglin;
-import org.purpurmc.purpur.client.mixin.accessor.AccessMagmaCube;
-import org.purpurmc.purpur.client.mixin.accessor.AccessSlime;
+import org.purpurmc.purpur.client.mixin.accessor.*;
 
 import java.util.ArrayList;
 
@@ -25,7 +23,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -42,6 +39,7 @@ import net.minecraft.world.entity.monster.Strider;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.warden.Warden;
+import org.purpurmc.purpur.client.util.RenderSystemMixin;
 
 public class MobScreen extends AbstractScreen {
     private final Mob mob;
@@ -148,9 +146,9 @@ public class MobScreen extends AbstractScreen {
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         renderBackground(context, mouseX, mouseY, delta);
 
-//        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-//        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-//        RenderSystem.setShaderTexture(0, AbstractContainerScreen.INVENTORY_LOCATION);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, AbstractContainerScreen.INVENTORY_LOCATION);
 
         if (this.fakePlayer != null && this.fakeEntity != null) {
             drawPreviewModel(this.fakePlayer, this.fakeEntity);
@@ -179,7 +177,10 @@ public class MobScreen extends AbstractScreen {
         matrixStack.translate((float) (this.centerX + this.previewX), (float) this.previewY, 1500);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
 
-//        RenderSystem.applyModelViewMatrix();
+
+        RenderSystem renderSystem = new RenderSystem();
+        //noinspection DataFlowIssue
+        ((RenderSystemMixin) renderSystem).purpurClient$applyModelViewMatrix();
         PoseStack matrixStack2 = new PoseStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
         float zoom = this.previewZoom * this.previewZoomMultiplier;
@@ -200,16 +201,16 @@ public class MobScreen extends AbstractScreen {
         MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 
         Minecraft.getInstance().execute(() -> {
-            fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, matrixStack2, immediate, 1));
-            renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, matrixStack2, immediate, 1);
+            fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0));
+            renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0);
         });
 
         immediate.endBatch();
         renderer.setRenderShadow(true);
         matrixStack.popMatrix();
 
-        // TODO: Find fix lol,
-//        RenderSystem.applyModelViewMatrix();
+        //noinspection DataFlowIssue
+        ((RenderSystemMixin) renderSystem).purpurClient$applyModelViewMatrix();
         Lighting.setupFor3DItems();
     }
 
