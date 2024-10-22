@@ -92,15 +92,15 @@ public class MixinLoadingOverlay {
 
         RenderSystem.setShaderTexture(0, SplashTexture.SPLASH);
         RenderSystem.enableBlend();
-        // TODO: Currently not working because the shader is not loaded yet I guess?
+        // Not best practice according to the book "Clean Code" by Robert C. Martin (page 68, Commented-Out-Code) because the code was used previously but seems to not do anything anymore? Maybe the person committing this is just blind lol.
 //        RenderSystem.setShader(CoreShaders.POSITION_TEX);
 //        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
         Function<ResourceLocation, RenderType> renderTypeFunction = RenderType::guiTextured;
-        context.blit(renderTypeFunction, SplashTexture.SPLASH, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
-        context.blit(renderTypeFunction, SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
-        context.blit(renderTypeFunction, SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
-        context.blit(renderTypeFunction, SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
-        context.blit(renderTypeFunction, SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 100, 12, 256, 658, 200, 23, 1024, 1024); // url
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, 0, 0, 0, 0, width, height, 1024, 544, 1024, 1024); // background
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 0, 546, 112, 112, 256, 256, 1024, 1024); // logo
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 256, 548, 180, 17, 367, 33, 1024, 1024); // slogan
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 256, 587, 100, 30, 210, 61, 1024, 1024); // Purpur
+        context.blit(renderTypeFunction, SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 256, 658, 100, 12, 200, 23, 1024, 1024); // url
         RenderSystem.disableBlend();
 
         int scale = (int) ((double) this.minecraft.getWindow().getGuiScaledHeight() * 0.625D);
