@@ -39,7 +39,6 @@ import net.minecraft.world.entity.monster.Strider;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.warden.Warden;
-import org.purpurmc.purpur.client.util.RenderSystemMixin;
 
 public class MobScreen extends AbstractScreen {
     private final Mob mob;
@@ -144,7 +143,8 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        renderBackground(context, mouseX, mouseY, delta);
+        // TODO: Fix that the background is centered and is at the back layer
+//        renderBackground(context, mouseX, mouseY, delta);
 
         RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -178,9 +178,6 @@ public class MobScreen extends AbstractScreen {
         matrixStack.scale(1.0F, 1.0F, -1.0F);
 
 
-        RenderSystem renderSystem = new RenderSystem();
-        //noinspection DataFlowIssue
-        ((RenderSystemMixin) renderSystem).purpurClient$applyModelViewMatrix();
         PoseStack matrixStack2 = new PoseStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
         float zoom = this.previewZoom * this.previewZoomMultiplier;
@@ -209,8 +206,6 @@ public class MobScreen extends AbstractScreen {
         renderer.setRenderShadow(true);
         matrixStack.popMatrix();
 
-        //noinspection DataFlowIssue
-        ((RenderSystemMixin) renderSystem).purpurClient$applyModelViewMatrix();
         Lighting.setupFor3DItems();
     }
 

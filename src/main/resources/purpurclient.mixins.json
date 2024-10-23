@@ -10,7 +10,6 @@
     "MixinItemEnchantments$MixinItemEnchantmentsMutable",
     "MixinLoadingOverlay",
     "MixinMinecraftClient",
-    "MixinRenderSystem",
     "MixinWindow",
     "accessor.AccessAbstractPiglin",
     "accessor.AccessEntity",
