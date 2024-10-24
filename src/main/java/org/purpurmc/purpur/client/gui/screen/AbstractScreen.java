@@ -33,7 +33,7 @@ public abstract class AbstractScreen extends OptionsSubScreen {
     @Override
     public void renderBackground(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.renderBackground(context, mouseX, mouseY, delta);
-        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
+        context.fillGradient(0, 0, this.width , this.height, 0x800F4863, 0x80370038);
     }
 
     @Override

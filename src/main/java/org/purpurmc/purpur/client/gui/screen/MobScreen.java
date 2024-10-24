@@ -60,6 +60,7 @@ public class MobScreen extends AbstractScreen {
 
     private final Component noPreview = Component.translatable("purpurclient.options.no-preview");
     private final Component notImplemented = Component.translatable("purpurclient.options.not-implemented");
+    private final Component experimentDisabled = Component.translatable("purpurclient.options.experiment-disabled");
 
     public MobScreen(Screen parent, Mob mob) {
         super(parent);
@@ -143,9 +144,12 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        // TODO: Fix that the background is centered and is at the back layer
-//        renderBackground(context, mouseX, mouseY, delta);
-
+        assert this.minecraft != null;
+        if (this.minecraft.level == null) {
+            super.renderPanorama(context, delta);
+        } else {
+            super.renderBlurredBackground();
+        }
         RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, AbstractContainerScreen.INVENTORY_LOCATION);
@@ -153,7 +157,11 @@ public class MobScreen extends AbstractScreen {
         if (this.fakePlayer != null && this.fakeEntity != null) {
             drawPreviewModel(this.fakePlayer, this.fakeEntity);
         } else {
-            context.drawCenteredString(this.font, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
+            if (this.minecraft.level != null) {
+                context.drawCenteredString(this.font, this.experimentDisabled, this.centerX - 80, 125, 0xFFFFFFFF);
+            } else {
+                context.drawCenteredString(this.font, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
+            }
         }
 
         PoseStack matrices = context.pose();
@@ -169,6 +177,7 @@ public class MobScreen extends AbstractScreen {
             }
         }
         matrices.popPose();
+        context.fillGradient(0, 0, this.width , this.height, 0x800F4863, 0x80370038);
     }
 
     public void drawPreviewModel(FakePlayer player, Entity vehicle) {
@@ -183,7 +192,7 @@ public class MobScreen extends AbstractScreen {
         float zoom = this.previewZoom * this.previewZoomMultiplier;
         matrixStack2.scale(zoom, zoom, zoom);
 
-        Quaternionf quaternion = Axis.ZP.rotationDegrees(180.0F);
+        Quaternionf quaternion = Axis.ZP.rotationDegrees(-180.0F);
         Quaternionf quaternion2 = Axis.XP.rotationDegrees(this.previewPitch);
         Quaternionf quaternion3 = Axis.YP.rotationDegrees(-this.previewYaw);
         quaternion2.mul(quaternion3);
