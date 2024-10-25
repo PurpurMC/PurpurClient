@@ -177,7 +177,7 @@ public class MobScreen extends AbstractScreen {
             }
         }
         matrices.popPose();
-        context.fillGradient(0, 0, this.width , this.height, 0x800F4863, 0x80370038);
+        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
 
     public void drawPreviewModel(FakePlayer player, Entity vehicle) {
