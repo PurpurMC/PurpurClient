@@ -5,7 +5,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
@@ -15,7 +16,11 @@ import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.entity.Seat;
 import org.purpurmc.purpur.client.fake.FakePlayer;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
-import org.purpurmc.purpur.client.mixin.accessor.*;
+import org.purpurmc.purpur.client.mixin.accessor.AccessAbstractPiglin;
+import org.purpurmc.purpur.client.mixin.accessor.AccessEntity;
+import org.purpurmc.purpur.client.mixin.accessor.AccessHoglin;
+import org.purpurmc.purpur.client.mixin.accessor.AccessMagmaCube;
+import org.purpurmc.purpur.client.mixin.accessor.AccessSlime;
 
 import java.util.ArrayList;
 
@@ -144,7 +149,6 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        assert this.minecraft != null;
         if (this.minecraft.level == null) {
             super.renderPanorama(context, delta);
         } else {
