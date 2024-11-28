@@ -5,14 +5,13 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.MobsList;
-import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.gui.screen.widget.MobButton;
+import org.purpurmc.purpur.client.gui.screen.widget.MobsList;
 
 public class MobsScreen extends OptionsSubScreen {
     public final static MutableComponent MOBS_BTN = Component.translatable("purpurclient.options.mobs");

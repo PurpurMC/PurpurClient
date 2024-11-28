@@ -21,6 +21,7 @@
   "purpurclient.options.on": "%s: \u00a7aON",
   "purpurclient.options.off": "%s: \u00a7cOFF",
 
+  "purpurclient.options.experiment-disabled": "Please enable the experiment required for this mob",
   "purpurclient.options.no-preview": "Preview disabled",
   "purpurclient.options.not-implemented": "Not implemented yet",
 

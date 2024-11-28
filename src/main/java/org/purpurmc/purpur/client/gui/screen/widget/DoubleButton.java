@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -58,9 +59,9 @@ public class DoubleButton extends AbstractWidget implements Tickable {
 
     private void drawButton(GuiGraphics context, Component text, int x, boolean i) {
         RenderSystem.enableDepthTest();
-        context.setColor(1.0F, 1.0F, 1.0F, this.alpha);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
         RenderSystem.enableBlend();
-        context.blitSprite(TEXTURES.get(this.active, i), x, this.getY(), this.height, this.height);
+        context.blitSprite(RenderType::guiTextured, TEXTURES.get(this.active, i), x, this.getY(), this.height, this.height);
         context.drawCenteredString(Minecraft.getInstance().font, text, x + this.height / 2, this.getY() + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | Mth.ceil(this.alpha * 255.0f) << 24);
     }
 
