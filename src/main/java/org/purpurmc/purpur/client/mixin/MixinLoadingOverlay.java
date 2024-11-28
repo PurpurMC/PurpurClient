@@ -1,6 +1,13 @@
 package org.purpurmc.purpur.client.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.TriState;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.gui.SplashTexture;
 import org.spongepowered.asm.mixin.Final;
@@ -13,17 +20,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
+
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.LoadingOverlay;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.server.packs.resources.ReloadInstance;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 
 @Mixin(LoadingOverlay.class)
-public class MixinLoadingOverlay {
+public abstract class MixinLoadingOverlay {
     @Shadow
     @Final
     private Minecraft minecraft;
@@ -45,6 +52,21 @@ public class MixinLoadingOverlay {
 
     @Unique
     private float delta;
+
+    @Unique
+    private RenderType.CompositeRenderType PURPUR_LOGO = RenderType.create(
+        "purpur_splash",
+        DefaultVertexFormat.POSITION_TEX_COLOR,
+        VertexFormat.Mode.QUADS,
+        RenderType.SMALL_BUFFER_SIZE,
+        RenderType.CompositeState.builder()
+            .setTextureState(new RenderStateShard.TextureStateShard(SplashTexture.SPLASH, TriState.DEFAULT, false))
+            .setShaderState(RenderStateShard.POSITION_TEXTURE_COLOR_SHADER)
+            .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+            .setDepthTestState(RenderStateShard.NO_DEPTH_TEST)
+            .setWriteMaskState(RenderStateShard.COLOR_WRITE)
+            .createCompositeState(false)
+    );
 
     @Inject(method = "registerTextures", at = @At("HEAD"))
     private static void registerTextures(Minecraft client, CallbackInfo ci) {
@@ -83,26 +105,22 @@ public class MixinLoadingOverlay {
             this.delta = 0;
             opacity = Mth.clamp(g, 0.0f, 1.0f);
         } else {
-            this.delta += this.minecraft.getTimer().getRealtimeDeltaTicks();
+            this.delta += this.minecraft.getDeltaTracker().getRealtimeDeltaTicks();
             opacity = Mth.clampedLerp(-0.5F, 1.0F, this.delta / 30F);
         }
 
-        RenderSystem.setShaderTexture(0, SplashTexture.SPLASH);
-        RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
-        context.blit(SplashTexture.SPLASH, 0, 0, width, height, 0, 0, 1024, 544, 1024, 1024); // background
-        context.blit(SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 112, 112, 0, 546, 256, 256, 1024, 1024); // logo
-        context.blit(SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 180, 17, 256, 548, 367, 33, 1024, 1024); // slogan
-        context.blit(SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 100, 30, 256, 587, 210, 61, 1024, 1024); // Purpur
-        context.blit(SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 100, 12, 256, 658, 200, 23, 1024, 1024); // url
-        RenderSystem.disableBlend();
+        Function<ResourceLocation, RenderType> guiTextured = resourceLocation -> PURPUR_LOGO;
+        context.blit(guiTextured, SplashTexture.SPLASH, 0, 0, 0, 0, width, height, 1024, 544, 1024, 1024); // background
+        context.blit(guiTextured, SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 0, 546, 112, 112, 256, 256, 1024, 1024); // logo
+        context.blit(guiTextured, SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 256, 548, 180, 17, 367, 33, 1024, 1024); // slogan
+        context.blit(guiTextured, SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 256, 587, 100, 30, 210, 61, 1024, 1024); // Purpur
+        context.blit(guiTextured, SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 256, 658, 100, 12, 200, 23, 1024, 1024); // url
 
         int scale = (int) ((double) this.minecraft.getWindow().getGuiScaledHeight() * 0.625D);
         float reloadProgress = this.reload.getActualProgress();
         this.currentProgress = Mth.clamp(this.currentProgress * 0.95f + reloadProgress * 0.050000012f, 0.0f, 1.0f);
         if (f < 1.0f) {
-            this.renderProgressBar(context, width / 2 - 100, scale - 5, width / 2 + 100, scale + 5, 1.0f - Mth.clamp(f, 0.0f, 1.0f));
+            this.drawProgressBar(context, width / 2 - 100, scale - 5, width / 2 + 100, scale + 5, 1.0f - Mth.clamp(f, 0.0f, 1.0f));
         }
         if (f >= 2.0f) {
             this.minecraft.setOverlay(null);
@@ -116,22 +134,13 @@ public class MixinLoadingOverlay {
             }
             this.fadeOutStart = Util.getMillis();
             if (this.minecraft.screen != null) {
-                this.minecraft.screen.init(this.minecraft, this.minecraft.getWindow().getGuiScaledWidth(), this.minecraft.getWindow().getGuiScaledHeight());
+                this.minecraft.screen.init(this.minecraft, context.guiWidth(), context.guiHeight());
             }
         }
     }
 
-    @Unique
-    private void renderProgressBar(GuiGraphics context, int minX, int minY, int maxX, int maxY, float opacity) {
-        int i = Mth.ceil((float) (maxX - minX - 2) * this.currentProgress);
-        int j = Math.round(opacity * 255.0f);
-        int k = FastColor.ARGB32.color(j, 255, 255, 255);
-        context.fill(minX + 2, minY + 2, minX + i, maxY - 2, k);
-        context.fill(minX + 1, minY, maxX - 1, minY + 1, k);
-        context.fill(minX + 1, maxY, maxX - 1, maxY - 1, k);
-        context.fill(minX, minY, minX + 1, maxY, k);
-        context.fill(maxX, minY, maxX - 1, maxY, k);
-    }
+    @Shadow
+    abstract void drawProgressBar(GuiGraphics guiGraphics, int minX, int minY, int maxX, int maxY, float delta);
 
     @Unique
     private float easeIn(float t) {

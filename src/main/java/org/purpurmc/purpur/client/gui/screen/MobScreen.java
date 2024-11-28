@@ -4,6 +4,10 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
 import org.purpurmc.purpur.client.PurpurClient;
@@ -19,13 +23,11 @@ import org.purpurmc.purpur.client.mixin.accessor.AccessMagmaCube;
 import org.purpurmc.purpur.client.mixin.accessor.AccessSlime;
 
 import java.util.ArrayList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -63,6 +65,7 @@ public class MobScreen extends AbstractScreen {
 
     private final Component noPreview = Component.translatable("purpurclient.options.no-preview");
     private final Component notImplemented = Component.translatable("purpurclient.options.not-implemented");
+    private final Component experimentDisabled = Component.translatable("purpurclient.options.experiment-disabled");
 
     public MobScreen(Screen parent, Mob mob) {
         super(parent);
@@ -98,7 +101,7 @@ public class MobScreen extends AbstractScreen {
         }
 
         this.fakePlayer = new FakePlayer(this.minecraft.level, this.minecraft.player);
-        this.fakeEntity = this.mob.getType().create(this.minecraft.level);
+        this.fakeEntity = this.mob.getType().create(this.minecraft.level, EntitySpawnReason.NATURAL);
         if (this.fakeEntity == null) {
             // we need an entity to ride
             this.fakePlayer = null;
@@ -146,16 +149,23 @@ public class MobScreen extends AbstractScreen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        renderBackground(context, mouseX, mouseY, delta);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        if (this.minecraft.level == null) {
+            super.renderPanorama(context, delta);
+        } else {
+            super.renderBlurredBackground();
+        }
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, AbstractContainerScreen.INVENTORY_LOCATION);
 
         if (this.fakePlayer != null && this.fakeEntity != null) {
             drawPreviewModel(this.fakePlayer, this.fakeEntity);
         } else {
-            context.drawCenteredString(this.font, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
+            if (this.minecraft.level != null) {
+                context.drawCenteredString(this.font, this.experimentDisabled, this.centerX - 80, 125, 0xFFFFFFFF);
+            } else {
+                context.drawCenteredString(this.font, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
+            }
         }
 
         PoseStack matrices = context.pose();
@@ -171,6 +181,7 @@ public class MobScreen extends AbstractScreen {
             }
         }
         matrices.popPose();
+        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
 
     public void drawPreviewModel(FakePlayer player, Entity vehicle) {
@@ -179,13 +190,13 @@ public class MobScreen extends AbstractScreen {
         matrixStack.translate((float) (this.centerX + this.previewX), (float) this.previewY, 1500);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
 
-        RenderSystem.applyModelViewMatrix();
+
         PoseStack matrixStack2 = new PoseStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
         float zoom = this.previewZoom * this.previewZoomMultiplier;
         matrixStack2.scale(zoom, zoom, zoom);
 
-        Quaternionf quaternion = Axis.ZP.rotationDegrees(180.0F);
+        Quaternionf quaternion = Axis.ZP.rotationDegrees(-180.0F);
         Quaternionf quaternion2 = Axis.XP.rotationDegrees(this.previewPitch);
         Quaternionf quaternion3 = Axis.YP.rotationDegrees(-this.previewYaw);
         quaternion2.mul(quaternion3);
@@ -199,17 +210,15 @@ public class MobScreen extends AbstractScreen {
         renderer.setRenderShadow(false);
         MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 
-        //noinspection deprecation
         Minecraft.getInstance().execute(() -> {
-            fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0));
-            renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, 1.0F, matrixStack2, immediate, 0xF000F0);
+            fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0));
+            renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0);
         });
 
         immediate.endBatch();
         renderer.setRenderShadow(true);
         matrixStack.popMatrix();
 
-        RenderSystem.applyModelViewMatrix();
         Lighting.setupFor3DItems();
     }
 
