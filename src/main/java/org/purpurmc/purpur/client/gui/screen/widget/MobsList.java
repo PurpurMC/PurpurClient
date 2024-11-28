@@ -1,4 +1,4 @@
-package net.minecraft.client.gui.components;
+package org.purpurmc.purpur.client.gui.screen.widget;
 
 import com.google.common.collect.ImmutableList;
 
@@ -8,6 +8,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 
