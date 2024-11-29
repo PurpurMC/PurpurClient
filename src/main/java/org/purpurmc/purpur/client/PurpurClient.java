@@ -2,23 +2,27 @@ package org.purpurmc.purpur.client;
 
 import com.mojang.blaze3d.platform.IconSet;
 import com.mojang.blaze3d.platform.Window;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ShareToLanScreen;
 import net.minecraft.server.packs.VanillaPackResources;
 import net.minecraft.server.packs.resources.IoSupplier;
 import org.purpurmc.purpur.client.config.Config;
 import org.purpurmc.purpur.client.config.ConfigManager;
+import org.purpurmc.purpur.client.gui.screen.OptionsScreen;
 import org.purpurmc.purpur.client.network.ClientboundBeehivePayload;
 import org.purpurmc.purpur.client.network.ServerboundBeehivePayload;
 import org.purpurmc.purpur.client.network.ServerboundPurpurClientHelloPayload;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 public class PurpurClient implements ClientModInitializer {
     private static PurpurClient instance;
@@ -54,6 +58,12 @@ public class PurpurClient implements ClientModInitializer {
             ClientConfigurationNetworking.send(new ServerboundPurpurClientHelloPayload());
         });
 
+        // Temporary so we can open the config screen without ModMenu TODO: Remove once ModMenu is updated
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.screen != null && client.screen.getClass().equals(ShareToLanScreen.class)) {
+                client.setScreen(new OptionsScreen(client.screen));
+            }
+        });
 
         if (getConfig().useWindowTitle) {
             Minecraft.getInstance().execute(this::updateTitle);

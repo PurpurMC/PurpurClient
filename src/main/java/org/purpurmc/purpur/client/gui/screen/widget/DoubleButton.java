@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 import org.purpurmc.purpur.client.config.options.DoubleOption;
 
 public class DoubleButton extends AbstractWidget implements Tickable {
@@ -127,7 +128,7 @@ public class DoubleButton extends AbstractWidget implements Tickable {
     }
 
     @Override
-    public Component getMessage() {
+    public @NotNull Component getMessage() {
         return this.option.text();
     }
 
