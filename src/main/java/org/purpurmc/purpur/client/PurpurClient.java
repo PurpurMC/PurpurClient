@@ -54,13 +54,6 @@ public class PurpurClient implements ClientModInitializer {
             ClientConfigurationNetworking.send(new ServerboundPurpurClientHelloPayload());
         });
 
-        // Temporary so we can open the config screen without ModMenu TODO: Remove once ModMenu is updated
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.screen != null && client.screen.getClass().equals(ShareToLanScreen.class)) {
-                client.setScreen(new OptionsScreen(client.screen));
-            }
-        });
-
         if (getConfig().useWindowTitle) {
             Minecraft.getInstance().execute(this::updateTitle);
         }
