@@ -2,16 +2,11 @@ package org.purpurmc.purpur.client.mixin;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.LoadingOverlay;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ReloadInstance;
-import net.minecraft.util.Mth;
+
 import net.minecraft.util.TriState;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.gui.SplashTexture;
@@ -26,6 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.LoadingOverlay;
+import net.minecraft.server.packs.resources.ReloadInstance;
+import net.minecraft.util.Mth;
 
 @Mixin(LoadingOverlay.class)
 public abstract class MixinLoadingOverlay {
