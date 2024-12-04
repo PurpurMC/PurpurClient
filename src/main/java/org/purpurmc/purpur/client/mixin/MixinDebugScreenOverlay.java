@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(DebugScreenOverlay.class)
-public class MixinDebugScreenOverlay {
+public abstract class MixinDebugScreenOverlay {
     @Shadow
     @Final
     private Minecraft minecraft;
@@ -64,8 +64,5 @@ public class MixinDebugScreenOverlay {
     }
 
     @Shadow
-    @SuppressWarnings("SameReturnValue")
-    protected List<String> getSystemInformation() {
-        return null;
-    }
+    abstract List<String> getSystemInformation();
 }
