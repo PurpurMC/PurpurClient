@@ -27,13 +27,9 @@ public class SplashTexture extends SimpleTexture {
     }
 
     @Override
-    public @NotNull TextureContents loadContents(ResourceManager resourceManager) {
-        TextureContents data;
-        try (InputStream in = PurpurClient.class.getResourceAsStream("/assets/purpurclient/textures/splash.png")) {
-            data = new TextureContents(NativeImage.read(in), new TextureMetadataSection(true, true));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load splash texture", e);
+    public TextureContents loadContents(ResourceManager resourceManager) throws IOException {
+        try (InputStream inputStream = PurpurClient.class.getResourceAsStream("/assets/purpurclient/textures/splash.png")) {
+            return new TextureContents(NativeImage.read(inputStream), new TextureMetadataSection(true, true));
         }
-        return data;
     }
 }

@@ -68,7 +68,7 @@ public abstract class MixinLoadingOverlay {
             .createCompositeState(false)
     );
 
-    @Inject(method = "registerTextures", at = @At("TAIL"))
+    @Inject(method = "registerTextures", at = @At("HEAD"))
     private static void registerTextures(TextureManager textureManager, CallbackInfo ci) {
         textureManager.registerAndLoad(SplashTexture.SPLASH, new SplashTexture());
     }
