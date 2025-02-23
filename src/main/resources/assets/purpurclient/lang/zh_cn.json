@@ -15,7 +15,7 @@
   "purpurclient.title.singleplayer": "%s 在单人游戏",
   "purpurclient.title.multiplayer.realms": "多人游戏 (%s 在Realms)",
   "purpurclient.title.multiplayer.lan": "多人游戏 (%s 在局域网)",
-  "purpurclient.title.multiplayer.server": "多人游戏 (%s 在 %s )",
+  "purpurclient.title.multiplayer.server": "多人游戏 (%s 在 %s)",
   "purpurclient.title.multiplayer.unknown": "多人游戏 (%s 在第三方服务器)",
 
   "purpurclient.options.on": "%s: \u00a7a开",
