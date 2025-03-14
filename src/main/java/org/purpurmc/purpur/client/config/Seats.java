@@ -22,7 +22,6 @@ public class Seats {
     public Seat cod = new Seat(0.0D, 0.0D, 0.0D);
     public Seat cow = new Seat(0.0D, 0.0D, 0.0D);
     public Seat creeper = new Seat(0.0D, 0.0D, 0.0D);
-    public Seat creaking = new Seat(0.0D, 0.0D, 0.0D);
     public Seat dolphin = new Seat(0.0D, 0.0D, 0.0D);
     public Seat donkey = new Seat(0.0D, 0.0D, 0.0D);
     public Seat drowned = new Seat(0.0D, 0.0D, 0.0D);
@@ -106,7 +105,6 @@ public class Seats {
         cod.setSeat(z, y, z);
         cow.setSeat(z, y, z);
         creeper.setSeat(z, y, z);
-        creaking.setSeat(z, y, z);
         dolphin.setSeat(z, y, z);
         donkey.setSeat(z, y, z);
         drowned.setSeat(z, y, z);
@@ -192,7 +190,6 @@ public class Seats {
             case COD -> this.cod;
             case COW -> this.cow;
             case CREEPER -> this.creeper;
-            case CREAKING -> this.creaking;
             case DOLPHIN -> this.dolphin;
             case DONKEY -> this.donkey;
             case DROWNED -> this.drowned;

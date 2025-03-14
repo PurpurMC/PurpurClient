@@ -18,7 +18,6 @@ public enum Mob {
     COD(EntityType.COD, 7, 0),
     COW(EntityType.COW, 8, 0),
     CREEPER(EntityType.CREEPER, 9, 0),
-    CREAKING(EntityType.CREAKING, 1, 5),
     DOLPHIN(EntityType.DOLPHIN, 10, 0),
     DONKEY(EntityType.DONKEY, 11, 0),
     DROWNED(EntityType.DROWNED, 12, 0),
