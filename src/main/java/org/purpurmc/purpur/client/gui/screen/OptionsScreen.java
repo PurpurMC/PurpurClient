@@ -68,5 +68,6 @@ public class OptionsScreen extends Screen {
     @Override
     public void onClose() {
         this.minecraft.setScreen(this.parent);
+        PurpurClient.instance().getConfigManager().save();
     }
 }
