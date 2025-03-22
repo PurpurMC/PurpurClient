@@ -54,7 +54,6 @@ public class PurpurClient implements ClientModInitializer {
             ClientConfigurationNetworking.send(new ServerboundPurpurClientHelloPayload());
         });
 
-
         if (getConfig().useWindowTitle) {
             Minecraft.getInstance().execute(this::updateTitle);
         }

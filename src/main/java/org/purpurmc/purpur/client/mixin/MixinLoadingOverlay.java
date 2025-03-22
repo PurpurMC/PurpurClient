@@ -1,12 +1,12 @@
 package org.purpurmc.purpur.client.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ARGB;
+
 import net.minecraft.util.TriState;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.gui.SplashTexture;
@@ -69,8 +69,8 @@ public abstract class MixinLoadingOverlay {
     );
 
     @Inject(method = "registerTextures", at = @At("HEAD"))
-    private static void registerTextures(Minecraft client, CallbackInfo ci) {
-        client.getTextureManager().register(SplashTexture.SPLASH, new SplashTexture());
+    private static void registerTextures(TextureManager textureManager, CallbackInfo ci) {
+        textureManager.registerAndLoad(SplashTexture.SPLASH, new SplashTexture());
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
