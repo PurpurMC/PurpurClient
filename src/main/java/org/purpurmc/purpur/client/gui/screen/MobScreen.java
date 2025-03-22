@@ -4,7 +4,10 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import java.util.List;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -16,6 +19,7 @@ import org.purpurmc.purpur.client.entity.Mob;
 import org.purpurmc.purpur.client.entity.Seat;
 import org.purpurmc.purpur.client.fake.FakePlayer;
 import org.purpurmc.purpur.client.gui.screen.widget.DoubleButton;
+import org.purpurmc.purpur.client.gui.screen.widget.Tickable;
 import org.purpurmc.purpur.client.mixin.accessor.AccessAbstractPiglin;
 import org.purpurmc.purpur.client.mixin.accessor.AccessEntity;
 import org.purpurmc.purpur.client.mixin.accessor.AccessHoglin;
@@ -45,7 +49,12 @@ import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.warden.Warden;
 
-public class MobScreen extends AbstractScreen {
+public class MobScreen extends OptionsSubScreen {
+    public static final Component TITLE = Component.translatable("purpurclient.options.title");
+
+    protected List<AbstractWidget> options;
+    protected int centerX;
+
     private final Mob mob;
     private final Component subtitle;
 
@@ -68,7 +77,7 @@ public class MobScreen extends AbstractScreen {
     private final Component experimentDisabled = Component.translatable("purpurclient.options.experiment-disabled");
 
     public MobScreen(Screen parent, Mob mob) {
-        super(parent);
+        super(parent, Minecraft.getInstance().options, TITLE);
         this.mob = mob;
         this.subtitle = Component.translatable("purpurclient.options.seat.title", mob.getType().getDescription());
     }
@@ -76,6 +85,7 @@ public class MobScreen extends AbstractScreen {
     @Override
     public void init() {
         super.init();
+        this.centerX = (int) (this.width / 2F);
 
         final Seat seat = PurpurClient.instance().getConfig().seats.getSeat(this.mob);
 
@@ -181,6 +191,12 @@ public class MobScreen extends AbstractScreen {
             }
         }
         matrices.popPose();
+        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
+    }
+
+    @Override
+    public void renderBackground(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        super.renderBackground(context, mouseX, mouseY, delta);
         context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
 
@@ -290,6 +306,14 @@ public class MobScreen extends AbstractScreen {
     @Override
     public void tick() {
         super.tick();
+        if (this.options != null) {
+            this.options.forEach(option -> {
+                if (option instanceof Tickable tickable) {
+                    tickable.tick();
+                }
+            });
+        }
+
         if (this.fakeEntity != null) {
             // tick entity
             this.fakeEntity.setOldPosAndRot();
@@ -334,6 +358,7 @@ public class MobScreen extends AbstractScreen {
     @Override
     public void onClose() {
         super.onClose();
+        PurpurClient.instance().getConfigManager().save();
         if (this.fakePlayer != null) {
             this.fakePlayer.stopRiding();
         }
