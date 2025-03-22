@@ -4,7 +4,7 @@
   "purpurclient.options.fix-chat-stutter": "异步聊天",
   "purpurclient.options.fix-chat-stutter.tooltip": "启用后将在另一个线程上处理聊天，这样就不会阻塞渲染线程了",
   "purpurclient.options.bee-count-in-debug": "蜜蜂数量",
-  "purpurclient.options.bee-count-in-debug.tooltip": "启用可以在调试界面（F3）中查看蜂箱和蜂巢里的蜜蜂个数的功能",
+  "purpurclient.options.bee-count-in-debug.tooltip": "启用可以在调试屏幕（F3）中查看蜂箱和蜂巢里的蜜蜂个数的功能",
   "purpurclient.options.splash-screen": "加载画面",
   "purpurclient.options.splash-screen.tooltip": "启用后将使用Purpur的加载画面",
   "purpurclient.options.window-title": "窗口标题",
@@ -12,17 +12,18 @@
   "purpurclient.options.mobs": "生物",
   "purpurclient.options.mobs.tooltip": "打开生物选项界面",
 
-  "purpurclient.title.singleplayer": "%s 在单人游戏中",
-  "purpurclient.title.multiplayer.realms": "多人游戏 (%s 在Realms中)",
-  "purpurclient.title.multiplayer.lan": "多人游戏 (%s 在局域网中)",
-  "purpurclient.title.multiplayer.server": "多人游戏 (%s 在 %s 中)",
-  "purpurclient.title.multiplayer.unknown": "多人游戏 (%s 在第三方服务器中)",
+  "purpurclient.title.singleplayer": "%s 在单人游戏",
+  "purpurclient.title.multiplayer.realms": "多人游戏 (%s 在Realms)",
+  "purpurclient.title.multiplayer.lan": "多人游戏 (%s 在局域网)",
+  "purpurclient.title.multiplayer.server": "多人游戏 (%s 在 %s)",
+  "purpurclient.title.multiplayer.unknown": "多人游戏 (%s 在第三方服务器)",
 
   "purpurclient.options.on": "%s: \u00a7a开",
   "purpurclient.options.off": "%s: \u00a7c关",
 
+  "purpurclient.options.experiment-disabled": "请启用此生物所需的实验性内容",
   "purpurclient.options.no-preview": "预览已禁用",
-  "purpurclient.options.not-implemented": "还没有实施",
+  "purpurclient.options.not-implemented": "还没有实现",
 
   "purpurclient.options.seat.title": "为 %s 调整座位",
   "purpurclient.options.seat.x": "x: %s",
