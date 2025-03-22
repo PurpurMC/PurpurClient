@@ -237,6 +237,7 @@ public class MobScreen extends AbstractScreen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (super.mouseClicked(mouseX, mouseY, button)) {
+            // TODO: change this later
             this.options.forEach(option -> option.mouseClicked(mouseX, mouseY, button));
             return true;
         }
