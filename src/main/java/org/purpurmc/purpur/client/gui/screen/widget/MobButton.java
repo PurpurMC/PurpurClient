@@ -23,6 +23,7 @@ public class MobButton extends SpriteIconButton {
             mob.getSpriteHeight(),
             MOBS_TEXTURE,
             (button) -> client.setScreen(new MobScreen(screen, mob)), null);
+        this.active = !mob.isDisabled();
         this.setTooltip(Tooltip.create(this.getMessage()));
     }
 

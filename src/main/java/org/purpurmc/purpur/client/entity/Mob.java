@@ -18,7 +18,7 @@ public enum Mob {
     COD(EntityType.COD, 7, 0),
     COW(EntityType.COW, 8, 0),
     CREEPER(EntityType.CREEPER, 9, 0),
-    CREAKING(EntityType.CREAKING, 1, 5),
+    CREAKING(EntityType.CREAKING, 1, 5, true),
     DOLPHIN(EntityType.DOLPHIN, 10, 0),
     DONKEY(EntityType.DONKEY, 11, 0),
     DROWNED(EntityType.DROWNED, 12, 0),
@@ -88,11 +88,17 @@ public enum Mob {
 
     private final EntityType<? extends net.minecraft.world.entity.Mob> mob;
     private final int spriteWidth, spriteHeight;
+    private final boolean disabled;
 
-    Mob(EntityType<? extends net.minecraft.world.entity.Mob> mob, int spriteWidth, int spriteHeight) {
+    Mob(EntityType<? extends net.minecraft.world.entity.Mob> mob, int spriteWidth, int spriteHeight, boolean disabled) {
         this.mob = mob;
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
+        this.disabled = disabled;
+    }
+
+    Mob(EntityType<? extends net.minecraft.world.entity.Mob> mob, int spriteWidth, int spriteHeight) {
+        this(mob, spriteWidth, spriteHeight, false);
     }
 
     public EntityType<? extends net.minecraft.world.entity.Mob> getType() {
@@ -105,5 +111,9 @@ public enum Mob {
 
     public int getSpriteHeight() {
         return this.spriteHeight;
+    }
+
+    public boolean isDisabled() {
+        return this.disabled;
     }
 }
