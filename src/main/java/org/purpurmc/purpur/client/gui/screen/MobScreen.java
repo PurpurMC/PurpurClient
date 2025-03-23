@@ -49,65 +49,65 @@ import net.minecraft.world.entity.monster.warden.Warden;
 
 public class MobScreen extends OptionsSubScreen {
     public static final Component TITLE = Component.translatable("purpurclient.options.title");
-    
+
     protected List<AbstractWidget> options;
     protected int centerX;
-    
+
     private final Mob mob;
     private final Component subtitle;
-    
+
     private FakePlayer fakePlayer;
     private Entity fakeEntity;
     private boolean alreadyInit;
-    
+
     private double mouseDownX = Double.MIN_VALUE;
     private double mouseDownY;
-    
+
     private double previewX = -80;
     private double previewY = 200;
     private float previewYaw = -145;
     private float previewPitch = -20;
     private float previewZoom = 60;
     private float previewZoomMultiplier = 1.0F;
-    
+
     private final Component noPreview = Component.translatable("purpurclient.options.no-preview");
     private final Component notImplemented = Component.translatable("purpurclient.options.not-implemented");
     private final Component experimentDisabled = Component.translatable("purpurclient.options.experiment-disabled");
-    
+
     public MobScreen(Screen parent, Mob mob) {
         super(parent, Minecraft.getInstance().options, TITLE);
         this.mob = mob;
         this.subtitle = Component.translatable("purpurclient.options.seat.title", mob.getType().getDescription());
     }
-    
+
     @Override
     public void init() {
         super.init();
         this.centerX = (int) (this.width / 2F);
-        
+
         final Seat seat = PurpurClient.instance().getConfig().seats.getSeat(this.mob);
-        
+
         this.options = new ArrayList<>();
         if (seat != null) {
             this.options.add(new DoubleButton(this.centerX + 70, 90, 100, 20, new DoubleOption("seat.x", () -> seat.x, (value) -> seat.x = value)));
             this.options.add(new DoubleButton(this.centerX + 70, 120, 100, 20, new DoubleOption("seat.y", () -> seat.y, (value) -> seat.y = value)));
             this.options.add(new DoubleButton(this.centerX + 70, 150, 100, 20, new DoubleOption("seat.z", () -> seat.z, (value) -> seat.z = value)));
         }
-        
+
         this.options.forEach(this::addRenderableWidget);
-        
+
         if (this.alreadyInit) {
             // we only need to set everything up once
             // not every time the window resizes
             return;
         }
         this.alreadyInit = true;
-        
+
         if (this.minecraft == null || this.minecraft.player == null) {
             // we need a client and player to draw a preview to...
             return;
         }
-        
+
         this.fakePlayer = new FakePlayer(this.minecraft.level, this.minecraft.player);
         this.fakeEntity = this.mob.getType().create(this.minecraft.level, EntitySpawnReason.NATURAL);
         if (this.fakeEntity == null) {
@@ -117,7 +117,7 @@ public class MobScreen extends OptionsSubScreen {
         }
         this.fakePlayer.setNoGravity(true);
         this.fakeEntity.setNoGravity(true);
-        
+
         // special cases
         if (this.fakeEntity instanceof Bat bat) {
             // wake bat up, no hanging upside down
@@ -146,15 +146,15 @@ public class MobScreen extends OptionsSubScreen {
         } else if (this.fakeEntity instanceof Slime slime) {
             ((AccessSlime) slime).invokeSetSize(3, true);
         }
-        
+
         // mount on the entity
         this.fakePlayer.startRiding(this.fakeEntity, true);
     }
-    
+
     @Override
     protected void addOptions() {
     }
-    
+
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         if (this.minecraft.level == null) {
@@ -173,7 +173,7 @@ public class MobScreen extends OptionsSubScreen {
                 context.drawCenteredString(this.font, this.noPreview, this.centerX - 80, 125, 0xFFFFFFFF);
             }
         }
-        
+
         PoseStack matrices = context.pose();
         matrices.pushPose();
         matrices.translate(0, 0, 900);
@@ -189,25 +189,25 @@ public class MobScreen extends OptionsSubScreen {
         matrices.popPose();
         context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
-    
+
     @Override
     public void renderBackground(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.renderBackground(context, mouseX, mouseY, delta);
         context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
-    
+
     public void drawPreviewModel(FakePlayer player, Entity vehicle) {
         Matrix4fStack matrixStack = RenderSystem.getModelViewStack();
         matrixStack.pushMatrix();
         matrixStack.translate((float) (this.centerX + this.previewX), (float) this.previewY, 1500);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
-        
-        
+
+
         PoseStack matrixStack2 = new PoseStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
         float zoom = this.previewZoom * this.previewZoomMultiplier;
         matrixStack2.scale(zoom, zoom, zoom);
-        
+
         Quaternionf quaternion = Axis.ZP.rotationDegrees(-180.0F);
         Quaternionf quaternion2 = Axis.XP.rotationDegrees(this.previewPitch);
         Quaternionf quaternion3 = Axis.YP.rotationDegrees(-this.previewYaw);
@@ -215,25 +215,25 @@ public class MobScreen extends OptionsSubScreen {
         quaternion.mul(quaternion2);
         quaternion2.conjugate();
         matrixStack2.mulPose(quaternion);
-        
+
         Lighting.setupForEntityInInventory();
         EntityRenderDispatcher renderer = Minecraft.getInstance().getEntityRenderDispatcher();
         renderer.overrideCameraOrientation(quaternion2);
         renderer.setRenderShadow(false);
         MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
-        
+
         Minecraft.getInstance().execute(() -> {
             fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0));
             renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0);
         });
-        
+
         immediate.endBatch();
         renderer.setRenderShadow(true);
         matrixStack.popMatrix();
-        
+
         Lighting.setupFor3DItems();
     }
-    
+
     private void fixEntityRender(Entity entity, PoseStack matrixStack, Runnable runnable) {
         if (entity instanceof EnderDragon) {
             // dragon model is backwards, flip it
@@ -245,7 +245,7 @@ public class MobScreen extends OptionsSubScreen {
             runnable.run();
         }
     }
-    
+
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (super.mouseClicked(mouseX, mouseY, button)) {
@@ -257,7 +257,7 @@ public class MobScreen extends OptionsSubScreen {
         this.mouseDownY = mouseY;
         return false;
     }
-    
+
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         super.mouseReleased(mouseX, mouseY, button);
@@ -265,7 +265,7 @@ public class MobScreen extends OptionsSubScreen {
         this.mouseDownY = 0;
         return false;
     }
-    
+
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if (super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY)) {
@@ -286,19 +286,19 @@ public class MobScreen extends OptionsSubScreen {
                 this.previewY += mouseY - this.mouseDownY;
             }
         }
-        
+
         this.mouseDownX = mouseX;
         this.mouseDownY = mouseY;
         return false;
     }
-    
+
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         this.previewZoom += (float) verticalAmount;
         clampZoom();
         return true;
     }
-    
+
     @Override
     public void tick() {
         super.tick();
@@ -309,16 +309,16 @@ public class MobScreen extends OptionsSubScreen {
                 }
             });
         }
-        
+
         if (this.fakeEntity != null) {
             // tick entity
             this.fakeEntity.setOldPosAndRot();
             ++this.fakeEntity.tickCount;
             this.fakeEntity.tick();
-            
+
             // prevent some logic from running by faking first tick every tick
             ((AccessEntity) this.fakeEntity).setFirstTick(true);
-            
+
             // special cases that need to update every tick
             if (this.fakeEntity instanceof WaterAnimal waterCreature) {
                 // put water creatures in their natural habitat
@@ -334,13 +334,13 @@ public class MobScreen extends OptionsSubScreen {
                 ((AccessAbstractPiglin) piglin).setTimeInOverworld(-1);
             }
         }
-        
+
         if (this.fakePlayer != null) {
             // tick player
             this.fakePlayer.setOldPosAndRot();
             ++this.fakePlayer.tickCount;
             this.fakePlayer.rideTick();
-            
+
             // fix player yaw
             this.fakePlayer.setYRot(0);
             this.fakePlayer.yRotO = 0;
@@ -350,7 +350,7 @@ public class MobScreen extends OptionsSubScreen {
             this.fakePlayer.yHeadRotO = 0;
         }
     }
-    
+
     @Override
     public void onClose() {
         super.onClose();
@@ -359,7 +359,7 @@ public class MobScreen extends OptionsSubScreen {
             this.fakePlayer.stopRiding();
         }
     }
-    
+
     private void clampYawPitch() {
         if (this.previewPitch < -45.0) {
             this.previewPitch = -45.0F;
@@ -373,7 +373,7 @@ public class MobScreen extends OptionsSubScreen {
             this.previewYaw -= 360;
         }
     }
-    
+
     private void clampZoom() {
         if (this.previewZoom < 10.0F) {
             this.previewZoom = 10.0F;
