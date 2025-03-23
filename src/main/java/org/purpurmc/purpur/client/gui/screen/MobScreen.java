@@ -4,13 +4,30 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
-import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.Giant;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.monster.Strider;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
+import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import net.minecraft.world.entity.monster.warden.Warden;
 import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
 import org.purpurmc.purpur.client.PurpurClient;
@@ -27,27 +44,7 @@ import org.purpurmc.purpur.client.mixin.accessor.AccessMagmaCube;
 import org.purpurmc.purpur.client.mixin.accessor.AccessSlime;
 
 import java.util.ArrayList;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ambient.Bat;
-import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
-import net.minecraft.world.entity.monster.Ghast;
-import net.minecraft.world.entity.monster.Giant;
-import net.minecraft.world.entity.monster.MagmaCube;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.entity.monster.Strider;
-import net.minecraft.world.entity.monster.hoglin.Hoglin;
-import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.monster.warden.Warden;
+import java.util.List;
 
 public class MobScreen extends OptionsSubScreen {
     public static final Component TITLE = Component.translatable("purpurclient.options.title");
@@ -164,9 +161,7 @@ public class MobScreen extends OptionsSubScreen {
         } else {
             super.renderBlurredBackground();
         }
-        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, AbstractContainerScreen.INVENTORY_LOCATION);
 
         if (this.fakePlayer != null && this.fakeEntity != null) {
             drawPreviewModel(this.fakePlayer, this.fakeEntity);

@@ -59,9 +59,7 @@ public class DoubleButton extends AbstractWidget implements Tickable {
     }
 
     private void drawButton(GuiGraphics context, Component text, int x, boolean i) {
-        RenderSystem.enableDepthTest();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        RenderSystem.enableBlend();
         context.blitSprite(RenderType::guiTextured, TEXTURES.get(this.active, i), x, this.getY(), this.height, this.height);
         context.drawCenteredString(Minecraft.getInstance().font, text, x + this.height / 2, this.getY() + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | Mth.ceil(this.alpha * 255.0f) << 24);
     }
