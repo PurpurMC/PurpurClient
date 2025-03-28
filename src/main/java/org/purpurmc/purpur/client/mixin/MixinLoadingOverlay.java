@@ -1,7 +1,6 @@
 package org.purpurmc.purpur.client.mixin;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -56,15 +55,10 @@ public abstract class MixinLoadingOverlay {
     @Unique
     private RenderType.CompositeRenderType PURPUR_LOGO = RenderType.create(
         "purpur_splash",
-        DefaultVertexFormat.POSITION_TEX_COLOR,
-        VertexFormat.Mode.QUADS,
         RenderType.SMALL_BUFFER_SIZE,
+        RenderPipelines.GUI_TEXTURED,
         RenderType.CompositeState.builder()
             .setTextureState(new RenderStateShard.TextureStateShard(SplashTexture.SPLASH, TriState.DEFAULT, false))
-            .setShaderState(RenderStateShard.POSITION_TEXTURE_COLOR_SHADER)
-            .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-            .setDepthTestState(RenderStateShard.NO_DEPTH_TEST)
-            .setWriteMaskState(RenderStateShard.COLOR_WRITE)
             .createCompositeState(false)
     );
 
