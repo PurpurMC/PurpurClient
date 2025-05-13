@@ -38,6 +38,7 @@ public class Seats {
     public Seat glowSquid = new Seat(0.0D, 0.0D, 0.0D);
     public Seat goat = new Seat(0.0D, 0.0D, 0.0D);
     public Seat guardian = new Seat(0.0D, 0.0D, 0.0D);
+    public Seat happyGhast = new Seat(0.0D, 0.0D, 0.0D);
     public Seat hoglin = new Seat(0.0D, 0.0D, 0.0D);
     public Seat horse = new Seat(0.0D, 0.0D, 0.0D);
     public Seat husk = new Seat(0.0D, 0.0D, 0.0D);
@@ -122,6 +123,7 @@ public class Seats {
         glowSquid.setSeat(z, y, z);
         goat.setSeat(z, y, z);
         guardian.setSeat(z, y, z);
+        happyGhast.setSeat(z, y, z);
         hoglin.setSeat(z, y, z);
         horse.setSeat(z, y, z);
         husk.setSeat(z, y, z);
@@ -208,6 +210,7 @@ public class Seats {
             case GLOW_SQUID -> this.glowSquid;
             case GOAT -> this.goat;
             case GUARDIAN -> this.guardian;
+            case HAPPY_GHAST -> this.happyGhast;
             case HOGLIN -> this.hoglin;
             case HORSE -> this.horse;
             case HUSK -> this.husk;
