@@ -7,7 +7,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -59,8 +60,7 @@ public class DoubleButton extends AbstractWidget implements Tickable {
     }
 
     private void drawButton(GuiGraphics context, Component text, int x, boolean i) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        context.blitSprite(RenderType::guiTextured, TEXTURES.get(this.active, i), x, this.getY(), this.height, this.height);
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, TEXTURES.get(this.active, i), x, this.getY(), this.height, this.height);
         context.drawCenteredString(Minecraft.getInstance().font, text, x + this.height / 2, this.getY() + (this.height - 8) / 2, (this.active ? 0xFFFFFF : 0xA0A0A0) | Mth.ceil(this.alpha * 255.0f) << 24);
     }
 
@@ -97,11 +97,12 @@ public class DoubleButton extends AbstractWidget implements Tickable {
 
     public void renderTooltip(GuiGraphics context, int mouseX, int mouseY) {
         if (this.tooltipDelay > 15 && Minecraft.getInstance().screen != null) {
-            PoseStack matrices = context.pose();
-            matrices.pushPose();
-            matrices.translate(0, 0, -399);
-            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY);
-            matrices.popPose();
+            //PoseStack matrices = context.pose();
+            //matrices.pushPose();
+            //matrices.translate(0, 0, -399);
+            // TODO: resource location of the default tooltip
+            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, ResourceLocation.parse("minecraft:REPLACETHISHERE"));
+            //matrices.popPose();
         }
     }
 

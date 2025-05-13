@@ -1,8 +1,9 @@
 package org.purpurmc.purpur.client.config.options;
 
 import java.util.List;
+
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FormattedCharSequence;
 
 @SuppressWarnings("unused")
 public interface Option<T> {
@@ -10,7 +11,7 @@ public interface Option<T> {
 
     Component text();
 
-    List<FormattedCharSequence> tooltip();
+    List<ClientTooltipComponent> tooltip();
 
     T get();
 

@@ -9,6 +9,7 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.EntitySpawnReason;
+import org.joml.Matrix3x2fStack;
 import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
 import org.purpurmc.purpur.client.PurpurClient;
@@ -155,14 +156,13 @@ public class MobScreen extends OptionsSubScreen {
     protected void addOptions() {
     }
 
+    // TODO: Fix rendering in screen. Currently we have just the background
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         if (this.minecraft.level == null) {
             super.renderPanorama(context, delta);
-        } else {
-            super.renderBlurredBackground();
         }
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (this.fakePlayer != null && this.fakeEntity != null) {
             drawPreviewModel(this.fakePlayer, this.fakeEntity);
@@ -174,9 +174,9 @@ public class MobScreen extends OptionsSubScreen {
             }
         }
 
-        PoseStack matrices = context.pose();
-        matrices.pushPose();
-        matrices.translate(0, 0, 900);
+        Matrix3x2fStack matrices = context.pose();
+        matrices.pushMatrix();
+        matrices.translate(900, 0);
         context.drawCenteredString(this.font, this.title, this.centerX, 15, 0xFFFFFFFF);
         context.drawCenteredString(this.font, this.subtitle, this.centerX, 30, 0xFFFFFFFF);
         if (this.options == null || this.options.isEmpty()) {
@@ -186,7 +186,7 @@ public class MobScreen extends OptionsSubScreen {
                 drawable.render(context, mouseX, mouseY, delta);
             }
         }
-        matrices.popPose();
+        matrices.popMatrix();
         context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
 
@@ -216,7 +216,7 @@ public class MobScreen extends OptionsSubScreen {
         quaternion2.conjugate();
         matrixStack2.mulPose(quaternion);
 
-        Lighting.setupForEntityInInventory();
+        //Lighting.setupForEntityInInventory();
         EntityRenderDispatcher renderer = Minecraft.getInstance().getEntityRenderDispatcher();
         renderer.overrideCameraOrientation(quaternion2);
         renderer.setRenderShadow(false);
@@ -231,7 +231,7 @@ public class MobScreen extends OptionsSubScreen {
         renderer.setRenderShadow(true);
         matrixStack.popMatrix();
 
-        Lighting.setupFor3DItems();
+        //Lighting.setupFor3DItems();
     }
 
     private void fixEntityRender(Entity entity, PoseStack matrixStack, Runnable runnable) {

@@ -4,9 +4,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.resources.ResourceLocation;
 
-import net.minecraft.util.TriState;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.gui.SplashTexture;
 import org.spongepowered.asm.mixin.Final;
@@ -19,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -58,7 +55,7 @@ public abstract class MixinLoadingOverlay {
         RenderType.SMALL_BUFFER_SIZE,
         RenderPipelines.GUI_TEXTURED,
         RenderType.CompositeState.builder()
-            .setTextureState(new RenderStateShard.TextureStateShard(SplashTexture.SPLASH, TriState.DEFAULT, false))
+            .setTextureState(new RenderStateShard.TextureStateShard(SplashTexture.SPLASH, false))
             .createCompositeState(false)
     );
 
@@ -103,12 +100,11 @@ public abstract class MixinLoadingOverlay {
             opacity = Mth.clampedLerp(-0.5F, 1.0F, this.delta / 30F);
         }
 
-        Function<ResourceLocation, RenderType> guiTextured = resourceLocation -> PURPUR_LOGO;
-        context.blit(guiTextured, SplashTexture.SPLASH, 0, 0, 0, 0, width, height, 1024, 544, 1024, 1024); // background
-        context.blit(guiTextured, SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 0, 546, 112, 112, 256, 256, 1024, 1024); // logo
-        context.blit(guiTextured, SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 256, 548, 180, 17, 367, 33, 1024, 1024); // slogan
-        context.blit(guiTextured, SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 256, 587, 100, 30, 210, 61, 1024, 1024); // Purpur
-        context.blit(guiTextured, SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 256, 658, 100, 12, 200, 23, 1024, 1024); // url
+        context.blit(RenderPipelines.GUI_TEXTURED, SplashTexture.SPLASH, 0, 0, 0, 0, width, height, 1024, 544, 1024, 1024); // background
+        context.blit(RenderPipelines.GUI_TEXTURED, SplashTexture.SPLASH, (int) ((width - 112) * Mth.lerp(easeOut(opacity), 0.8D, 1.0D)), 10, 0, 546, 112, 112, 256, 256, 1024, 1024); // logo
+        context.blit(RenderPipelines.GUI_TEXTURED, SplashTexture.SPLASH, 40 + (int) ((20) * -Mth.lerp(easeOut(opacity), 0.0D, 1.0D)), height - 70, 256, 548, 180, 17, 367, 33, 1024, 1024); // slogan
+        context.blit(RenderPipelines.GUI_TEXTURED, SplashTexture.SPLASH, (int) ((20) * Mth.lerp(easeOut(opacity), -1.0D, 1.0D)), height - 50, 256, 587, 100, 30, 210, 61, 1024, 1024); // Purpur
+        context.blit(RenderPipelines.GUI_TEXTURED, SplashTexture.SPLASH, width - 105, (int) ((height - 15) * Mth.lerp(easeOut(opacity), 0.75D, 1.0D)), 256, 658, 100, 12, 200, 23, 1024, 1024); // url
 
         int scale = (int) ((double) this.minecraft.getWindow().getGuiScaledHeight() * 0.625D);
         float reloadProgress = this.reload.getActualProgress();
@@ -134,7 +130,7 @@ public abstract class MixinLoadingOverlay {
     }
 
     @Shadow
-    abstract void drawProgressBar(GuiGraphics guiGraphics, int minX, int minY, int maxX, int maxY, float delta);
+    protected abstract void drawProgressBar(GuiGraphics guiGraphics, int minX, int minY, int maxX, int maxY, float delta);
 
     @Unique
     private float easeIn(float t) {
