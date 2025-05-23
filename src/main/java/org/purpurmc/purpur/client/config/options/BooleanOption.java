@@ -1,13 +1,14 @@
 package org.purpurmc.purpur.client.config.options;
 
+import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FormattedCharSequence;
 
 public class BooleanOption implements Option<Boolean> {
     private final String key;
-    private final List<FormattedCharSequence> tooltip;
+    private final List<ClientTooltipComponent> tooltip = new ArrayList<>();
     private final Getter getter;
     private final Setter setter;
 
@@ -16,7 +17,9 @@ public class BooleanOption implements Option<Boolean> {
 
     public BooleanOption(String key, Getter getter, Setter setter) {
         this.key = "purpurclient.options." + key;
-        this.tooltip = Minecraft.getInstance().font.split(Component.translatable(this.key + ".tooltip"), 170);
+        Minecraft.getInstance().font.split(Component.translatable(this.key + ".tooltip"), 170).forEach(splitTooltip -> {
+            tooltip.add(ClientTooltipComponent.create(splitTooltip));
+        });
         this.on = Component.translatable("purpurclient.options.on", Component.translatable(this.key));
         this.off = Component.translatable("purpurclient.options.off", Component.translatable(this.key));
         this.getter = getter;
@@ -35,7 +38,7 @@ public class BooleanOption implements Option<Boolean> {
     }
 
     @Override
-    public List<FormattedCharSequence> tooltip() {
+    public List<ClientTooltipComponent> tooltip() {
         return this.tooltip;
     }
 

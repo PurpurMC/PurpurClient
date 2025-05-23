@@ -3,7 +3,9 @@ package org.purpurmc.purpur.client.gui.screen.widget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.purpurmc.purpur.client.config.options.BooleanOption;
 
 public class BooleanButton extends Button implements Tickable {
@@ -17,7 +19,7 @@ public class BooleanButton extends Button implements Tickable {
 
     public void renderTooltip(GuiGraphics context, int mouseX, int mouseY) {
         if (this.isHovered && this.tooltipDelay > 15 && Minecraft.getInstance().screen != null) {
-            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY);
+            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, ResourceLocation.parse(""));
         }
     }
 
