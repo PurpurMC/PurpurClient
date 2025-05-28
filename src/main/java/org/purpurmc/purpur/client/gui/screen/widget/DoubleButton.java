@@ -97,11 +97,12 @@ public class DoubleButton extends AbstractWidget implements Tickable {
 
     public void renderTooltip(GuiGraphics context, int mouseX, int mouseY) {
         if (this.tooltipDelay > 15 && Minecraft.getInstance().screen != null) {
+            // TODO: check what to do with the matrices
             //PoseStack matrices = context.pose();
             //matrices.pushPose();
             //matrices.translate(0, 0, -399);
             // TODO: resource location of the default tooltip
-            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, ResourceLocation.parse("minecraft:REPLACETHISHERE"));
+            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null); // nulled it temp. until I find a solution so it won't crash
             //matrices.popPose();
         }
     }

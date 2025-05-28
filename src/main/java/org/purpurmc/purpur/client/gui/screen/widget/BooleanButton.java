@@ -19,7 +19,8 @@ public class BooleanButton extends Button implements Tickable {
 
     public void renderTooltip(GuiGraphics context, int mouseX, int mouseY) {
         if (this.isHovered && this.tooltipDelay > 15 && Minecraft.getInstance().screen != null) {
-            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, ResourceLocation.parse(""));
+            // TODO: resource location of the default tooltip
+            context.renderTooltip(Minecraft.getInstance().font, this.option.tooltip(), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null); // nulled it temp. until I find a solution so it won't crash
         }
     }
 

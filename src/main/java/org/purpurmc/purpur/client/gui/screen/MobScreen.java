@@ -6,12 +6,15 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import java.util.List;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.LivingEntity;
 import org.joml.Matrix3x2fStack;
 import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.options.DoubleOption;
 import org.purpurmc.purpur.client.entity.Mob;
@@ -162,10 +165,9 @@ public class MobScreen extends OptionsSubScreen {
         if (this.minecraft.level == null) {
             super.renderPanorama(context, delta);
         }
-        //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (this.fakePlayer != null && this.fakeEntity != null) {
-            drawPreviewModel(this.fakePlayer, this.fakeEntity);
+            drawPreviewModel(this.fakePlayer, this.fakeEntity, context);
         } else {
             if (this.minecraft.level != null) {
                 context.drawCenteredString(this.font, this.experimentDisabled, this.centerX - 80, 125, 0xFFFFFFFF);
@@ -196,7 +198,7 @@ public class MobScreen extends OptionsSubScreen {
         context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
 
-    public void drawPreviewModel(FakePlayer player, Entity vehicle) {
+    public void drawPreviewModel(FakePlayer player, Entity vehicle, GuiGraphics context) {
         Matrix4fStack matrixStack = RenderSystem.getModelViewStack();
         matrixStack.pushMatrix();
         matrixStack.translate((float) (this.centerX + this.previewX), (float) this.previewY, 1500);
@@ -216,22 +218,18 @@ public class MobScreen extends OptionsSubScreen {
         quaternion2.conjugate();
         matrixStack2.mulPose(quaternion);
 
-        //Lighting.setupForEntityInInventory();
         EntityRenderDispatcher renderer = Minecraft.getInstance().getEntityRenderDispatcher();
         renderer.overrideCameraOrientation(quaternion2);
         renderer.setRenderShadow(false);
         MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 
-        Minecraft.getInstance().execute(() -> {
-            fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0));
-            renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0);
-        });
+        // TODO: Fix rendering so it can render multiple different entities. Current behavior: We see the same entity 2 times, also check what is happening with dragon. Also, old method of rendering manually doesn't work anymore.
+        InventoryScreen.renderEntityInInventory(context, 100, 50, minecraft.screen.width / 2, minecraft.screen.height / 2, zoom, new Vector3f(), quaternion, quaternion2, player);
+        InventoryScreen.renderEntityInInventory(context, 100, 50, minecraft.screen.width / 3, minecraft.screen.height / 3, zoom, new Vector3f(), quaternion, quaternion2, (LivingEntity) vehicle);
 
         immediate.endBatch();
         renderer.setRenderShadow(true);
         matrixStack.popMatrix();
-
-        //Lighting.setupFor3DItems();
     }
 
     private void fixEntityRender(Entity entity, PoseStack matrixStack, Runnable runnable) {
