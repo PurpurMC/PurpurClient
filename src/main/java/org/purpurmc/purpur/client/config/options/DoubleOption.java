@@ -1,13 +1,14 @@
 package org.purpurmc.purpur.client.config.options;
 
+import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FormattedCharSequence;
 
 public class DoubleOption implements Option<Double> {
     private final String key;
-    private final List<FormattedCharSequence> tooltip;
+    private final List<ClientTooltipComponent> tooltip = new ArrayList<>();
     private final Getter getter;
     private final Setter setter;
 
@@ -15,7 +16,9 @@ public class DoubleOption implements Option<Double> {
 
     public DoubleOption(String key, Getter getter, Setter setter) {
         this.key = "purpurclient.options." + key;
-        this.tooltip = Minecraft.getInstance().font.split(Component.translatable(this.key + ".tooltip"), 170);
+        Minecraft.getInstance().font.split(Component.translatable(this.key + ".tooltip"), 170).forEach(splitTooltip -> {
+            tooltip.add(ClientTooltipComponent.create(splitTooltip));
+        });
         this.getter = getter;
         this.setter = setter;
 
@@ -34,7 +37,7 @@ public class DoubleOption implements Option<Double> {
     }
 
     @Override
-    public List<FormattedCharSequence> tooltip() {
+    public List<ClientTooltipComponent> tooltip() {
         return this.tooltip;
     }
 

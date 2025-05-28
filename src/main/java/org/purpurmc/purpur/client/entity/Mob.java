@@ -34,6 +34,7 @@ public enum Mob {
     GLOW_SQUID(EntityType.GLOW_SQUID, 5, 1),
     GOAT(EntityType.GOAT, 6, 1),
     GUARDIAN(EntityType.GUARDIAN, 7, 1),
+    HAPPY_GHAST(EntityType.HAPPY_GHAST, 2, 5), // TODO: update mobs.png
     HOGLIN(EntityType.HOGLIN, 8, 1),
     HORSE(EntityType.HORSE, 9, 1),
     HUSK(EntityType.HUSK, 10, 1),
