@@ -1,14 +1,15 @@
 package org.purpurmc.purpur.client.gui.screen;
 
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import java.util.List;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import org.joml.Matrix3x2fStack;
@@ -68,7 +69,7 @@ public class MobScreen extends OptionsSubScreen {
     private double mouseDownY;
 
     private double previewX = -80;
-    private double previewY = 200;
+    private double previewY = 70;
     private float previewYaw = -145;
     private float previewPitch = -20;
     private float previewZoom = 60;
@@ -159,9 +160,9 @@ public class MobScreen extends OptionsSubScreen {
     protected void addOptions() {
     }
 
-    // TODO: Fix rendering in screen. Currently we have just the background
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
         if (this.minecraft.level == null) {
             super.renderPanorama(context, delta);
         }
@@ -178,7 +179,7 @@ public class MobScreen extends OptionsSubScreen {
 
         Matrix3x2fStack matrices = context.pose();
         matrices.pushMatrix();
-        matrices.translate(900, 0);
+        //matrices.translate(900, 0);
         context.drawCenteredString(this.font, this.title, this.centerX, 15, 0xFFFFFFFF);
         context.drawCenteredString(this.font, this.subtitle, this.centerX, 30, 0xFFFFFFFF);
         if (this.options == null || this.options.isEmpty()) {
@@ -189,7 +190,6 @@ public class MobScreen extends OptionsSubScreen {
             }
         }
         matrices.popMatrix();
-        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
 
     @Override
@@ -203,7 +203,6 @@ public class MobScreen extends OptionsSubScreen {
         matrixStack.pushMatrix();
         matrixStack.translate((float) (this.centerX + this.previewX), (float) this.previewY, 1500);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
-
 
         PoseStack matrixStack2 = new PoseStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
@@ -223,9 +222,29 @@ public class MobScreen extends OptionsSubScreen {
         renderer.setRenderShadow(false);
         MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 
-        // TODO: Fix rendering so it can render multiple different entities. Current behavior: We see the same entity 2 times, also check what is happening with dragon. Also, old method of rendering manually doesn't work anymore.
-        InventoryScreen.renderEntityInInventory(context, 100, 50, minecraft.screen.width / 2, minecraft.screen.height / 2, zoom, new Vector3f(), quaternion, quaternion2, player);
-        InventoryScreen.renderEntityInInventory(context, 100, 50, minecraft.screen.width / 3, minecraft.screen.height / 3, zoom, new Vector3f(), quaternion, quaternion2, (LivingEntity) vehicle);
+        /*
+        TODO: FIX THIS
+        Issues we are currently having:
+        - The screen only shows one entity at a time
+        - The player won't move even if something is configured
+         */
+        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+
+        EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(vehicle);
+        LivingEntityRenderState entityRenderState = (LivingEntityRenderState) entityRenderer.createRenderState((LivingEntity) vehicle, 1.0F);
+        entityRenderState.hitboxesRenderState = null;
+
+        context.submitEntityRenderState(
+            entityRenderState, previewZoom, new Vector3f(), quaternion, quaternion2, (int) previewX, (int) previewY, (int) (previewX + width), (int) (previewY + height)
+        );
+
+        EntityRenderer<? super LivingEntity, ?> playerRenderer = entityRenderDispatcher.getRenderer(player);
+        PlayerRenderState playerRenderState = (PlayerRenderState) playerRenderer.createRenderState(player, 1.0F);
+        playerRenderState.hitboxesRenderState = null;
+
+        context.submitEntityRenderState(
+            playerRenderState, previewZoom, new Vector3f(), quaternion, quaternion2, (int) previewX, (int) previewY, (int) (previewX + width), (int) (previewY + height)
+        );
 
         immediate.endBatch();
         renderer.setRenderShadow(true);
