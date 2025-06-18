@@ -2,19 +2,15 @@ package org.purpurmc.purpur.client.mixin;
 
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.ShareToLanScreen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.server.IntegratedServer;
 import org.purpurmc.purpur.client.PurpurClient;
-import org.purpurmc.purpur.client.gui.screen.OptionsScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
@@ -54,14 +50,5 @@ public class MixinMinecraftClient {
             }
         }
         cir.setReturnValue(sb.toString());
-    }
-
-    // TODO: REMOVE, THIS IS FOR CONFIG UNTIL MOD MENU UPDATES
-    @ModifyVariable(method = "setScreen", at = @At("HEAD"), argsOnly = true)
-    private Screen getScreen(Screen screen) {
-        if (screen instanceof ShareToLanScreen) {
-            return new OptionsScreen(screen);
-        }
-        return screen;
     }
 }

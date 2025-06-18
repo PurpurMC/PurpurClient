@@ -30,7 +30,7 @@ dependencies {
     }
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
-    modCompileOnly("com.terraformersmc:modmenu:${project.modmenu_version}") // TODO: Return to modImplementation when there is an update for Mod Menu
+    modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     // this is dumb as hell. bloats jar way too much. todo: switch to a different config provider
     include(modImplementation("org.spongepowered:configurate-hocon:${project.configurate_version}"))
