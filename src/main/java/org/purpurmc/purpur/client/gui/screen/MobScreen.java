@@ -1,6 +1,5 @@
 package org.purpurmc.purpur.client.gui.screen;
 
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -8,9 +7,15 @@ import java.util.List;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.LivingEntity;
+import org.joml.Matrix3x2fStack;
 import org.joml.Matrix4fStack;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.purpurmc.purpur.client.PurpurClient;
 import org.purpurmc.purpur.client.config.options.DoubleOption;
 import org.purpurmc.purpur.client.entity.Mob;
@@ -64,7 +69,7 @@ public class MobScreen extends OptionsSubScreen {
     private double mouseDownY;
 
     private double previewX = -80;
-    private double previewY = 200;
+    private double previewY = 70;
     private float previewYaw = -145;
     private float previewPitch = -20;
     private float previewZoom = 60;
@@ -157,15 +162,13 @@ public class MobScreen extends OptionsSubScreen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
         if (this.minecraft.level == null) {
             super.renderPanorama(context, delta);
-        } else {
-            super.renderBlurredBackground();
         }
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (this.fakePlayer != null && this.fakeEntity != null) {
-            drawPreviewModel(this.fakePlayer, this.fakeEntity);
+            drawPreviewModel(this.fakePlayer, this.fakeEntity, context);
         } else {
             if (this.minecraft.level != null) {
                 context.drawCenteredString(this.font, this.experimentDisabled, this.centerX - 80, 125, 0xFFFFFFFF);
@@ -174,9 +177,9 @@ public class MobScreen extends OptionsSubScreen {
             }
         }
 
-        PoseStack matrices = context.pose();
-        matrices.pushPose();
-        matrices.translate(0, 0, 900);
+        Matrix3x2fStack matrices = context.pose();
+        matrices.pushMatrix();
+        //matrices.translate(900, 0);
         context.drawCenteredString(this.font, this.title, this.centerX, 15, 0xFFFFFFFF);
         context.drawCenteredString(this.font, this.subtitle, this.centerX, 30, 0xFFFFFFFF);
         if (this.options == null || this.options.isEmpty()) {
@@ -186,8 +189,7 @@ public class MobScreen extends OptionsSubScreen {
                 drawable.render(context, mouseX, mouseY, delta);
             }
         }
-        matrices.popPose();
-        context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
+        matrices.popMatrix();
     }
 
     @Override
@@ -196,12 +198,11 @@ public class MobScreen extends OptionsSubScreen {
         context.fillGradient(0, 0, this.width, this.height, 0x800F4863, 0x80370038);
     }
 
-    public void drawPreviewModel(FakePlayer player, Entity vehicle) {
+    public void drawPreviewModel(FakePlayer player, Entity vehicle, GuiGraphics context) {
         Matrix4fStack matrixStack = RenderSystem.getModelViewStack();
         matrixStack.pushMatrix();
         matrixStack.translate((float) (this.centerX + this.previewX), (float) this.previewY, 1500);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
-
 
         PoseStack matrixStack2 = new PoseStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
@@ -216,22 +217,38 @@ public class MobScreen extends OptionsSubScreen {
         quaternion2.conjugate();
         matrixStack2.mulPose(quaternion);
 
-        Lighting.setupForEntityInInventory();
         EntityRenderDispatcher renderer = Minecraft.getInstance().getEntityRenderDispatcher();
         renderer.overrideCameraOrientation(quaternion2);
         renderer.setRenderShadow(false);
         MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 
-        Minecraft.getInstance().execute(() -> {
-            fixEntityRender(vehicle, matrixStack2, () -> renderer.render(vehicle, vehicle.getX(), vehicle.getY(), vehicle.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0));
-            renderer.render(player, player.getX(), player.getY(), player.getZ(), 0.0F, matrixStack2, immediate, 0xF000F0);
-        });
+        /*
+        TODO: FIX THIS
+        Issues we are currently having:
+        - The screen only shows one entity at a time
+        - The player won't move even if something is configured
+         */
+        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+
+        EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(vehicle);
+        LivingEntityRenderState entityRenderState = (LivingEntityRenderState) entityRenderer.createRenderState((LivingEntity) vehicle, 1.0F);
+        entityRenderState.hitboxesRenderState = null;
+
+        context.submitEntityRenderState(
+            entityRenderState, previewZoom, new Vector3f(), quaternion, quaternion2, (int) previewX, (int) previewY, (int) (previewX + width), (int) (previewY + height)
+        );
+
+        EntityRenderer<? super LivingEntity, ?> playerRenderer = entityRenderDispatcher.getRenderer(player);
+        PlayerRenderState playerRenderState = (PlayerRenderState) playerRenderer.createRenderState(player, 1.0F);
+        playerRenderState.hitboxesRenderState = null;
+
+        context.submitEntityRenderState(
+            playerRenderState, previewZoom, new Vector3f(), quaternion, quaternion2, (int) previewX, (int) previewY, (int) (previewX + width), (int) (previewY + height)
+        );
 
         immediate.endBatch();
         renderer.setRenderShadow(true);
         matrixStack.popMatrix();
-
-        Lighting.setupFor3DItems();
     }
 
     private void fixEntityRender(Entity entity, PoseStack matrixStack, Runnable runnable) {

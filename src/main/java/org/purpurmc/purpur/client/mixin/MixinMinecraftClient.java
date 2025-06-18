@@ -29,7 +29,7 @@ public class MixinMinecraftClient {
             return;
         }
         Minecraft client = Minecraft.getInstance();
-        StringBuilder sb = new StringBuilder(I18n.get("PurpurClient %s", SharedConstants.getCurrentVersion().getName()));
+        StringBuilder sb = new StringBuilder(I18n.get("PurpurClient %s", SharedConstants.getCurrentVersion().name()));
         ClientPacketListener network = client.getConnection();
         if (network != null && network.getConnection().isConnected()) {
             sb.append(" - ");
